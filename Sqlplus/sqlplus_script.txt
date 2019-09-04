@@ -1,0 +1,8 @@
+sqlplus LOUPE/LOUPE@user016-vcdb.cyrxdrjqohbd.ap-northeast-1.rds.amazonaws.com/vcdb
+sqlplus STOREDB/1234@user016-vcdb.cyrxdrjqohbd.ap-northeast-1.rds.amazonaws.com/store_OICSRV-SD01
+STOREDB;Password=1234
+select * from store_prefectures;
+select table_name from all_tables;
+select clinicid, clinicname, shop_message from tblcinfon where rownum <= 20   and clinicname like '%渋谷%';
+76032 メッセージあり
+update tblcinfon set shop_message = 'test メッセージ確認用' where clinicid in ('51543');

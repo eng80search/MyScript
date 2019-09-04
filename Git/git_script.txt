@@ -1,0 +1,34 @@
+
+# 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
+git archive --format=zip   HEAD `git diff --diff-filter=d --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
+
+# 前回のコミットにもう一度コミットする
+git commit --amend --no-edit
+
+# git addしたものを取り消す
+git reset .
+
+# ブランチを作成同時に、そのブランチに切り替える
+git checkout -b develop
+
+# ブランチをマージする
+git merge --no-ff develop  ←取り込みたいブランチを指定
+
+# タグをつける
+git tag -a original -m "修正前のソース"  f26ea96  ←コミット値
+
+# 過去のコミットのコメントを修正する
+git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
+
+途中でやめたい場合は、git rebase --abort
+
+# rebaseを過去に戻したい
+git reflog ←　コミット履歴確認用
+git reset --hard HEAD@{4} 　←一般的にはこれを使う
+git reset --hard ORIG_HEAD ←rebase直後に使える
+
+# 特定ファイルの過去3回分のログを見たい
+git log -n 3 -p AA/BB.txt
+
+# コミット履歴でどれくらいのファイルが変更したかを見たい
+git diff HEAD~3..HEAD --name-only
