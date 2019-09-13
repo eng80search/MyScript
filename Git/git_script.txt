@@ -1,34 +1,42 @@
 
-# �O��̃R�~�b�g����ύX������t�@�C���̂ݒ��o���āAZIP�t�@�C�����쐬
+# 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
 git archive --format=zip   HEAD `git diff --diff-filter=d --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
 
-# �O��̃R�~�b�g�ɂ�����x�R�~�b�g����
+# 前回のコミットにもう一度コミットする
 git commit --amend --no-edit
 
-# git add�������̂�������
+# git addしたものを取り消す
 git reset .
 
-# �u�����`���쐬�����ɁA���̃u�����`�ɐ؂�ւ���
+# ブランチを作成同時に、そのブランチに切り替える
 git checkout -b develop
 
-# �u�����`���}�[�W����
-git merge --no-ff develop  ����荞�݂����u�����`���w��
+# ブランチをマージする(いつもマージがある部分がわかるようにする)
+git merge --no-ff develop  ←取り込みたいブランチを指定
 
-# �^�O������
-git tag -a original -m "�C���O�̃\�[�X"  f26ea96  ���R�~�b�g�l
+# ブランチを試してマージしてみる
+git merge --no-commit develop  ←取り込みたいブランチを指定
+# 実行結果をみて、confilictがなければOK
+# 現在マージ状態なので、とりあえず取り消し
+git merge --abort
 
-# �ߋ��̃R�~�b�g�̃R�����g���C������
-git rebase -i HEAD~2 �@���@�C���������R�~�b�g�܂ł�offset + 1
+# タグをつける
+git tag -a original -m "修正前のソース"  f26ea96  ←コミット値
+# タグを削除
+git tag -d TAG_NAME
 
-�r���ł�߂����ꍇ�́Agit rebase --abort
+# 過去のコミットのコメントを修正する
+git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
 
-# rebase���ߋ��ɖ߂�����
-git reflog ���@�R�~�b�g�����m�F�p
-git reset --hard HEAD@{4} �@����ʓI�ɂ͂�����g��
-git reset --hard ORIG_HEAD ��rebase����Ɏg����
+途中でやめたい場合は、git rebase --abort
 
-# ����t�@�C���̉ߋ�3�񕪂̃��O��������
+# rebaseを過去に戻したい
+git reflog ←　コミット履歴確認用
+git reset --hard HEAD@{4} 　←一般的にはこれを使う
+git reset --hard ORIG_HEAD ←rebase直後に使える
+
+# 特定ファイルの過去3回分のログを見たい
 git log -n 3 -p AA/BB.txt
 
-# �R�~�b�g�����łǂꂭ�炢�̃t�@�C�����ύX��������������
+# コミット履歴でどれくらいのファイルが変更したかを見たい
 git diff HEAD~3..HEAD --name-only
