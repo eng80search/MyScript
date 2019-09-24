@@ -20,6 +20,10 @@ git merge --no-commit develop  ←取り込みたいブランチを指定
 # 現在マージ状態なので、とりあえず取り消し
 git merge --abort
 
+# ブランチを比較
+git diff master..develop
+
+
 # タグをつける
 git tag -a original -m "修正前のソース"  f26ea96  ←コミット値
 # タグを削除
