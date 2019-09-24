@@ -44,3 +44,16 @@ git log -n 3 -p AA/BB.txt
 
 # コミット履歴でどれくらいのファイルが変更したかを見たい
 git diff HEAD~3..HEAD --name-only
+
+# リモートレポジトリの一覧を取得する
+git remote -v
+
+# リモートレポジトリの最新を取得する
+git fetch
+
+# リモートレポジトリとローカルリポジトリの差分を確認する
+git diff HEAD..FETCH_HEAD
+
+# ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
+git push origin master
+
