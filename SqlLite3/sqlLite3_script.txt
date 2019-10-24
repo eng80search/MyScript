@@ -1,29 +1,42 @@
---  Gbash‚É‚Ä.read sqlite3.sql‚ğÀs‚·‚é‚ÆA–{ƒtƒ@ƒCƒ‹‚ÌƒXƒNƒŠƒvƒg‚ªÀs‚³‚ê‚éB
+--  Gbashã«ã¦.read sqlite3.sqlã‚’å®Ÿè¡Œã™ã‚‹ã¨ã€æœ¬ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒå®Ÿè¡Œã•ã‚Œã‚‹ã€‚
 
--- ‚Ü‚¸‚Í‘ÎÛDB‚ÉÚ‘±‚·‚é
+-- ã¾ãšã¯å¯¾è±¡DBã«æ¥ç¶šã™ã‚‹
 sqlite3 myWorkDB.db
 
---  CSVƒtƒ@ƒCƒ‹‚ğƒCƒ“ƒ|[ƒg‚·‚éÛ
+--  CSVãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚¤ãƒ³ãƒãƒ¼ãƒˆã™ã‚‹éš›
 .mode csv
 .import ./MeisaiData_99.csv Meisaidata_99
+
+--  ãƒ†ãƒ¼ãƒ–ãƒ«ä¸€è¦§ã‚’è¦‹ã‚‹
+.tables
+
+--  ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å‰Šé™¤ã™ã‚‹
+drop table myTable;
 
 --  verify the import
 .schema Meisaidata_99
 --  view imported data
-SELECT * FROM Meisaidata_99;
+SELECT * FROM Meisaidata_99 LIMIT 5;
 
 
---  DB‚ğsql•¶Œ`®‚ÅExport‚·‚éB
+--  DBã‚’sqlæ–‡å½¢å¼ã§Exportã™ã‚‹ã€‚
 .output ./MeisaiData.sql
 .dump MeisaiData_99
 .quit
 
---  CSVƒtƒ@ƒCƒ‹‚ğo—Í‚·‚éB
+--  CSVãƒ•ã‚¡ã‚¤ãƒ«ã‚’å‡ºåŠ›ã™ã‚‹ã€‚
 .headers on
 .mode csv
 .output ./MeisaiData49999.csv
-select * from MeisaiData_49999 order by "æˆø”Ô†", "x•¥–¾×”Ô†";
+select * from MeisaiData_49999 order by "å–å¼•ç•ªå·", "æ”¯æ‰•æ˜ç´°ç•ªå·";
 
 
---  ƒe[ƒuƒ‹‚Ìƒf[ƒ^‚ğ‘S•”Á‚·
+--  ãƒ†ãƒ¼ãƒ–ãƒ«ã®ãƒ‡ãƒ¼ã‚¿ã‚’å…¨éƒ¨æ¶ˆã™
 DELETE FROM table_name;
+
+--  å‰¯å•åˆã›
+select * from tableA where tableA.col1 in (select tableB.col2 from tableB);
+
+
+--  å‰¯å•åˆã›ã§ãƒ‡ãƒ¼ã‚¿ã‚’æŠ½å‡ºã—ã€æ–°è¦ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆã™ã‚‹
+CREATE TABLE  targetTable AS select * from tableA where tableA.col1 in (select tableB.col2 from tableB);

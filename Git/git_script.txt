@@ -1,6 +1,13 @@
 
+# 前回のコミットから変更をファイル単位で見る
+git diff  --name-only HEAD~3..HEAD  （ファイル単位で出力）
+git diff  --stat HEAD~3..HEAD  （ファイル単位尚且修正行数が表示される）
+
+# コミット間の変更を特定のフォルダだけ見る
+git diff  --name-only HEAD~3..HEAD  --relative=BCTK001
+
 # 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
-git archive --format=zip   HEAD `git diff --diff-filter=d --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
+git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=d --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
 
 # 前回のコミットにもう一度コミットする
 git commit --amend --no-edit
@@ -15,7 +22,7 @@ git checkout -b develop
 git merge --no-ff develop  ←取り込みたいブランチを指定
 
 # ブランチを試してマージしてみる
-git merge --no-commit develop  ←取り込みたいブランチを指定
+git merge --no-commit --no-ff develop  ←取り込みたいブランチを指定
 # 実行結果をみて、confilictがなければOK
 # 現在マージ状態なので、とりあえず取り消し
 git merge --abort
@@ -26,6 +33,8 @@ git diff master..develop
 
 # タグをつける
 git tag -a original -m "修正前のソース"  f26ea96  ←コミット値
+# タグ一覧を表示する
+git tag  --sort=-taggerdate --format='%(taggerdate:short) [%(tag)]   %(subject)'
 # タグを削除
 git tag -d TAG_NAME
 
@@ -57,3 +66,22 @@ git diff HEAD..FETCH_HEAD
 # ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
 git push origin master
 
+
+# **hotfixブランチ
+製品のリリース時には、時として重大な不具合が見つかる場合があります。みなさんも経験があるのではないでしょうか？
+
+そんなときには、master ブランチから直接 hotfix
+ブランチを切って緊急の修正を行いましょう。修正完了後に master ブランチと develop
+ブランチにマージして、リリースタグ（マイナーバージョンなど）をうちます。その後、hotfix
+ブランチは削除します。派生元が master になるだけで、操作的には release
+ブランチと同様です。
+
+# masterブランチの途中からhotfixを切る
+git logg  <- コミット一覧を見る
+git checkout -b hotfix 7f7798e  <-  新しいブランチhotfixを特定のコミットから切る
+
+# 現在開いているブランチの名前を変更
+git branch -m newBranchName
+
+# ブランチを削除
+git branch --delete hotfix
