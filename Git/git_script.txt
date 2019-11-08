@@ -2,12 +2,14 @@
 # 前回のコミットから変更をファイル単位で見る
 git diff  --name-only HEAD~3..HEAD  （ファイル単位で出力）
 git diff  --stat HEAD~3..HEAD  （ファイル単位尚且修正行数が表示される）
+# 前回のコミットから変更を特定のファイルのみ確認する
+git diff  4a9f44e..c92939d BCTK001/HealthCheck/HealthCheck.vbproj
 
 # コミット間の変更を特定のフォルダだけ見る
 git diff  --name-only HEAD~3..HEAD  --relative=BCTK001
 
 # 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
-git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=d --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
+git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=ad --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
 
 # 前回のコミットにもう一度コミットする
 git commit --amend --no-edit
@@ -37,6 +39,8 @@ git tag -a original -m "修正前のソース"  f26ea96  ←コミット値
 git tag  --sort=-taggerdate --format='%(taggerdate:short) [%(tag)]   %(subject)'
 # タグを削除
 git tag -d TAG_NAME
+# タグ名を変更する
+  既存タグを削除して、つけ直す！
 
 # 過去のコミットのコメントを修正する
 git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
@@ -49,7 +53,21 @@ git reset --hard HEAD@{4} 　←一般的にはこれを使う
 git reset --hard ORIG_HEAD ←rebase直後に使える
 
 # 特定ファイルの過去3回分のログを見たい
-git log -n 3 -p AA/BB.txt
+git logg -n 3 -p AA/BB.txt
+
+# 昨日からの変更したログ一覧を見たい
+git logg --since='yesterday'
+# 日付を指定
+git logg --since='7 days'
+# 月を指定
+git logg --since='1 month'
+
+git log --after '2018-05-27 00:15:00'
+# 相対的な日時での指定
+git log --after 'yesterday'
+git log --after 'last Monday' ←先週の月曜日
+# 月曜日:Monday 火曜日:Tuesday 水曜日:Wednesday 木曜日:Thursday 金曜日:Friday 土曜日:Saturday 日曜日:Sunday
+git log --after '1 month 3 days ago'
 
 # コミット履歴でどれくらいのファイルが変更したかを見たい
 git diff HEAD~3..HEAD --name-only
@@ -59,6 +77,7 @@ git remote -v
 
 # リモートレポジトリの最新を取得する
 git fetch
+evertokyo
 
 # リモートレポジトリとローカルリポジトリの差分を確認する
 git diff HEAD..FETCH_HEAD
