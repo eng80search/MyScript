@@ -1,4 +1,7 @@
 
+#--------------------------------------------
+#Git Diff
+#--------------------------------------------
 # 前回のコミットから変更をファイル単位で見る
 git diff  --name-only HEAD~3..HEAD  （ファイル単位で出力）
 git diff  --stat HEAD~3..HEAD  （ファイル単位尚且修正行数が表示される）
@@ -8,18 +11,44 @@ git diff  4a9f44e..c92939d BCTK001/HealthCheck/HealthCheck.vbproj
 # コミット間の変更を特定のフォルダだけ見る
 git diff  --name-only HEAD~3..HEAD  --relative=BCTK001
 
+# ブランチを比較
+git diff master..develop
+
+# コミット履歴でどれくらいのファイルが変更したかを見たい
+git diff HEAD~3..HEAD --name-only
+
+# リモートレポジトリとローカルリポジトリの差分を確認する
+git diff HEAD..FETCH_HEAD
+
+#--------------------------------------------
+#Git Archive
+#--------------------------------------------
 # 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
 git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=ad --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
 
+
+#--------------------------------------------
+#Git Commit
+#--------------------------------------------
 # 前回のコミットにもう一度コミットする
 git commit --amend --no-edit
 
+#--------------------------------------------
+#Git Reset
+#--------------------------------------------
 # git addしたものを取り消す
 git reset .
 
+
+#--------------------------------------------
+#Git Checkout
+#--------------------------------------------
 # ブランチを作成同時に、そのブランチに切り替える
 git checkout -b develop
 
+#--------------------------------------------
+#Git Merge
+#--------------------------------------------
 # ブランチをマージする(いつもマージがある部分がわかるようにする)
 git merge --no-ff develop  ←取り込みたいブランチを指定
 
@@ -29,10 +58,10 @@ git merge --no-commit --no-ff develop  ←取り込みたいブランチを指�
 # 現在マージ状態なので、とりあえず取り消し
 git merge --abort
 
-# ブランチを比較
-git diff master..develop
 
-
+#--------------------------------------------
+#Git Tag
+#--------------------------------------------
 # タグをつける
 git tag -a original -m "修正前のソース"  f26ea96  ←コミット値
 # タグ一覧を表示する
@@ -42,6 +71,10 @@ git tag -d TAG_NAME
 # タグ名を変更する
   既存タグを削除して、つけ直す！
 
+
+#--------------------------------------------
+#Git Rebase&Reset
+#--------------------------------------------
 # 過去のコミットのコメントを修正する
 git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
 
@@ -52,6 +85,9 @@ git reflog ←　コミット履歴確認用
 git reset --hard HEAD@{4} 　←一般的にはこれを使う
 git reset --hard ORIG_HEAD ←rebase直後に使える
 
+#--------------------------------------------
+#Git Log
+#--------------------------------------------
 # 特定ファイルの過去3回分のログを見たい
 git logg -n 3 -p AA/BB.txt
 
@@ -69,9 +105,12 @@ git log --after 'last Monday' ←先週の月曜日
 # 月曜日:Monday 火曜日:Tuesday 水曜日:Wednesday 木曜日:Thursday 金曜日:Friday 土曜日:Saturday 日曜日:Sunday
 git log --after '1 month 3 days ago'
 
-# コミット履歴でどれくらいのファイルが変更したかを見たい
-git diff HEAD~3..HEAD --name-only
+# 特定ブランチのログを見たい
+git logg develop
 
+#--------------------------------------------
+#Git Remote
+#--------------------------------------------
 # リモートレポジトリの一覧を取得する
 git remote -v
 
@@ -79,26 +118,13 @@ git remote -v
 git fetch
 evertokyo
 
-# リモートレポジトリとローカルリポジトリの差分を確認する
-git diff HEAD..FETCH_HEAD
-
 # ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
 git push origin master
 
 
-# **hotfixブランチ
-製品のリリース時には、時として重大な不具合が見つかる場合があります。みなさんも経験があるのではないでしょうか？
-
-そんなときには、master ブランチから直接 hotfix
-ブランチを切って緊急の修正を行いましょう。修正完了後に master ブランチと develop
-ブランチにマージして、リリースタグ（マイナーバージョンなど）をうちます。その後、hotfix
-ブランチは削除します。派生元が master になるだけで、操作的には release
-ブランチと同様です。
-
-# masterブランチの途中からhotfixを切る
-git logg  <- コミット一覧を見る
-git checkout -b hotfix 7f7798e  <-  新しいブランチhotfixを特定のコミットから切る
-
+#--------------------------------------------
+#Git Branch
+#--------------------------------------------
 # 現在開いているブランチの名前を変更
 git branch -m newBranchName
 
@@ -117,6 +143,18 @@ git branch --delete hotfix
 1. masterブランチからhotfixブランチを作成
 2. hotfixブランチで障害対応が完了した時点で、develop, masterブランチにマージ
 
+# **hotfixブランチ
+製品のリリース時には、時として重大な不具合が見つかる場合があります。みなさんも経験があるのではないでしょうか？
+
+そんなときには、master ブランチから直接 hotfix
+ブランチを切って緊急の修正を行いましょう。修正完了後に master ブランチと develop
+ブランチにマージして、リリースタグ（マイナーバージョンなど）をうちます。その後、hotfix
+ブランチは削除します。派生元が master になるだけで、操作的には release
+ブランチと同様です。
+
+# masterブランチの途中からhotfixを切る
+git logg  <- コミット一覧を見る
+git checkout -b hotfix 7f7798e  <-  新しいブランチhotfixを特定のコミットから切る
 【登場するブランチ】
 master:
 　リリースした時点のソースコードを管理するブランチ
@@ -133,3 +171,39 @@ release (developから派生):
 
 hotfix (masterから派生):
 　リリースされた製品に致命的なバグ(クラッシュなど)があった場合に緊急対応をするためのブランチ
+
+
+# SVNとの連携
+#--------------------------------------------
+#Git Svn
+#--------------------------------------------
+# Clone a repo (like git clone):
+	git svn clone http://svn.example.com/project/trunk
+# You should be on master branch, double-check with 'git branch'(ブランチremotes/git-svnが存在することを確認)
+	git branch
+# Do some work and commit locally to Git:
+	git commit ...
+# Something is committed to SVN, rebase your local changes against the
+# latest changes in SVN:(SVNでコミットしたものをGitに取り込む)
+	git svn rebase
+# Now commit your changes (that were committed previously using Git) to SVN,
+# as well as automatically updating your working HEAD:
+	git svn dcommit
+# Append svn:ignore settings to the default Git exclude file:
+	git svn show-ignore >> .git/info/exclude
+
+
+# Gitのignore
+#--------------------------------------------
+#Git ignore
+#--------------------------------------------
+# .gitignore を設置しても、既にリポジトリに登録されているファイルは無視されないので、
+無視したいファイルを管理対象から外します。
+（なお、管理対象から外れるだけで、ローカルにあるファイルは削除されません）
+git rm -r --cached hoge.tmp
+
+#既に大量のファイルが登録されている場合
+git rm -r --cached `git ls-files --full-name -i --exclude-from=.gitignore`
+
+#ファルダ名に半角スペースがある場合
+git rm -r --cached "test space/sub"
