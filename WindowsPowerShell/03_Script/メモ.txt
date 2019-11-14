@@ -1,0 +1,78 @@
+・実行方法
+①RebuildingDirectory.ps1とrun.batファイルの直下にCSVファイルを置きます。
+  フォルダ構成例：
+
+      RootDirecotory
+        |
+         --201804
+        |     |
+        |      ------D_ENTRP_20180410.csv
+        |     |------D_ENTRP_20180411.csv
+        | 
+         --201805
+        |     |
+        |      ------D_ENTRP_20180510.csv
+        |     |------D_ENTRP_20180511.csv
+        |
+        |--run.bat(これをダブルクリックして実行)
+        |
+         --RebuildingDirectory.ps1(処理本体)
+
+
+②取込用のイメージファイルのルートパスと移動先のルートパスを設定します。
+    対象ファイル：RebuildingDirectory.ps1
+    設定例：
+    $CONFIG_IMAGESOURCE_PATH = "C:\ImageRootDirecory" ←ImageRootDirecoryを設定
+    $CONFIG_IMAGDEST_PATH = "C:\MoveRootDirectory" ←MoveRootDirectoryを設定
+
+    # 取込元のイメージフォルダの構成がYYYYMMDDの場合は0 YYYYMMDD\バッチ番号の場合1を設定する
+    $CONFIG_FLG_HAS_BAT_SUBDIR  = 0
+
+③run.batをダブルクリックして実行しますと
+    以下の例のように再構成されます。
+    エラーの場合はerror.logに出力します。
+
+    D_ENTRP_20180410.csv
+
+    バッチ番号         : 001
+    スキャナ読取り日   : 20180410
+    委託者コード       : AAAAAA
+    イメージファイル名：201804101501001.jpg
+
+
+    【移動前】
+
+      ImageRootDirecotory
+        |
+         --20180410(スキャナ読取り日)
+        |     |
+        |      ---001(バッチ番号)
+        |     |     |
+        |     |      --201804101501001.jpg(イメージファイル名)
+        |     |     |--201804101501002.jpg
+        |     |
+        |      ---002
+        |           |
+        |            --201804101502001.jpg
+        |           |--201804101502002.jpg
+        |     
+         --20180511
+              |
+               ---001
+                    |
+                     --201805101701001.jpg
+                    |--201805101701002.jpg
+
+
+
+    【移動後】
+
+      MoveRootDirectory
+        |
+         --201804(スキャナ読取り年月)
+        |     |
+        |      ---AAAAAA(委託者コード)
+        |     |     |
+        |     |      --201804101501001.jpg(イメージファイル名)
+
+
