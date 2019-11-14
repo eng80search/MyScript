@@ -2,9 +2,9 @@
 echo %date% %time% 
 echo 連続バッチ実行処理を開始します。。。
 
-call D:\work\appconfig\DetailImport\1_DetailImport.bat
-call D:\work\appconfig\DetailImport\2_DetailImport_gaiyo.bat
-call D:\work\appconfig\DetailImport\3_DetailImport_meisai.bat
+call C:\Users\setupuser\Documents\00_Ri\01_Tool\11_myScript\WindowsPowerShell\DeleteFilesEscapeDll.ps1
+REM  call D:\work\appconfig\DetailImport\2_DetailImport_gaiyo.bat
+REM  call D:\work\appconfig\DetailImport\3_DetailImport_meisai.bat
 REM  call D:\work\appconfig\DetailImport\4_DetailImport_Result.bat
 REM  call D:\work\appconfig\DetailImport\5_DetailImport_Property.bat
 
