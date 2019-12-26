@@ -20,6 +20,15 @@ git diff HEAD~3..HEAD --name-only
 # リモートレポジトリとローカルリポジトリの差分を確認する
 git diff HEAD..FETCH_HEAD
 
+# 取り込み先の差分をビジュアルモードにして、取り込み元の内容を取り込む
+:diffget
+
+# Visual-mode で範囲を選択した後に、その範囲を反対側のバッファへ適用する
+:diffput
+
+# diff modeの差分情報を最新にする
+:diffupdate
+
 #--------------------------------------------
 #Git Archive
 #--------------------------------------------
@@ -41,6 +50,19 @@ git reset .
 
 
 #--------------------------------------------
+#Git stash commitはしないが一時的に保存する場合
+#--------------------------------------------
+# 一時保存の場合
+git stash 
+
+# 一時保存の保存結果を確認する場合
+git stash list
+
+# 一時保存の復活と、削除を同時に行う場合
+git stash pop stash@{0}
+
+
+#--------------------------------------------
 #Git Checkout
 #--------------------------------------------
 # ブランチを作成同時に、そのブランチに切り替える
@@ -58,6 +80,11 @@ git merge --no-commit --no-ff develop  ←取り込みたいブランチを指�
 # 現在マージ状態なので、とりあえず取り消し
 git merge --abort
 
+# confilictが発生した場合
+    1.confilictがあるファイルを編集する（confilictを解消）
+    2.git add file.txt
+    3.git status
+    4.git commit & git push
 
 #--------------------------------------------
 #Git Tag
@@ -75,8 +102,18 @@ git tag -d TAG_NAME
 #--------------------------------------------
 #Git Rebase&Reset
 #--------------------------------------------
-# 過去のコミットのコメントを修正する
-git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
+# 過去のコミットのコメントを修正する(注意：必ずGitbashから実行すること)
+  参考URL:https://backlog.com/ja/git-tutorial/stepup/33/
+
+1. git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
+2. 別ウィンドウでGvimが開かれるが、その時コミットしたいSHAのPickをEditに変更
+   して終了。
+3. gitBashターミナルに戻る。
+4. VisualStudioもしくはvimでファイルを修正する。
+5. いつもの通り、 git status&git add
+6. git commit --amend --no-editで修正を反映する。
+7. git rebase --continue でRebase作業を終了する。
+
 
 途中でやめたい場合は、git rebase --abort
 
@@ -121,6 +158,17 @@ evertokyo
 # ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
 git push origin master
 
+# こんなエラーがあった場合
+error: failed to push some refs to 'https://github.com/...'の場合
+
+解決策1:
+git fetch
+git rebase origin/master
+
+解決策2:
+git fetch
+git merge origin/master
+
 
 #--------------------------------------------
 #Git Branch
@@ -130,6 +178,12 @@ git branch -m newBranchName
 
 # ブランチを削除
 git branch --delete hotfix
+
+# 消してしまったブランチを復活させるには？
+git reflog
+# 消してしまったブランチの最後のコミットを見つけたら
+git branch ブランチ名 HEAD@{ログ番号}
+
 
 # ブランチのおすすめモデル
 【開発作業の流れ】
@@ -201,9 +255,37 @@ hotfix (masterから派生):
 無視したいファイルを管理対象から外します。
 （なお、管理対象から外れるだけで、ローカルにあるファイルは削除されません）
 git rm -r --cached hoge.tmp
+か全部のキャッシュを削除する際には↓↓
+git rm -r --cached .
 
 #既に大量のファイルが登録されている場合
 git rm -r --cached `git ls-files --full-name -i --exclude-from=.gitignore`
 
 #ファルダ名に半角スペースがある場合
 git rm -r --cached "test space/sub"
+
+#おまけ
+git add .
+git commit -m ".gitignore is now working"
+git push origin master
+
+
+# 作業を一時退避
+#--------------------------------------------
+#Git stash
+#--------------------------------------------
+# 現在の作業を一時的に退避したい
+git stash
+
+# 現在の作業を一時的に退避したい
+git stash pop
+
+# 退避した作業の一覧を表示したい
+git stash list
+
+# 退避した作業を削除したい(退避した作業の中で最新の作業を削除)
+git stash drop
+
+# 退避した作業を全て削除したい
+git stash clear
+

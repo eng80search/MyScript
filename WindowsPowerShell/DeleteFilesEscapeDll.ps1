@@ -7,11 +7,12 @@
 # Write-Output ("debug00:DebugStart")
 
 # -----設定部分-----
-$CONFIG_ROOT_PATH = "C:\Users\setupuser\Documents\00_Ri\00_作業\31_Dll整理\20191105_QA_store"
-$CONFIG_DEST_PATH = "C:\Users\setupuser\Documents\00_Ri\00_作業\31_Dll整理\QA_store_Dll"
+# $CONFIG_ROOT_PATH = "C:\Users\setupuser\Documents\00_Ri\00_作業\31_Dll整理\20191119_Dev_Batch"
+$CONFIG_ROOT_PATH = "C:\Users\setupuser\Documents\00_Ri\00_作業\31_Dll整理\20191119_Dev_Batch\Store"
+# $CONFIG_DEST_PATH = "C:\Users\setupuser\Documents\00_Ri\00_作業\31_Dll整理\QA_store_Dll"
 $CONFIG_CURRENT_PATH = $PSScriptRoot
 # 出力CSVファイル名
-$CONFIG_OUT_FILE = "C:\Users\setupuser\Documents\00_Ri\00_作業\31_Dll整理\QA.csv"
+$CONFIG_OUT_FILE = "C:\Users\setupuser\Documents\00_Ri\00_作業\31_Dll整理\Dev.csv"
 $CONFIG_OUT_HEADER ="No,FilePath,FileVersion`r`n"
 $CONFIG_OUT_DATA = $CONFIG_OUT_HEADER
 
@@ -34,12 +35,10 @@ function doSomething($SourceFileNameFullPath)
 
     try{
 
-            # Write-Output ("SourceFileNameFullPath: " + $SourceFileNameFullPath)
-            # CSV
-
             # rootファルダに対して、再帰処理を行う
             # $FileExtention = Get-ChildItem $SourceFileNameFullPath Get-ChildItem | Foreach-Object {
             Get-ChildItem -Path $SourceFileNameFullPath -Recurse | Foreach-Object {
+            
                 # フォルダの場合
                 if ($_.PSIsContainer) {
                     # Write-Output ("Skip Folder:" + $_.FullName)
@@ -55,14 +54,14 @@ function doSomething($SourceFileNameFullPath)
                 }
             }
 
-    }catch{
+       }catch{
 
             # 5.異常終了
             Write-Output $error[0]
             $errorMsg = (Get-Date -Format "yyyy/MM/dd HH:mm:ss") + (" データ: ") + $CsvData + " error:  " + $error[0]
             $errorMsg | Out-File -Append "error.log"
             return 1
-        }
+       }
 
 }
 
