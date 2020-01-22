@@ -125,6 +125,10 @@ git reset --hard ORIG_HEAD ←rebase直後に使える
 #--------------------------------------------
 #Git Log
 #--------------------------------------------
+# 現在のコミットから過去2回分の特定ファイル(フォルダ)の変更文字単位を見る
+# e.g. 表示の仕方は 1:HEAD..HEAD~1 2:HEAD~1..HEAD~2
+git log --word-diff HEAD -n 2 -p batch/BCTK005/template_html/
+
 # 特定ファイルの過去3回分のログを見たい
 git logg -n 3 -p AA/BB.txt
 
