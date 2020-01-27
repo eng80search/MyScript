@@ -49,3 +49,10 @@ select count(*) from snpstore_info;
 select * from tblcinfon;
 
 select to_date('19-09-19') from dual;
+
+--  テーブル一覧を取得する
+SELECT * FROM   USER_TABLES ORDER BY TABLE_NAME;
+
+--  テーブル名を変更する
+
+ALTER TABLE TAB_A RENAME TO TAB_B;

@@ -5,6 +5,7 @@
 # 前回のコミットから変更をファイル単位で見る
 git diff  --name-only HEAD~3..HEAD  （ファイル単位で出力）
 git diff  --stat HEAD~3..HEAD  （ファイル単位尚且修正行数が表示される）
+
 # 前回のコミットから変更を特定のファイルのみ確認する
 git diff  4a9f44e..c92939d BCTK001/HealthCheck/HealthCheck.vbproj
 
@@ -13,6 +14,7 @@ git diff  --name-only HEAD~3..HEAD  --relative=BCTK001
 
 # ブランチを比較
 git diff master..develop
+git diff --word-diff master..develop <Directory>/<FileName>
 
 # コミット履歴でどれくらいのファイルが変更したかを見たい
 git diff HEAD~3..HEAD --name-only
@@ -28,6 +30,33 @@ git diff HEAD..FETCH_HEAD
 
 # diff modeの差分情報を最新にする
 :diffupdate
+
+#--------------------------------------------
+#Git Log
+#--------------------------------------------
+# 現在のコミットから過去2回分の特定ファイル(フォルダ)の変更文字単位を見る
+# e.g. 表示の仕方は 1:HEAD..HEAD~1 2:HEAD~1..HEAD~2
+git log --word-diff HEAD -n 2 -p batch/BCTK005/template_html/
+
+# 特定ファイルの過去3回分のログを見たい
+git logg -n 3 -p AA/BB.txt
+
+# 昨日からの変更したログ一覧を見たい
+git logg --since='yesterday'
+# 日付を指定
+git logg --since='7 days'
+# 月を指定
+git logg --since='1 month'
+
+git log --after '2018-05-27 00:15:00'
+# 相対的な日時での指定
+git log --after 'yesterday'
+git log --after 'last Monday' ←先週の月曜日
+# 月曜日:Monday 火曜日:Tuesday 水曜日:Wednesday 木曜日:Thursday 金曜日:Friday 土曜日:Saturday 日曜日:Sunday
+git log --after '1 month 3 days ago'
+
+# 特定ブランチのログを見たい
+git logg develop
 
 #--------------------------------------------
 #Git Archive
@@ -121,33 +150,6 @@ git tag -d TAG_NAME
 git reflog ←　コミット履歴確認用
 git reset --hard HEAD@{4} 　←一般的にはこれを使う
 git reset --hard ORIG_HEAD ←rebase直後に使える
-
-#--------------------------------------------
-#Git Log
-#--------------------------------------------
-# 現在のコミットから過去2回分の特定ファイル(フォルダ)の変更文字単位を見る
-# e.g. 表示の仕方は 1:HEAD..HEAD~1 2:HEAD~1..HEAD~2
-git log --word-diff HEAD -n 2 -p batch/BCTK005/template_html/
-
-# 特定ファイルの過去3回分のログを見たい
-git logg -n 3 -p AA/BB.txt
-
-# 昨日からの変更したログ一覧を見たい
-git logg --since='yesterday'
-# 日付を指定
-git logg --since='7 days'
-# 月を指定
-git logg --since='1 month'
-
-git log --after '2018-05-27 00:15:00'
-# 相対的な日時での指定
-git log --after 'yesterday'
-git log --after 'last Monday' ←先週の月曜日
-# 月曜日:Monday 火曜日:Tuesday 水曜日:Wednesday 木曜日:Thursday 金曜日:Friday 土曜日:Saturday 日曜日:Sunday
-git log --after '1 month 3 days ago'
-
-# 特定ブランチのログを見たい
-git logg develop
 
 #--------------------------------------------
 #Git Remote
