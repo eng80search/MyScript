@@ -1,0 +1,1 @@
+msbuild.exe solution.sln /t:Build /p:DeployOnBuild=true /p:DeployTarget=WebPublish /p:PublishProfile=FS
