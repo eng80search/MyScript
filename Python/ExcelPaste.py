@@ -1,4 +1,5 @@
 import openpyxl
+import os
 
 wb = openpyxl.load_workbook(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\20200205_強制地図位置解除対象リスト_61-80.xlsx')
 #  wb = openpyxl.load_workbook(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\20200205_強制地図位置解除対象リスト_81-100.xlsx')
@@ -6,6 +7,9 @@ wb = openpyxl.load_workbook(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_�
 
 #Debug用
 print(wb.sheetnames)
+
+#  設定値
+FILE_ROOTPATH = r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA'
 
 ws1  = wb['1']
 ws2  = wb['2']
@@ -29,26 +33,26 @@ ws19  = wb['19']
 ws20  = wb['20']
 
 
-img1  = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\47605.PNG')
-img2  = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\47734.PNG')
-img3  = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\47758.PNG')
-img4  = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\48076.PNG')
-img5  = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\48178.PNG')
-img6  = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\48307.PNG')
-img7  = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\48478.PNG')
-img8  = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\48538.PNG')
-img9  = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\48568.PNG')
-img10 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\48790.PNG')
-img11 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\48823.PNG')
-img12 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\48937.PNG')
-img13 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\49024.PNG')
-img14 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\49039.PNG')
-img15 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\49036.PNG')
-img16 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\49069.PNG')
-img17 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\49279.PNG')
-img18 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\68995.PNG')
-img19 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\69178.PNG')
-img20 = openpyxl.drawing.image.Image(r'C:\Users\setupuser\Documents\00_Ri\00_作業\70_定例作業\02_解除用\Image_QA\69418.PNG')
+img1  = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '47605.PNG'))
+img2  = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '47734.PNG'))
+img3  = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '47758.PNG'))
+img4  = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '48076.PNG'))
+img5  = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '48178.PNG'))
+img6  = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '48307.PNG'))
+img7  = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '48478.PNG'))
+img8  = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '48538.PNG'))
+img9  = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '48568.PNG'))
+img10 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '48790.PNG'))
+img11 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '48823.PNG'))
+img12 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '48937.PNG'))
+img13 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '49024.PNG'))
+img14 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '49039.PNG'))
+img15 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '49036.PNG'))
+img16 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '49069.PNG'))
+img17 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '49279.PNG'))
+img18 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '68995.PNG'))
+img19 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '69178.PNG'))
+img20 = openpyxl.drawing.image.Image(os.path.join(FILE_ROOTPATH, '69418.PNG'))
 
 ws1.add_image( img1, 'A2' )
 ws2.add_image( img2, 'A2' )
