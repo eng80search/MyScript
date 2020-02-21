@@ -106,14 +106,15 @@ git checkout -b develop
 #--------------------------------------------
 #Git Merge
 #--------------------------------------------
-# ブランチをマージする(いつもマージがある部分がわかるようにする)
-git merge --no-ff develop  ←取り込みたいブランチを指定
-
 # ブランチを試してマージしてみる
 git merge --no-commit --no-ff develop  ←取り込みたいブランチを指定
 # 実行結果をみて、confilictがなければOK
+
 # 現在マージ状態なので、とりあえず取り消し
 git merge --abort
+
+# ブランチをマージする(いつもマージがある部分がわかるようにする)
+git merge --no-ff develop  ←取り込みたいブランチを指定
 
 # confilictが発生した場合
     1.confilictがあるファイルを編集する（confilictを解消）
@@ -190,6 +191,8 @@ git branch -m newBranchName
 
 # ブランチを削除
 git branch --delete hotfix
+Or
+git branch -d hotfix
 
 # 消してしまったブランチを復活させるには？
 git reflog
