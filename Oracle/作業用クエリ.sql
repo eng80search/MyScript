@@ -6,7 +6,7 @@ delete from STORE_INSTITUTION;
 delete from STORE_MCHLV_ADD;
 
 -- 慎重に！　テーブルを削除する
--- drop table TBLCINFON_20190920;
+DROP TABLE TBLCINFON_20190920;
 -- commit;
 
 --  副問合せでデータをInsertする

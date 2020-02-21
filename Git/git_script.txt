@@ -34,6 +34,9 @@ git diff HEAD..FETCH_HEAD
 #--------------------------------------------
 #Git Log
 #--------------------------------------------
+# Gitで特定ファイルの変更履歴を見る
+git log -p Directory1/FileName1
+
 # 現在のコミットから過去2回分の特定ファイル(フォルダ)の変更文字単位を見る
 # e.g. 表示の仕方は 1:HEAD..HEAD~1 2:HEAD~1..HEAD~2
 git log --word-diff HEAD -n 2 -p batch/BCTK005/template_html/
@@ -57,6 +60,9 @@ git log --after '1 month 3 days ago'
 
 # 特定ブランチのログを見たい
 git logg develop
+
+# 特定タグ以降のログを見たい
+git logg start_tagName..
 
 #--------------------------------------------
 #Git Archive
