@@ -1,0 +1,671 @@
+{
+  "Name": "RegressionTest_QA",
+  "CreationDate": "2020-2-21",
+  "Commands": [
+    {
+      "Command": "echo",
+      "Target": "RegressionTest開始",
+      "Value": "blue"
+    },
+    {
+      "Command": "echo",
+      "Target": "住所タブ_地域から選択_開始",
+      "Value": "green"
+    },
+    {
+      "Command": "open",
+      "Target": "https://stage.acuvue.jnj.co.jp/store/index.aspx",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"js-indexTab01\"]/ul/li[2]/a/strong",
+      "Value": ""
+    },
+    {
+      "Command": "XClick",
+      "Target": "PbytFG_dpi_96.png",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/01_01_地域指定_都道府県.png",
+      "Value": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "pause // 1000",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "captureDesktopScreenshot // Pref_list1.png",
+      "Value": ""
+    },
+    {
+      "Command": "XClick",
+      "Target": "862,432",
+      "Value": ""
+    },
+    {
+      "Command": "XClick",
+      "Target": "City_dpi_96.png",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/01_02_地域指定_市町区.png",
+      "Value": ""
+    },
+    {
+      "Command": "XClick",
+      "Target": "1000,139",
+      "Value": ""
+    },
+    {
+      "Command": "XClick",
+      "Target": "OtherAddr_dpi_96.png",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/01_03_地域指定_その他.png",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnAddress",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/01_04_地域指定_画面遷移.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "住所タブ_地域から選択_終了",
+      "Value": "green"
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗一覧表示_開始",
+      "Value": "green"
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[2]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "XMove",
+      "Target": "509,745",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/02_01_店舗一覧_吹き出し.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[2]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/02_02_店舗一覧_拡大.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗地図拡大",
+      "Value": "olive"
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/02_03_店舗一覧_縮小.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗地図縮小",
+      "Value": "olive"
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[2]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[2]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗地図移動",
+      "Value": "olive"
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/02_04_店舗一覧_移動.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=ハートアップコンタクト協和新宿東口",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/02_05_店舗一覧_詳細ページへ遷移.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗詳細へ遷移",
+      "Value": "olive"
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗一覧表示_終了",
+      "Value": "green"
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗詳細_開始",
+      "Value": "green"
+    },
+    {
+      "Command": "open",
+      "Target": "https://stage.acuvue.jnj.co.jp/store/detail.aspx?StoreSeq=16078",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"map\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[2]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/03_01_店舗詳細_拡大.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗詳細の拡大",
+      "Value": "olive"
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"map\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[2]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"map\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"map\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"map\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"map\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"map\"]/div/div[5]/div[3]/div/div[1]/a[2]",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/03_02_店舗詳細_縮小.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗詳細の縮小",
+      "Value": "olive"
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗詳細_終了",
+      "Value": "green"
+    },
+    {
+      "Command": "echo",
+      "Target": "駅名検索_開始",
+      "Value": "green"
+    },
+    {
+      "Command": "open",
+      "Target": "https://stage.acuvue.jnj.co.jp/store/index.aspx",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"js-indexTab01\"]/div[1]/div/div/div/div/div/div[1]/div/span",
+      "Value": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtStationName",
+      "Value": "渋谷駅"
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/05_01_駅名指定検索.png",
+      "Value": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnfwStation",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/06_01_駅名一覧結果.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=渋谷駅(東京メトロ 半蔵門線)",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "1000",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/07_01_店舗名リスト結果.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "駅名検索_終了",
+      "Value": "green"
+    },
+    {
+      "Command": "echo",
+      "Target": "住所フリー検索_開始",
+      "Value": "green"
+    },
+    {
+      "Command": "open",
+      "Target": "https://stage.acuvue.jnj.co.jp/store/index.aspx",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"js-indexTab01\"]/ul/li[2]/a/strong/span",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"js-indexTab01\"]/div[2]/div/div/div/div[1]/div/div[1]/div/span",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=txtAddress",
+      "Value": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtAddress",
+      "Value": "東京都新宿区"
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/08_01_住所フリー検索_開始.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnfwAddress",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/09_01_住所フリー検索_住所一覧.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=東京都新宿区",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/10_01_住所フリー検索_店舗一覧.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "住所フリー検索_終了",
+      "Value": "green"
+    },
+    {
+      "Command": "echo",
+      "Target": "郵便番号検索_開始",
+      "Value": "green"
+    },
+    {
+      "Command": "open",
+      "Target": "https://stage.acuvue.jnj.co.jp/store/index.aspx",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"js-indexTab01\"]/ul/li[3]/a/strong/span",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"js-indexTab01\"]/div[3]/div/div/div/div/div/div[1]/div/span",
+      "Value": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtZipcode",
+      "Value": "102-0073"
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/14_01_郵便番号_検索.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnZip",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/15_01_郵便番号_検索一覧.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "linkText=東京都千代田区九段北１丁目",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/16_01_郵便番号_店舗一覧.png",
+      "Value": ""
+    },
+    {
+      "Command": "XMove",
+      "Target": "596,652",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/16_02_郵便番号_吹き出し.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[2]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/16_03_郵便番号_地図拡大.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[2]/div[1]/span[1]/a/img",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/16_04_郵便番号_地図縮小.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"mapBlock\"]/div/div[5]/div[3]/div/div[1]/a[2]",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/16_05_郵便番号_地図移動.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "郵便番号検索_終了",
+      "Value": "green"
+    },
+    {
+      "Command": "XClick",
+      "Target": "418,614",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/16_06_郵便番号_店舗詳細へ遷移.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "店舗詳細画面へ遷移",
+      "Value": "olive"
+    },
+    {
+      "Command": "echo",
+      "Target": "取扱い店名検索_開始",
+      "Value": "green"
+    },
+    {
+      "Command": "open",
+      "Target": "https://stage.acuvue.jnj.co.jp/store/index.aspx",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"js-indexTab01\"]/ul/li[4]/a/strong/span",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"js-indexTab01\"]/div[4]/div/div/div/div/div[3]/div/span",
+      "Value": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtStoreName",
+      "Value": "コンタクト"
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/17_01_取扱い店名指定_開始.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnStore",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/17_02_取扱い店名指定_一覧.png",
+      "Value": ""
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "linkText=アドコンタクト　立川店",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/18_01_取扱い店名指定_店舗詳細へ遷移.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "取扱い店名検索_終了",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Storeリダイレクト_開始",
+      "Value": ""
+    },
+    {
+      "Command": "open",
+      "Target": "https://stage.acuvue.jnj.co.jp/store/detail.aspx?Store=ZXC98650",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/20_01_Storeリダイレクト_遷移.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Storeリダイレクト_終了",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "取扱い店印刷_開始",
+      "Value": ""
+    },
+    {
+      "Command": "open",
+      "Target": "https://stage.acuvue.jnj.co.jp/store/detail.aspx?StoreSeq=16078",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "id=Form1",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"contentsBody\"]/div/div[2]/div[2]/div[3]/div/div/div/a/span/span",
+      "Value": ""
+    },
+    {
+      "Command": "selectWindow",
+      "Target": "title=ハートアップコンタクト協和新宿東口 | アキュビュー®",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/04_01_店舗印刷_プレビュー.png",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//*[@id=\"contentsBody\"]/p/a/span",
+      "Value": ""
+    },
+    {
+      "Command": "captureDesktopScreenshot",
+      "Target": "c:/Temp/04_02_店舗印刷_印刷.png",
+      "Value": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "取扱い店印刷_終了",
+      "Value": "green"
+    },
+    {
+      "Command": "echo",
+      "Target": "RegressionTest終了",
+      "Value": "blue"
+    }
+  ]
+}

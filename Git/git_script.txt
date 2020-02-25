@@ -64,12 +64,32 @@ git logg develop
 # 特定タグ以降のログを見たい
 git logg start_tagName..
 
+# 特定の文字列が含まれたコミットの変更をある期間内中でみたい
+# 例：文字列"oasys_ast"が含まれるコミットを差分形式(patch)で
+# タグ"sprint14_start"から"sprint14_end"間でみたい
+git log -S 'oasys_ast' --patch  sprint14_start..sprint14_end
+
+#--------------------------------------------
+#Git blame
+#--------------------------------------------
+# 特定の行がいつだれに変更されたかを知る
+git blame test.vb
+# 125行目から130行目を表示する
+git blame -L 125, 130 test.vb
+
+#--------------------------------------------
+#Git show
+#--------------------------------------------
+# 一つのコミットの変更状況を調べる
+git show 6654e0c3
+# 更に詳しく見るためには
+git log -S 'changed_content' --patch test.vb
+
 #--------------------------------------------
 #Git Archive
 #--------------------------------------------
 # 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
 git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=ad --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
-
 
 #--------------------------------------------
 #Git Commit
