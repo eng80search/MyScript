@@ -184,6 +184,10 @@ git reset --hard ORIG_HEAD ←rebase直後に使える
 # リモートレポジトリの一覧を取得する
 git remote -v
 
+#push an existing repository from the command line
+git remote add origin https://github.com/eng80search/Vim82_Home.git
+git push -u origin master
+
 # リモートレポジトリの最新を取得する
 git fetch
 evertokyo
