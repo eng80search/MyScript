@@ -97,12 +97,17 @@ git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=a
 # 前回のコミットにもう一度コミットする
 git commit --amend --no-edit
 
+# 前回のコミットのメッセージを修正する
+git commit --amend -m "修正後のメッセージ"
+
 #--------------------------------------------
 #Git Reset
 #--------------------------------------------
 # git addしたものを取り消す
 git reset .
 
+# git addしたコミット履歴、作業フォルダを取り消す
+git reset --hard HEAD~1
 
 #--------------------------------------------
 #Git stash commitはしないが一時的に保存する場合
@@ -123,6 +128,9 @@ git stash pop stash@{0}
 # ブランチを作成同時に、そのブランチに切り替える
 git checkout -b develop
 
+# ローカルに加えたすべての変更を取り消す
+git checkout .
+
 #--------------------------------------------
 #Git Merge
 #--------------------------------------------
@@ -141,6 +149,10 @@ git merge --no-ff develop  ←取り込みたいブランチを指定
     2.git add file.txt
     3.git status
     4.git commit & git push
+
+# マジする際に使われるコミットメッセージを指定する
+git merge other-branch -m "Commit Message"
+
 
 #--------------------------------------------
 #Git Tag
@@ -173,6 +185,14 @@ git tag -d TAG_NAME
 
 途中でやめたい場合は、git rebase --abort
 
+# Rebaseでreleaseブランチでmasterブランチの変更を取り込む
+git rebase  master
+コンフリクトが発生した場合
+1.コンフリクト解決
+2. git add .
+3. git rebase --continue
+
+
 # rebaseを過去に戻したい
 git reflog ←　コミット履歴確認用
 git reset --hard HEAD@{4} 　←一般的にはこれを使う
@@ -195,6 +215,10 @@ evertokyo
 # ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
 git push origin master
 
+# ローカルリポジトリのすべてのブランチをリモートのoriginリポジトリへ反映する
+git push --all origin
+git push --tags
+
 # こんなエラーがあった場合
 error: failed to push some refs to 'https://github.com/...'の場合
 
@@ -213,10 +237,19 @@ git merge origin/master
 # 現在開いているブランチの名前を変更
 git branch -m newBranchName
 
+# ブランチを作成
+git branch  newBranch
+
 # ブランチを削除
 git branch --delete hotfix
 Or
 git branch -d hotfix
+
+# ブランチを作成同時に、そのブランチに切り替える
+git checkout -b develop
+
+# リモートブランチをローカルにコピーする
+git checkout -b feature_A origin/feature_A
 
 # 消してしまったブランチを復活させるには？
 git reflog
