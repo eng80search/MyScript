@@ -50,6 +50,7 @@ git logg --since='yesterday'
 git logg --since='7 days'
 # 月を指定
 git logg --since='1 month'
+git logg --since=1.months
 
 git log --after '2018-05-27 00:15:00'
 # 相対的な日時での指定
@@ -60,6 +61,8 @@ git log --after '1 month 3 days ago'
 
 # 特定ブランチのログを見たい
 git logg develop
+# SVN関連のブランチを見たくない場合
+git logg --banches master develop
 
 # 特定タグ以降のログを見たい
 git logg start_tagName..
@@ -198,6 +201,23 @@ git reflog ←　コミット履歴確認用
 git reset --hard HEAD@{4} 　←一般的にはこれを使う
 git reset --hard ORIG_HEAD ←rebase直後に使える
 
+
+# masterからdevelopブランチを切った後に、masterから他のcommitがある際
+# masterブランとdevelopブランチが枝分かれした時点から変更された
+# すべてのcommitをdevelopに取り込む際にrebaseを使うべき
+# 図で例を示します。 topicブランチ上でgit rebase masterすると
+
+(Before)
+          A---B---F---C topic
+         /
+    D---E---F---G master
+
+(After)
+                  A'--B'--C' topic
+                 /
+    D---E---F---G master
+
+
 #--------------------------------------------
 #Git Remote
 #--------------------------------------------
@@ -244,6 +264,8 @@ git branch  newBranch
 git branch --delete hotfix
 Or
 git branch -d hotfix
+#remote ブランチを削除（githubとローカル両方が削除される)
+git push --delete origin develop
 
 # ブランチを作成同時に、そのブランチに切り替える
 git checkout -b develop
