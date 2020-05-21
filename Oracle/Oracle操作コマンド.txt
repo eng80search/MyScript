@@ -1,2 +1,108 @@
-自分自身（ホストマシン）で、オラクルのリスナーが起動しているか確認
-c:\lsnrctl status
+------------------------------------------------------------------
+自分自身（ホストマシン）で、オラクルのリスナーが起動しているか確認 c:\lsnrctl
+status
+
+------------------------------------------------------------------
+Oracle 3つのファイルの役割
+------------------------------------------------------------------
+ネットワークに関するファイルには「tnsnames.ora」「sqlnet.ora」「listener.ora」の３つがあります。デフォルトでは、%ORACLE_HOME%\network\ADMIN\にあります。
+この場所を変更したい場合は「TNS_ADMIN」環境変数でフォルダを指定します。
+以降で３つのファイルを詳しく見ていきましょう。
+
+tnsnames.oraファイルはクライアント側に置くファイルで、ローカルネーミング構成のネットワークで使用します。Oracleでデータベースに接続する時は「connect
+system/manager@oradb」などと記述しますが、＠以降の文字の部分を接続識別子といい、接続先のデータベースを表しています。
+
+ホストネーミング構成の場合はここがホスト名（サーバ名）となるので、そのホスト名を使って接続にいけるのですが、ローカルネーミング構成の場合は、下のサンプルでいうと、oradbの部分を＠以下に指定して、ここで記述されたホストやポートを使って接続します。
+
+（tnsname.ora設定例）
+oradb =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.11)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = DB01)
+    )
+  )
+
+パラメータ	説明
+oradb（←例）	ネットサービス名。　接続する時の＠以下の名称です。
+（パラメータ名は例です）
+ADDRESS	接続するリスナーの接続情報。
+基本的にPROTCOLはTCPのままで変更しません。
+HOSTはOracleがインストールされているマシンを指定します。
+PORT番号はデフォルト1521ですが、１つのマシン上に複数のDBサーバを立てる場合にはそれぞれのDBサーバに対して別のポート番号を割り振る必要があります。
+CONNECT_DATA	接続先DBのSID
+SERVER=DEDICATED	共有サーバ構成時に専用サーバ接続する場合に指定
+
+sqlnet.oraファイルはクライアントとサーバに必要なネットワークファイルで（ローカルネーミング構成の場合はクライアント側には不要）、使用するネーミングメソッドの優先順やデフォルトのドメイン名を指定します。
+
+（sqlnet.ora設定例）
+SQLNET.AUTHENTICATION_SERVICES = (NTS)
+NAMES.DIRECTORY_PATH = (TNSNAMES, HOSTNAME)
+NAMES.DEFAULT_DOMAIN = winsrv
+
+パラメータ	説明
+SQLNET.AUTHENTICATION_SERVICES	NONE/ALL/NTSのいずれか
+NAMES.DIRECTORY_PATH	ネーミングメソッドの優先順を指定します
+左から順に解決します。
+・TNSNAMES:ローカルネーミング
+・HOSTNAME:ホストネーミング
+NAMES.DEFAULT_DOMAIN	接続識別子にドメインが省略された場合のデフォルトドメイン
+
+listener.oraファイル
+リスナーとはクライアントからのDB接続要求を受け取るプロセスのことで、このファイルにてリスナーの設定ができます。
+
+クライアントからの接続は全てリスナーが受け取り、リスナーがどこのデータベースへ接続すればよいか判断します。 その接続先のデータベースをこのリスナーファイルに記述します。このファイルはサーバ側に置くファイルです。
+
+リスナー名はlistener.oraファイル内で一意にする必要があります。また、デフォルトリスナーを使用する時のみ当ファイルが存在していなくてもOKです。
+
+（listener.ora設定例）
+LISTENER =      //：リスナー名
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS_LIST =
+        (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC0))
+      )
+      (ADDRESS_LIST =
+        (ADDRESS = (PROTOCOL = TCP)(HOST = dbsrv)(PORT = 1521))
+      )
+    )
+  )
+
+SID_LIST_LISTENER =      //：接続先データベース
+  (SID_LIST =
+    (SID_DESC =
+      (SID_NAME = DB01)
+      (ORACLE_HOME = C:\oracle\ora90)
+      (PROGRAM = extproc)
+    )
+    (SID_DESC =
+      (GLOBAL_DBNAME = db01.world)
+      (ORACLE_HOME = C:\oracle\ora90)
+      (SID_NAME = DB01)
+    )
+  )
+
+LOGGING_LISTENER = ON
+LOG_FILE_LISTENER = listener.log
+PASSWORDS_LISTENER = password
+TRACE_FILE_LISTENER = listener.trc
+TRACE_LEVEL_LISTENER = OFF
+
+パラメータ	説明
+GLOBAL_DBNAME	静的サービス構成ならSERVICE_NAMESパラメータの値
+SID_NAME	インスタンスを識別するORACLE_SIDを設定する
+ORACLE_HOME	オラクルがインストールされているルートパスを指定する
+LOGGING_LISTENER	ログ出力のする(ON)/しない(OFF)
+　※デフォルトON
+LOG_FILE_LISTENER	ログファイル名
+　※デフォルト：listener.log
+LOG_DIRECTORY_LISTENER	ログファイルを作成するディレクトリ
+PASSWORDS_LISTENER	lsnrctlプロンプト起動時の認証に使用するパスワード
+TRACE_FILE_LISTENER	トレースファイル名
+　※デフォルト：listener.trc
+TRACE_DIRECTORY_LISTENER	トレースファイルを作成するディレクトリ
+TRACE_LEVEL_LISTENER	トレース機能の設定（OFF/USER/ADMIN/SUPPORT）
+　※デフォルトOFF
+太字でLISTENERとなっている所はリスナー名が入ります。
+（デフォルトのリスナーを使っている場合はこのままでOKです）
