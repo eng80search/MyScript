@@ -371,7 +371,7 @@ git push origin master
 # 現在の作業を一時的に退避したい
 git stash
 
-# 現在の作業を一時的に退避したい
+# 最新のstashを適用する
 git stash pop
 
 # 退避した作業の一覧を表示したい
