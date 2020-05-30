@@ -158,6 +158,9 @@ git merge --no-ff develop  ←取り込みたいブランチを指定
 # マジする際に使われるコミットメッセージを指定する
 git merge other-branch -m "Commit Message"
 
+# マジ完了したけど、マージ自体をキャンセルする場合（コミット履歴が残らない方式）
+git reset --hard ORIG_HEAD
+
 
 #--------------------------------------------
 #Git Tag
