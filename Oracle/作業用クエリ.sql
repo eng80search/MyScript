@@ -70,3 +70,15 @@ FROM USER_TABLES A -- 全てのテーブル
 WHERE A.TABLE_NAME = B.SEGMENT_NAME
 ORDER BY A.NUM_ROWS DESC, B.MB DESC;
 
+-- sql plusでsys権限でログインする
+-- SQL Plusを立ち上げた後に以下のコマンドを入力する
+sys as sysdba (password: password)
+
+--  自宅開発環境
+--  user: ri password: P@sswordq1
+
+-- sqlplusにてSID(インスタンス)を確認する
+SELECT INSTANCE_NAME FROM V$INSTANCE;
+
+-- sqlplusにてpdb(データベース)一覧を確認する
+select pdb_id, pdb_name,status from cdb_pdbs;
