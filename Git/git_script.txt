@@ -92,6 +92,8 @@ git log -S 'changed_content' --patch test.vb
 #Git Archive
 #--------------------------------------------
 # 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
+# diff-filter=ad は抽出対象から新規追加と削除されたファイルを外すとの意味
+# なのでnewの場合はdiff-filter=d(削除されたのを外す)で、oldの場合はdiff-filter=a(新規追加のを外す)で良さそう
 git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=ad --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
 
 #--------------------------------------------
@@ -266,6 +268,8 @@ Or
 git branch -d hotfix
 #remote ブランチを削除（githubとローカル両方が削除される)
 git push --delete origin develop
+#他の場所で既に削除済のブランチをローカルでも削除する際
+git fetch --prune Or git fetch -p
 
 # ブランチを作成同時に、そのブランチに切り替える
 git checkout -b develop
