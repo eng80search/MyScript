@@ -108,8 +108,9 @@ git commit --amend -m "修正後のメッセージ"
 #--------------------------------------------
 #Git Reset
 #--------------------------------------------
-# git addしたものを取り消す
+# git addしたものを取り消す(ステージングしたものをなしにする)
 git reset .
+git reset HEAD
 
 # git addしたコミット履歴、作業フォルダを取り消す
 git reset --hard HEAD~1
@@ -123,8 +124,14 @@ git stash
 # 一時保存の保存結果を確認する場合
 git stash list
 
+# 一時保存の作業を復活
+git stash apply stash@{0}
+
 # 一時保存の復活と、削除を同時に行う場合
 git stash pop stash@{0}
+
+# 一時保存を削除
+git stash drop stash@{0}
 
 
 #--------------------------------------------
@@ -239,6 +246,10 @@ evertokyo
 
 # ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
 git push origin master
+
+# ローカルリポジトリの変更をリモートのoriginリポジトリにあるローカルと
+# 同じ名前のブランチに反映する
+git push origin HEAD
 
 # ローカルリポジトリのすべてのブランチをリモートのoriginリポジトリへ反映する
 git push --all origin
@@ -376,9 +387,13 @@ git push origin master
 #Git stash
 #--------------------------------------------
 # 現在の作業を一時的に退避したい
+git stash save "add stash message"
+もしくは
 git stash
 
 # 最新のstashを適用する
+git stash apply stash@{0} --index saveした時点でaddした状態も戻したい場合は--indexオプションをつける
+もしくは
 git stash pop
 
 # 退避した作業の一覧を表示したい
