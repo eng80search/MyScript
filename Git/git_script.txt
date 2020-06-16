@@ -64,6 +64,9 @@ git logg develop
 # SVN関連のブランチを見たくない場合
 git logg --banches master develop
 
+# マージコミットの詳細を見たくない場合
+git logg --mergers
+
 # 特定タグ以降のログを見たい
 git logg start_tagName..
 
@@ -353,8 +356,14 @@ hotfix (masterから派生):
 # latest changes in SVN:(SVNでコミットしたものをGitに取り込む)
 	git svn rebase
 # Now commit your changes (that were committed previously using Git) to SVN,
+
+# 注意：masterブランチをgit-svnブランチにコミットする際に、masterブランチに
+マージコミット(-no-ff)がある場合はコミットが失敗するときがある。
+その時はgit checkout -b svn_masterにしてもう一回dcommitする。
+そうすると一回目失敗、二回目が成功になる。(2回目はマージコミットがなくなってしまう)
 # as well as automatically updating your working HEAD:
 	git svn dcommit
+
 # Append svn:ignore settings to the default Git exclude file:
 	git svn show-ignore >> .git/info/exclude
 
