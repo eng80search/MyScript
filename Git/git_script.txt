@@ -258,6 +258,12 @@ git push origin HEAD
 git push --all origin
 git push --tags
 
+# originリモートリポジトリを削除する(githubにリモート自体は残る)
+git remote rm origin
+
+# originリモートリポジトリにあるorigin/masterブランチを削除する
+git push --delete origin master
+
 # こんなエラーがあった場合
 error: failed to push some refs to 'https://github.com/...'の場合
 
