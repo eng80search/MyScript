@@ -192,12 +192,10 @@ git tag -d TAG_NAME
   参考URL:https://backlog.com/ja/git-tutorial/stepup/33/
 
 1. git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
-2. 別ウィンドウでGvimが開かれるが、その時コミットしたいSHAのPickをEditに変更
+2. 別ウィンドウでGvimが開かれるが、その時コミットしたいSHAのpickをeditに変更
    して終了。
 3. gitBashターミナルに戻る。
-4. VisualStudioもしくはvimでファイルを修正する。
-5. いつもの通り、 git status&git add
-6. git commit --amend --no-editで修正を反映する。
+6. git commit --amend -m "新しいコメントを入力"
 7. git rebase --continue でRebase作業を終了する。
 
 
