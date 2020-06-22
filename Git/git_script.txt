@@ -160,10 +160,51 @@ git merge --abort
 git merge --no-ff develop  ←取り込みたいブランチを指定
 
 # confilictが発生した場合
-    1.confilictがあるファイルを編集する（confilictを解消）
-    2.git add file.txt
-    3.git status
-    4.git commit & git push
+    必ず GitBashコマンドプロンプトから
+    git mergetool aa.txt でマージを開始する
+    gvimが起動され、以下のようなdiffモードが表示される
+
+     --------------------------------------
+    |           |            |            |
+    |   LOCAL   |    BASE    |   REMOTE   |
+    |    (1)    |     (2)    |     (3)    |
+    |           |            |            |
+    |-------------------------------------|
+    |                                     |
+    |                MERGED               |
+    |                  (4)                |
+    |                                     |
+     ------------------------------------- 
+
+     説明：
+     LOCAL: 現在のWorkingTree上のファイル
+     BASE:  マージ前の共通先祖
+     REMOTE: マージしたいブランチ上のファイル
+     MERGED: 最終的にマージされた後のファイル
+
+     ●マージ編集方法
+
+     (1)MERGEDウィンドウにカーソルがある場合Normalモードで
+         1do: LOCALの修正 2do: BASEの修正 3do: REMOTEの修正
+         それぞれをMERGEDに取り込む
+
+     (2)LOCAL,BASE,REMOTEそれぞれのウィンドウにカーソルがある場合Normalモードで
+         4dp: LOCAL,BASE,REMOTEのウィンドウでノーマルモードで入力すると
+              そのウィンドウの内容がMERGEDに反映される
+
+         REMOTEバッファの内容を全部MERGEDに反映したい場合は↓
+         :1,$diffput 4
+
+         MERGEDバッファにカーソルあり、REMOTEの内容を全部取り込みたい場合は↓
+         :1,$diffget 3
+
+
+     ●マージを続ける
+     2.git add file.txt
+     3.git status
+     4.git clear -n(削除対象ファイルを確認)   git clear -f(実際に削除)
+     5.git commit -m "input commit message"
+     6.git push
 
 # マジする際に使われるコミットメッセージを指定する
 git merge other-branch -m "Commit Message"
