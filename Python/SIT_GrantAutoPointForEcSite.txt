@@ -1,0 +1,44 @@
+No.1
+[step]:
+STG DB環境にて
+bonusテーブルのレコードを確認する
+[data]:
+bonusCode=6 name=アキュビュー@サービス連携ボーナス　データが存在する
+[result]:
+レコードが存在する
+
+No.2
+[step]:
+STG DB環境にて
+import_japan_serialno テーブルの存在を確認する
+[data]:
+各列は以下の通り
+id
+sold_to
+serial_no
+s_o_doc_no
+s_o_line_item_no
+deliv_doc_no
+deliv_doc_line_item_no
+deliv_doc_date
+[result]:
+テーブルが存在する
+
+No.3
+[step]:
+STG DB環境にて
+import_japan_serialno_error テーブルの存在を確認する
+[data]:
+各列は以下の通り
+id
+error_message
+sold_to
+serial_no
+s_o_doc_no
+s_o_line_item_no
+deliv_doc_no
+deliv_doc_line_item_no
+deliv_doc_date          
+[result]:
+テーブルが存在する
+
