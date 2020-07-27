@@ -38,7 +38,279 @@ s_o_doc_no
 s_o_line_item_no
 deliv_doc_no
 deliv_doc_line_item_no
-deliv_doc_date          
+deliv_doc_date
 [result]:
 テーブルが存在する
 
+No.4
+[step]:
+job_management テーブルでの設定を確認する
+[data]:
+id:未定(Job ID)
+last_execute_date:バッチ実行日付の前日
+[result]:
+正しく設定されている
+
+No.5
+[step]:
+Mbox確認
+Stage環境のMboxにログインして取り込み用ファイルがあるか確認する
+[data]:
+Mbox UserId: myacuvueplus_qa
+Mbox Password:  Myacuvueplus_sr1
+[result]:
+以下のファイルが存在する
+ JAPAN_SERIALNO_20200803.txt
+ (ファイル日付はテスト時期と合わせて変更)
+ (以下CSVも同様)
+
+No.6
+[step]:
+購入データ取り込みバッチを実行する
+[data]:
+JAPAN_SERIALNO_20200730.txt
+バッチ実行日付
+ last_execute_date = 20200802
+[result]:
+import_japan_serialnoにあるレコードが削除される。
+バッチは実行されるが、データは取り込まない
+
+No.7
+[step]:
+購入データ取り込みバッチを実行する
+[data]:
+JAPAN_SERIALNO_20200803.txt
+取り込み用csvファイルのsold_toと同じpatient_idがCounsumerテーブルにない場合
+[result]:
+購入データは取り込まない
+import_japan_serialnoにレコードが作成される
+import_japan_serialno_errorにレコードが作成される
+id: max value of id + 1
+error_message: Paitient_id is not existed in Consumer table.
+その他の項目は取り込み用CSVデータと同じ
+
+No.8
+[step]:
+購入データ取り込みバッチを実行する
+[data]:
+JAPAN_SERIALNO_20200803.txt 1行目
+年間スキャン上限：6件（どのテーブルで設定するのか？）
+CSVデータに含まれる購入件数：3件
+既存スキャン件数：5件
+[result]:
+購入データは取り込まない
+import_japan_serialnoにレコードが作成される
+import_japan_serialno_errorにレコードが作成される
+id: max value of id + 1
+error_message: The maximum number of scan boxes per year has been reached
+その他の項目は取り込み用CSVデータと同じ
+
+No.9
+[step]:
+購入データ取り込みバッチを実行する
+[data]:
+取り込み用CSV
+ JAPAN_SERIALNO_20200803.txt 2行目
+バッチ実行日付
+ last_execute_date = 20200802
+取り込み用CSVファイルに、同一のpatient_id,barcodeが存在する場合
+[result]:
+購入データは取り込まない(他のデータはどうなるのか？)
+※：バッチ自体は成功なのか？
+import_japan_serialnoにレコードが作成される
+import_japan_serialno_errorにレコードが作成される
+id: max value of id + 1
+error_message: Scanned record is duplicated.
+その他の項目は取り込み用CSVデータと同じ
+
+No.10
+[step]:
+購入データ取り込みバッチを実行する
+[data]:
+JAPAN_SERIALNO_20200803.txt 3行目
+patient_idに紐づくConsumerテーブルのmyStoreIdが未設定の場合
+[result]:
+購入データは取り込まない(他のデータは取り込まれる？？)
+import_japan_serialnoにレコードが作成される
+import_japan_serialno_errorにレコードが作成される
+id: max value of id + 1
+error_message: ConsumerId doesn't have myStoreId.
+その他の項目は取り込み用CSVデータと同じ
+
+No.11
+[step]:
+購入データ取り込みバッチを実行する
+[data]:
+JAPAN_SERIALNO_20200803.txt 4行目
+ProductPointテーブルにserial_no(=barcode)のPointが
+登録されていない場合
+[result]:
+購入データは取り込まない
+import_japan_serialno_errorにレコードが作成される
+id: max value of id + 1
+error_message: Serial_no cannot get the data of ProductPoint table
+その他の項目は取り込み用CSVデータと同じ
+
+No.12
+[step]:
+購入データ取り込みバッチを実行する
+[data]:
+JAPAN_SERIALNO_20200803.txt 5行目
+[result]:
+購入データが取り込まれる
+import_japan_serialnoにレコードが作成される
+import_japan_serialno_errorにレコードは作成されない
+Purchase tableに以下のデータが作成される
+  storeId: Consumer.myStoreId
+           紐付け：(取り込み用CSV.sold_to=Consumer.patient_id)
+  point:ProductPoint.point
+           紐付け：(取り込み用CSV.serial_no=ProductPoint.どこ??)
+  barcode:取り込み用CSV.serial_no
+  productId:ProductPoint.id
+           紐付け：(取り込み用CSV.serial_no=ProductPoint.どこ??)
+  productName:ProductPoint.name
+           紐付け：(取り込み用CSV.serial_no=ProductPoint.どこ??)
+  consumerId:Consumer.id
+           紐付け：(取り込み用CSV.sold_to=Consumer.patient_id)
+  purchaseDate:deliv_doc_date
+
+No.13
+[step]:
+購入データ取り込みバッチを実行する
+[data]:
+JAPAN_SERIALNO_20200803.txt 6行目
+[result]:
+購入データが取り込まれる
+import_japan_serialnoにレコードが作成される
+import_japan_serialno_errorにレコードは作成されない
+Purchase tableに以下のデータが作成される
+  storeId: Consumer.myStoreId
+           紐付け：(取り込み用CSV.sold_to=Consumer.patient_id)
+  point:ProductPoint.point
+           紐付け：(取り込み用CSV.serial_no=ProductPoint.どこ??)
+  barcode:取り込み用CSV.serial_no
+  productId:ProductPoint.id
+           紐付け：(取り込み用CSV.serial_no=ProductPoint.どこ??)
+  productName:ProductPoint.name
+           紐付け：(取り込み用CSV.serial_no=ProductPoint.どこ??)
+  consumerId:Consumer.id
+           紐付け：(取り込み用CSV.sold_to=Consumer.patient_id)
+  purchaseDate:deliv_doc_date
+PointsTransaction tableに以下のデータが作成される
+  1番目データ
+    date:deliv_doc_date (日付形式：mm/dd/yyyy)
+    point:商品購入Getポイントの20%
+    bonusId:6
+    consumerId:Consumer.id
+             紐付け：(取り込み用CSV.sold_to=Consumer.patient_id)
+    expiryDate:購入日+ 366 日
+    remainingPoints:商品購入Getポイントの20%
+    transactionType:BONUS
+  ２番目データ
+    date:deliv_doc_date (日付形式：mm/dd/yyyy)
+    point:bonusテーブルにてcode=４に設定されたポイント
+    bonusId:bonusテーブルにてcode=４に設定されたId
+    consumerId:patient_id = sold_to
+    expiryDate:購入日+ 366 日
+    remainingPoints:bonusテーブルにてcode=４に設定されたポイント
+    transactionType:BONUS
+
+No.15
+[step]:
+購入データ取り込みバッチを実行する
+[data]:
+JAPAN_SERIALNO_20200803.txt 全データ
+[result]:
+Pointテーブルのデータが更新される
+?取り込みデータとの関連性は？
+?どの項目が更新されるのか
+新しいPoint残高=
+既存Point残高+AOS/定期便Point+AOS/定期便bonus Point+ 初期スキャンPoint
+
+No.16
+[step]:
+複数の購入データ取り込みバッチを実行する
+[data]:
+JAPAN_SERIALNO_20200803.txt 全データ
+JAPAN_SERIALNO_20200804.txt 全データ
+[result]:
+複数の購入データが取り込まれる
+
+No.17
+[step]:
+バッチ実行時間を更新する
+[data]:
+JAPAN_SERIALNO_20200803.txt
+JAPAN_SERIALNO_20200804.txt
+[result]:
+last_execute_date = 20200804
+
+No.18
+[step]:
+異常系
+ Mboxのcsvファイルにデータがない場合
+[data]:
+JAPAN_SERIALNO_20200805.txt
+[result]:
+指定アドレス（どこ？）に以下のメールが送信される
+Title: Auto point for AOS / TEIKIBIN Failure
+Text:  Auto point for AOS / TEIKIBIN Batch job was failed.
+         Process Start time:yyyy-mm-dd hh:mm:ss
+         Process End time:yyyy-mm-dd hh:mm:ss
+
+No.19
+[step]:
+異常系
+ Mboxのcsvファイルにデータが正しくない場合
+(Sold-to列が存在しない)
+[data]:
+JAPAN_SERIALNO_20200805.txt
+[result]:
+指定アドレス（どこ？）に以下のメールが送信される
+Title: Auto point for AOS / TEIKIBIN Failure
+Text:  Auto point for AOS / TEIKIBIN Batch job was failed.
+         Process Start time:yyyy-mm-dd hh:mm:ss
+         Process End time:yyyy-mm-dd hh:mm:ss
+
+No.19
+[step]:
+異常系
+ Mboxとの接続ができない場合
+[data]:
+JAPAN_SERIALNO_20200803.txt
+[result]:
+指定アドレス（どこ？）に以下のメールが送信される
+Title: Auto point for AOS / TEIKIBIN Failure
+Text:  Auto point for AOS / TEIKIBIN Batch job was failed.
+         Process Start time:yyyy-mm-dd hh:mm:ss
+         Process End time:yyyy-mm-dd hh:mm:ss
+
+No.20
+[step]:
+確認事項
+[data]:
+1.以下のテーブルはどこにありますか、データ取得方法は？
+  bonus
+  import_japan_serialno
+  import_japan_serialno_error
+  job_management
+  Consumer
+  ProductPoint
+  Point
+  PointsTransaction
+  Purchase
+2.テスト用データを作成するために必要な情報を教えて下さい
+  PatientID
+  Consumer ID
+  StoreCode
+  barcode
+[result]:
+とくになし
+
+No.99
+[step]:
+End
+[data]:
+End
+[result]:
+End

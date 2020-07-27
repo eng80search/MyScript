@@ -1,6 +1,7 @@
 import openpyxl
 import os
 import re
+import json
 from transitions import Machine
 
 
@@ -51,8 +52,21 @@ class StateMachine(object):
             pass
 
 
+#  jsonファイルに日本語がある時encodingを指定する
+with open("settings.json", "r", encoding="utf-8") as json_file:
+    json_data = json.loads(json_file.read())
+    #  JsonファイルDebug用
+    #  print(json_data["outputExcelrootPath"])
+    #  print(json_data["outputExcelFileName"])
 
-wb = openpyxl.load_workbook(r"E:\00_OurFamily\_work\100_MyAcvueテスト支援\SIT_GrantAutoPointForEcSite.xlsx")
+    excel_root_path = json_data["outputExcelrootPath"]
+    file_name = json_data["outputExcelFileName"]
+    output_full_name = excel_root_path + file_name + ".xlsx"
+    input_full_name = excel_root_path + file_name + ".txt"
+    print(output_full_name)
+
+#  wb = openpyxl.load_workbook(r"E:\00_OurFamily\_work\100_MyAcvueテスト支援\SIT_Banner.xlsx")
+wb = openpyxl.load_workbook(output_full_name)
 
 #  状態遷移用クラスを定義
 lump = StateMachine('lump')
@@ -65,17 +79,22 @@ print("処理を開始します")
 
 #  ヘッダ定義
 sheet = wb["Sheet1"]
-sheet["A1"] = "step"
-sheet["B1"] = "data"
-sheet["C1"] = "expected result"
+sheet["A1"] = "no"
+sheet["B1"] = "step"
+sheet["C1"] = "data"
+sheet["D1"] = "expected result"
 
 #  メイン処理
 #  既存の内容をクリア
-#  sheet.Range("A2:D999").Clear
+rows = sheet["A2":"D999"]
+for row in rows:
+    for cell in row:
+        cell.value = ""
 
 #  テキストファイルを読み込む
-path = r"E:\00_OurFamily\_work\11_myScript\Python\SIT_GrantAutoPointForEcSite.txt"
-with open(path) as f:
+#  path = r"E:\00_OurFamily\_work\100_MyAcvueテスト支援\SIT_GrantAutoPointForEcSite.txt"
+with open(input_full_name) as f:
+    cnt = 0
     for s_line in f:
 
         #  No.にマッチするかチェック
@@ -83,9 +102,11 @@ with open(path) as f:
         if matched:
             #  print(s_line)
             #  行番号を取得
+            cnt += 1
             id = matched.group(2)
             #  id番号を保存
-            lump.id(no=id)
+            lump.id(no=cnt)
+
             #  print(lump.no)
 
         #  stepにマッチするかチェック
@@ -107,28 +128,32 @@ with open(path) as f:
             #  print(matched.group())
 
         #  resultにマッチするかチェック
-        matched = re.match(r"^\s+", s_line)
+        matched = re.match(r"^\s+$", s_line)
         if matched:
-            cell_no = int(lump.no) + 1
-            cell_step_address = "A" + str(cell_no)
-            cell_data_address = "B" + str(cell_no)
-            cell_result_address = "C" + str(cell_no)
+            cell_no_value = int(lump.no) + 1
             cell_step_value = lump.var_step
             cell_data_value = lump.var_data
             cell_result_value = lump.var_result
 
+            cell_no_address = "A" + str(cell_no_value)
+            cell_step_address = "B" + str(cell_no_value)
+            cell_data_address = "C" + str(cell_no_value)
+            cell_result_address = "D" + str(cell_no_value)
+
+            #  Excelに書き込む
+            sheet[cell_no_address] = cell_no_value - 1
             sheet[cell_step_address] = cell_step_value
             sheet[cell_data_address] = cell_data_value
             sheet[cell_result_address] = cell_result_value
-            #  print(cell_no)
-            #  print(cell_step)
-            #  print(cell_data)
-            #  print(cell_result)
+
+            #  状態を遷移する
             lump.empty()
             #  print(matched.group())
+            #  print(cell_no_value)
 
         #  データを追加する
         lump.add_data(s_line)
 
-wb.save(r"E:\00_OurFamily\_work\100_MyAcvueテスト支援\SIT_GrantAutoPointForEcSite.xlsx")
+#  wb.save(r"E:\00_OurFamily\_work\100_MyAcvueテスト支援\SIT_GrantAutoPointForEcSite.xlsx")
+wb.save(output_full_name)
 print("処理が終了しました。")

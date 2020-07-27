@@ -1,0 +1,119 @@
+No.1
+[step]:
+STG DB環境にて
+Storeテーブルのフィールドを確認する
+[data]:
+フィールド名 teikibinFlag
+[result]:
+フィールドが存在する
+
+No.2
+[step]:
+SFDC連携バッチを実行する
+[data]:
+バッチ名： SFDC Store Data Sync
+[result]:
+SFDCの定期便フラグがCommerce Storeに反映される
+SFDC側
+ Table：ACCOUNT
+ Field :JJ_JPN_ReservedCampaignFlag7__c
+Myacuvue側
+ Table：Store
+ Field :teikibinFlag
+
+No.3
+[step]:
+case-1
+MyAcuvue Appを起動して、HOME Screenのバナーを確認する
+[data]:
+ログインユーザー
+ LINE連携：なし
+ 登録店舗：定期便案内あり
+[result]:
+表示されるバナーは以下の通り
+ 1.LINEログイン
+   link = LINE_LOGIN
+ 2.定期便連携
+   link = https://acuvuevision.jp/myacuvueplus/teikibin
+ 3.コンタクトレンズの装用方法
+   link = https://acuvuevision.jp/movie-plus-1
+
+
+No.4
+[step]
+case-2
+MyAcuvue Appを起動して、HOME Screenのバナーを確認する
+[data]:
+ログインユーザー
+ LINE連携：あり
+ 登録店舗：定期便案内あり
+[result]:
+表示されるバナーは以下の通り
+ 1.定期便連携
+   link = https://acuvuevision.jp/myacuvueplus/teikibin
+ 2.コンタクトレンズの装用方法
+   link = https://acuvuevision.jp/movie-plus-1
+ 3.コンタクトレンズの取り外し方法とレンズケアの方法
+   link = https://acuvuevision.jp/movie-plus-2
+
+No.5
+[step]
+case-3
+MyAcuvue Appを起動して、HOME Screenのバナーを確認する
+[data]:
+ログインユーザー
+ LINE連携：なし
+ 登録店舗：定期便案内なし
+[result]:
+表示されるバナーは以下の通り
+ 1.LINEログイン
+   link = LINE_LOGIN
+ 2.コンタクトレンズの装用方法
+   link = https://acuvuevision.jp/movie-plus-1
+ 3.コンタクトレンズの取り外し方法とレンズケアの方法
+   link = https://acuvuevision.jp/movie-plus-2
+
+No.6
+[step]:
+case-4
+MyAcuvue Appを起動して、HOME Screenのバナーを確認する
+[data]:
+ログインユーザー
+ LINE連携：あり
+ 登録店舗：定期便案内なし
+[result]:
+表示されるバナーは以下の通り
+ 1.コンタクトレンズの装用方法
+   link = https://acuvuevision.jp/movie-plus-1
+ 2.コンタクトレンズの取り外し方法とレンズケアの方法
+   link = https://acuvuevision.jp/movie-plus-2
+
+No.20
+[step]:
+確認事項
+[data]:
+1.以下のテーブルはどこにありますか、データ取得方法は？
+  bonus
+  import_japan_serialno
+  import_japan_serialno_error
+  job_management
+  Consumer
+  ProductPoint
+  Point
+  PointsTransaction
+  Purchase
+2.テスト用データを作成するために必要な情報を教えて下さい
+  PatientID
+  Consumer ID
+  StoreCode
+  barcode
+[result]:
+とくになし
+
+No.99
+[step]:
+End
+[data]:
+End
+[result]:
+End
