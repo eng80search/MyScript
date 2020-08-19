@@ -7,7 +7,15 @@ from transitions import Machine
 
 class StateMachine(object):
 
-    """状態の定義"""
+    """状態の定義
+
+    要点：
+        ①状態遷移による処理の割当
+        ②openpyxl使用によるexcel読み書き
+        ③json形式設定ファイル読み込み
+        ④正規表現を使用
+
+    """
     states = ["start", "index", "step", "data", "result", "finish"]
 
     def __init__(self, name):
@@ -31,6 +39,17 @@ class StateMachine(object):
         self.no = event.kwargs.get("no",0)
 
     def add_data(self, row_data):
+        """
+        処理の流れ：
+            一段落のデータの構成要素：step,data,result
+            一段落の区切り：空欄
+
+            step,data,resultは複数の行から成り立つ
+            状態が遷移しない場合は、現在の構成要素にデータを追記する
+            状態が遷移した場合は、新しい構成要素にデータを追記する
+            段落の区切りが来たら、構成要素が保持したデータをクリアする
+        """
+
         #  stepもしくはdataもしくはresultを追加する
         if self.state == "start":
             self.no = 0
@@ -127,7 +146,8 @@ with open(input_full_name) as f:
             lump.result()
             #  print(matched.group())
 
-        #  resultにマッチするかチェック
+        #  空欄にマッチしたら、一段落の読み込みが完了と認識し、
+        #  lumpクラス内部に保持している各値をExcelに書き出す
         matched = re.match(r"^\s+$", s_line)
         if matched:
             cell_no_value = int(lump.no) + 1
@@ -151,7 +171,7 @@ with open(input_full_name) as f:
             #  print(matched.group())
             #  print(cell_no_value)
 
-        #  データを追加する
+        #  状態遷移がない場合はデータを前回のデータに追記する
         lump.add_data(s_line)
 
 #  wb.save(r"E:\00_OurFamily\_work\100_MyAcvueテスト支援\SIT_GrantAutoPointForEcSite.xlsx")
