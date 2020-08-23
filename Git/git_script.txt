@@ -271,6 +271,27 @@ git reset --hard ORIG_HEAD ←rebase直後に使える
                  /
     D---E---F---G master
 
+Commitの履歴をきれいにする
+git rebase -i HEAD~3
+
+(Before)
+ * 110_Commit
+ * 111_Merged_Commit
+ |\
+ | * 222_Commit
+ | * 223_Commit
+ | * 224_Commit
+ | /
+ * 112_Commit
+ * 113_Commit
+
+(After)
+ * 110_Commit
+ * 222_Commit
+ * 223_Commit
+ * 224_Commit
+ * 112_Commit
+ * 113_Commit
 
 #--------------------------------------------
 #Git Remote
