@@ -1,0 +1,18 @@
+--  ユーザーを指定してログインする
+mariadb -u root -p
+--  次にパスワードが聞かれてくるので、入力する
+
+--  ユーザーと使用するDBを指定してログインする
+mariadb -u root new_image -p
+
+--  DB一覧を表示する
+show databases;
+
+--  使用したいDBを選択する
+show tables;
+
+--  テーブルのカラムを確認する
+show columns from 商品在庫;
+
+--  作成したビューの定義を確認する
+show create view myViewName;
