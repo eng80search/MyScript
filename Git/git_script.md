@@ -1,4 +1,4 @@
-# Vim Memo
+# Git Memo
 ## Git Log
 #### Gitで特定ファイルの変更履歴を見る
 
@@ -44,7 +44,7 @@
 
 #### マージコミットの詳細を見たくない場合
 
-    git logg --mergers
+    1.git logg --mergers
 
 #### 特定タグ以降のログを見たい
 
@@ -111,6 +111,14 @@
 
     git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=ad --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
 
+#### マージしたコミット履歴の場合HEADとHEAD~1の場所
+    commit_A ←HEAD
+    | \
+    |  commit_m1
+    |  commit_m2
+    | / 
+    commit_B ←HEAD~1
+
 ## Git Commit
 #### 前回のコミットにもう一度コミットする
 
@@ -129,27 +137,6 @@
 #### git addしたコミット履歴、作業フォルダを取り消す
 
     git reset --hard HEAD~1
-
-## Git stash (commitはしないが一時的に保存する場合)
-#### 一時保存の場合
-
-    git stash 
-
-#### 一時保存の保存結果を確認する場合
-
-    git stash list
-
-#### 一時保存の作業を復活
-
-    git stash apply stash@{0}
-
-#### 一時保存の復活と、削除を同時に行う場合
-
-    git stash pop stash@{0}
-
-#### 一時保存を削除
-
-    git stash drop stash@{0}
 
 
 ## Git Checkout
@@ -316,6 +303,32 @@
      * 112_Commit
      * 113_Commit
 
+#### Commitの無駄な履歴を削除して、必要な履歴を一個作成する
+
+    (1)git commit tmp_Aでfile11,file12をコミットする
+    (2)git commit tmp_Bでfile21をコミットする
+    (3)git commit tmp_Cでfile31,file32,file33をコミットする
+    
+    git logg -n 4
+    結果:
+     * tmp_C_Commit
+     * tmp_B_Commit
+     * tmp_A_Commit
+     * Original_Commit
+
+    (変更されたファイル一覧)
+    file11 file21 file31 file32 file33
+
+    (この時、ファイル変更はそのままで、tmpコミットのみ削除したい)
+     git reset mixed HEAD~3 (indexとcommitが削除される)
+     git add . (file11 file21 file31 file32 file33がindexへ追加される)
+     git commit (file11 file21 file31 file32 file33がcommitへ追加される)
+
+    結果:
+     * New_Commit
+     * Original_Commit
+
+
 ## Git Remote
 #### リモートレポジトリの一覧を取得する
     git remote -v
@@ -330,12 +343,16 @@
 
 #### ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
     git push origin master
+    git push -f origin master ←強制的にリモートブランチを上書きする
 
 #### originリモートリポジトリを削除する(githubにリモート自体は残る)
     git remote rm origin
 
 #### originリモートリポジトリにあるorigin/masterブランチを削除する
     git push --delete origin master
+
+#### originリモートブランチが削除された場合、ローカルの対応するremoteブランチも削除
+    git remote prune origin 
 
 #### こんなエラーがあった場合
     error: failed to push some refs to 'https://github.com/...'の場合
@@ -357,9 +374,11 @@
     git branch  newBranch
 
 #### リモートブランチをローカルにコピーする
+    ローカルブランチが空の場合
     git checkout -b feature_A origin/feature_A
 
 #### ローカルブランチの履歴は残す必要がなく、完全にリモートブランチに一致させたい場合
+    ローカルブランチが既に存在する場合
     git reset --hard origin/master
 
 #### ローカルリポジトリの変更をリモートのoriginリポジトリにあるローカルと
@@ -375,10 +394,10 @@
     Or
     git branch -d hotfix
 
-#remote ブランチを削除（githubとローカル両方が削除される)
+#### remote ブランチを削除（githubとローカル両方が削除される)
     git push --delete origin develop
 
-#他の場所で既に削除済のブランチをローカルでも削除する際
+#### 他の場所で既に削除済のブランチをローカルでも削除する際
     git fetch --prune Or git fetch -p
 
 #### ブランチを作成同時に、そのブランチに切り替える
@@ -434,70 +453,86 @@
     　リリースされた製品に致命的なバグ(クラッシュなど)があった場合に緊急対応をするためのブランチ
 
 
+## Git stash
+#### 作業を一時退避
+
+    現在の作業を一時的に退避したい
+    git stash save "add stash message"
+    もしくは
+    git stash
+
+#### 最新のstashを適用する
+
+    git stash apply stash@{0} --index saveした時点でaddした状態も戻したい場合は--indexオプションをつける
+    もしくは
+    git stash pop
+
+#### 一時保存の復活と、削除を同時に行う場合
+
+    git stash pop stash@{0}
+
+#### 退避した作業の一覧を表示したい
+
+    git stash list
+
+#### 退避した作業を削除したい(退避した作業の中で最新の作業を削除)
+
+    git stash drop stash@{0}
+
+#### 退避した作業を全て削除したい
+    git stash clear
+
+
 ## Git Svn
 #### SVNとの連携
-#### Clone a repo (like git clone):
+    Clone a repo (like git clone):
 	git svn clone http://svn.example.com/project/trunk
-#### You should be on master branch, double-check with 'git branch'(ブランチremotes/git-svnが存在することを確認)
+
+    You should be on master branch, double-check with 'git branch'(ブランチremotes/git-svnが存在することを確認)
 	git branch
-#### Do some work and commit locally to Git:
+
+    Do some work and commit locally to Git:
 	git commit ...
-#### Something is committed to SVN, rebase your local changes against the
-#### latest changes in SVN:(SVNでコミットしたものをGitに取り込む)
+
+    Something is committed to SVN, rebase your local changes against the
+    latest changes in SVN:(SVNでコミットしたものをGitに取り込む)
 	git svn rebase
-#### Now commit your changes (that were committed previously using Git) to SVN,
 
-#### 注意：masterブランチをgit-svnブランチにコミットする際に、masterブランチに
+    Now commit your changes (that were committed previously using Git) to SVN,
 
+    注意：masterブランチをgit-svnブランチにコミットする際に、masterブランチに
     マージコミット(-no-ff)がある場合はコミットが失敗するときがある。
     その時はgit checkout -b svn_masterにしてもう一回dcommitする。
     そうすると一回目失敗、二回目が成功になる。(2回目はマージコミットがなくなってしまう)
-#### as well as automatically updating your working HEAD:
+
+    as well as automatically updating your working HEAD:
 	git svn dcommit
 
-#### Append svn:ignore settings to the default Git exclude file:
+    Append svn:ignore settings to the default Git exclude file:
 	git svn show-ignore >> .git/info/exclude
 
 
 ## Git ignore
 #### Gitのignore
-#### .gitignore を設置しても、既にリポジトリに登録されているファイルは無視されないので、
+
+    .gitignore を設置しても、既にリポジトリに登録されているファイルは無視されないので、
     無視したいファイルを管理対象から外します。
     （なお、管理対象から外れるだけで、ローカルにあるファイルは削除されません）
     git rm -r --cached hoge.tmp
     か全部のキャッシュを削除する際には↓↓
     git rm -r --cached .
 
-####既に大量のファイルが登録されている場合
-git rm -r --cached `git ls-files --full-name -i --exclude-from=.gitignore`
+#### 既に大量のファイルが登録されている場合
 
-####ファルダ名に半角スペースがある場合
-git rm -r --cached "test space/sub"
+    git rm -r --cached `git ls-files --full-name -i --exclude-from=.gitignore`
 
-####おまけ
+#### ファルダ名に半角スペースがある場合
+
+    git rm -r --cached "test space/sub"
+
+#### おまけ
     git add .
     git commit -m ".gitignore is now working"
     git push origin master
 
-
-## Git stash
-#### 作業を一時退避
-#### 現在の作業を一時的に退避したい
-    git stash save "add stash message"
-    もしくは
-    git stash
-
-#### 最新のstashを適用する
-    git stash apply stash@{0} --index saveした時点でaddした状態も戻したい場合は--indexオプションをつける
-    もしくは
-    git stash pop
-
-#### 退避した作業の一覧を表示したい
-    git stash list
-
-#### 退避した作業を削除したい(退避した作業の中で最新の作業を削除)
-    git stash drop
-
-#### 退避した作業を全て削除したい
-    git stash clear
 
