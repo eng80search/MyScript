@@ -1,5 +1,7 @@
 {
     "resize_folder" : "E:\\00_OurFamily\\900_Temp\\",
-    "log_file_path" : "E:\\00_OurFamily\\00_Develop\\99_Temp\\",
+    "item_csv_temp_path" : "E:\\00_OurFamily\\300_共有フォルダ\\item.csv",
+    "log_file_path" : "E:\\00_OurFamily\\900_Temp\\",
+    "out_put_name"  : "item.txt",
     "log_file_name" : "ResizeImage.log"
 }
