@@ -70,7 +70,7 @@ except Exception as e:
     sys.exit(1)
 
 #  内包表記でパターンにマッチングするフォルダだけ処理(サブフォルダは対象外)
-dir_list = [p for p in glob.iglob("**") if re.search("(\w+)-(\d{4}$)", p)]
+dir_list = [p for p in glob.iglob("**") if re.search("([A-Z]\d{6})-(\d{3}$)", p)]
 #  print(type(dir_list))
 print(dir_list)
 
@@ -104,7 +104,8 @@ try:
             #  for i, image_file in enumerate(pathlib.Path(image_dir).iterdir()):
 
             #  dir_name, file_name = os.path.split(image_dir)
-            resized_image_name = "{}-{}.jpg".format(image_dir, i + 1)
+            #  1:02の意味はformatの第２引数の値を数字２桁にし、１桁の場合は、左０埋めにする
+            resized_image_name = "{0:}-{1:02}.jpg".format(image_dir, i + 1)
             resized_image_file = os.path.join(resized_image_dir, resized_image_name)
             #  shutil.copy(original_image_file, resized_image_file)
 
@@ -136,7 +137,7 @@ try:
         df.iat[0, 28] = out_image_url
 
         df.to_csv(
-            os.path.join(image_dir, "item_new.csv"), index=False, encoding="shift_jis"
+            os.path.join(image_dir, "item.csv"), index=False, encoding="shift_jis"
         )
 
 except Exception as e:
