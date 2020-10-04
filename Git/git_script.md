@@ -200,13 +200,13 @@
          MERGEDバッファにカーソルあり、REMOTEの内容を全部取り込みたい場合は↓
          :1,$diffget 3
 
+     (3)vimでwqaを打ってマージを終了する
 
-     ●マージを続ける
+     ●git bashコマンドプロンプトにて
      2.git add file.txt
      3.git status
      4.git clear -n(削除対象ファイルを確認)   git clear -f(実際に削除)
      5.git commit -m "input commit message"
-     6.git push
 
 #### マジする際に使われるコミットメッセージを指定する
 
@@ -247,28 +247,17 @@
 
     途中でやめたい場合は、git rebase --abort
 
-#### Rebaseでreleaseブランチでmasterブランチの変更を取り込む
-
-    git rebase  master
-    コンフリクトが発生した場合
-    1.コンフリクト解決
-    2. git add .
-    3. git rebase --continue
-
-
-#### rebaseを過去に戻したい
-
-    git reflog ←　コミット履歴確認用
-    git reset --hard HEAD@{4} 　←一般的にはこれを使う
-    git reset --hard ORIG_HEAD ←rebase直後に使える
-
-
 #### rebaseで枝分けを直す
 
-    masterからdevelopブランチを切った後に、masterから他のcommitがある際
-    masterブランとdevelopブランチが枝分かれした時点から変更された
-    すべてのcommitをdevelopに取り込む際にrebaseを使うべき
-    図で例を示します。 topicブランチ上でgit rebase masterすると
+masterからdevelopブランチを切った後に、masterから他のcommitがある際
+masterブランとdevelopブランチが枝分かれした時点から変更された
+すべてのcommitをdevelopに取り込む際にrebaseを使うべき
+図で例を示します。 
+
+現ブランチがtopicでmasterブランチGまで完成したソースの後に
+topicブランチのA~Cまでの変更を適用したい
+
+ ___git rebase  master___
 
     (Before)
               A---B---F---C topic
@@ -279,6 +268,90 @@
                       A'--B'--C' topic
                      /
         D---E---F---G master
+
+
+    コンフリクトが発生した場合
+    1. mergetoolでコンフリクト解決
+    2. git add .
+    3. git rebase --continue
+
+#### rebaseでブランチに散らかして存在する特定のtopicのみのコミットだけ抽出する(直列化)
+
+下記のようなマージしたブランチで**Topic A**だけの履歴を残したい
+
+    (Before)
+                                  (A_v11)
+                  [A1]---[C1]-----[A2]    
+                   /                  \
+      Common Commit---[B1]----[B2]----- MergeCommit--[A3]
+      (A_v00)         (A_v21) (A_v22)
+    
+    (After)
+
+      Common Commit---[A1]---[A2]---[A3]
+
+(やり方)
+  **git rebase -i Common Commit**
+  ---
+
+  - gvimでcommit履歴が以下のように表示される
+
+          pic Common Commit
+          pic A1
+          pic B1
+          pic C1
+          pic B2
+          pic A2
+          pic A3
+
+  - gvimでcommit履歴を以下のように変更する
+
+          pic  Common Commit
+          pic  A1
+          pic  B1 
+          drop C1 <-- ここ
+          pic  B2 
+          pic  A2
+          pic  A3
+
+  - gvimで:wqで終了
+
+  - gitが自動的に直列化をやってくれる
+        git loggで確認して完了
+
+  - rebaseの際に、File Aにconfilictが発生した場合 
+
+        Rebaseの時系列からみればA_v21->A_v22->A_v11なので
+        LOCALはA_v21とA_v22のコミットが反映される
+        REMOTEはA_v11が反映される
+
+         --------------------------------------
+        |           |            |            |
+        |   LOCAL   |    BASE    |   REMOTE   |
+        |-----------|------------|------------|
+        | Common v0 | Common v0  | Common v0  |
+        | A_v21 *   |            | A_v11  *   |
+        | A_v22     |            |            |
+        |           |            |            |
+        |-------------------------------------|
+        |                MERGED               |
+        |                  (4)                |
+        |  Common v0                          |
+        |  [confilict Point]                  |
+        |  <<<<<<HEAD                         |
+        |  A_v21                              |
+        |  A_v22                              |
+        |  >>>>>REMOE                         |
+        |  A_v11                              |
+         ------------------------------------- 
+
+#### rebaseを過去に戻したい
+
+    git reflog ←　コミット履歴確認用
+    git reset --hard HEAD@{4} 　←一般的にはこれを使う
+    git reset --hard ORIG_HEAD ←rebase直後に使える
+
+
     
 #### Commitの履歴をきれいにする
 
