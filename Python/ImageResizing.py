@@ -20,6 +20,7 @@ import pandas as pd
 
 URL_PREFIX = "https://www.rakuten.ne.jp/gold/newimage/2015-7/"
 
+
 def resize_image(original_image_file, resized_image_file):
     """画像を読み込んだ後、リサイズする
 
@@ -39,6 +40,7 @@ def resize_image(original_image_file, resized_image_file):
 
     return True
 
+
 def read_file(file_path):
     """ファイルの内容を文字列として読み込む
 
@@ -51,19 +53,23 @@ def read_file(file_path):
         file_content = f.read()
     return file_content
 
-def write_file(file_path, pc_content):
+
+def write_file(pc_descript_out, pc_descript_str):
     """生成されたPC販売説明文をファイルに書き出す
 
-    :file_path: TODO
-    :returns: TODO
+    :pc_descript_out: PC用説明文の出力ファイル
+    :pc_descript_str: PC用説明文本体
 
     """
 
-    with open(file_path) as f:
-        file_content = f.read()
-    return file_content
+    #  mode="w" ファイルが存在しなければ新規作成、存在していれば上書き（既存の内容は削除）
+    with open(pc_descript_out, mode="w", newline="\n") as f:
+        f.write(pc_descript_str)
 
-def read_template_list(pc_descript_1,pc_descript_2):
+    return True
+
+
+def read_template_list(pc_descript_1, pc_descript_2):
     """PC販売説明文をテンプレートファイルからテンプレートリストを作成
 
     :pc_descript_1: PC用販売説明文１
@@ -81,7 +87,8 @@ def read_template_list(pc_descript_1,pc_descript_2):
 
     return pc_template_list
 
-def make_pc_descript(json_data, image_list):
+
+def make_pc_descript(json_data, image_list, image_dir):
     """PC用販売説明文を作成する
 
     :json_data: Json設定値
@@ -95,24 +102,26 @@ def make_pc_descript(json_data, image_list):
     pc_descript_str = ""
 
     for i, image_name in enumerate(image_list):
-        print(image_name)
         #  第一枚画像用
         if i == 0:
-            pc_descript_str = "--------------第一枚画像説明文-----------------\r\n"
+            pc_descript_str = "--------------第一枚画像説明文-----------------\n"
             pc_descript_str += pc_template_list[0]
-            pc_descript_str = pc_descript_str.replace('$1', image_name)
+            pc_descript_str = pc_descript_str.replace("$1", image_name)
         #  第二枚画像以降用
         else:
             if i == 1:
-                pc_descript_str += "--------------第二枚以降画像説明文----------------\r\n"
+                pc_descript_str += "--------------第二枚以降画像説明文----------------\n"
             pc_descript_str += pc_template_list[1]
-            pc_descript_str = pc_descript_str.replace('$1', image_name)
+            pc_descript_str = pc_descript_str.replace("$1", image_name)
 
+    pc_descript_out = os.path.join(image_dir, pc_descript_out)
     print(pc_descript_str)
+    write_file(pc_descript_out, pc_descript_str)
 
     return True
 
-def output_data(file_list):
+
+def make_image_url(file_list):
     """TODO: item.csvファイルに必要なデータを作成
 
     :file_list: ファイル名リスト
@@ -173,7 +182,8 @@ try:
         #  ディレクトリ内でJPGファイルのみ取得
         #  windowsでありがちな*.jpgファイルを抽出の場合はPythonでは\.jpg$と書く
         original_image_files = [
-            p for p in glob.iglob(image_dir + "/*")
+            p
+            for p in glob.iglob(image_dir + "/*")
             if re.search("\.jpg$", p, re.IGNORECASE)
         ]
         #  image_files = [p for p in pathlib.Path(image_dir).iterdir() if re.search("\.jpg$", str(p))]
@@ -215,8 +225,8 @@ try:
             logging.info(log_info)
 
         #  item.csvで使用されるデータを作成する
-        out_image_url = output_data(image_list)
-        print(out_image_url)
+        out_image_url = make_image_url(image_list)
+        #  print(out_image_url)
 
         #  item.csvテンプレートを読み込む
         df = pd.read_csv(item_csv_temp_path, encoding="shift_jis")
@@ -227,7 +237,7 @@ try:
             os.path.join(image_dir, "item.csv"), index=False, encoding="shift_jis"
         )
         #  コピペー用のPC用販売説明文を生成する
-        make_pc_descript(json_data,image_list)
+        make_pc_descript(json_data, image_list, image_dir)
 
 except Exception as e:
     print(e)
