@@ -407,7 +407,7 @@ topicブランチのA~Cまでの変更を適用したい
 #### リモートレポジトリの一覧を取得する
     git remote -v
 
-#push an existing repository from the command line
+#### push an existing repository from the command line
     git remote add origin https://github.com/eng80search/Vim82_Home.git
     git push -u origin master
 
@@ -415,18 +415,37 @@ topicブランチのA~Cまでの変更を適用したい
     git fetch
     evertokyo
 
+#### ローカルリポジトリの変更をリモートのoriginリポジトリにあるローカルと
+#### 同じ名前のブランチに反映する
+    git push origin HEAD
+
+#### ローカルリポジトリのすべてのブランチをリモートのoriginリポジトリへ反映する
+    git push --all origin
+    git push --tags
+
 #### ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
     git push origin master
     git push -f origin master ←強制的にリモートブランチを上書きする
 
-#### originリモートリポジトリを削除する(githubにリモート自体は残る)
-    git remote rm origin
+#### リモートブランチをローカルにコピーする
+    ローカルブランチが空の場合
+    git checkout -b feature_A origin/feature_A
 
-#### originリモートリポジトリにあるorigin/masterブランチを削除する
-    git push --delete origin master
+#### ローカルブランチの履歴は残す必要がなく、完全にリモートブランチに一致させたい場合
+    ローカルブランチが既に存在する場合
+    git reset --hard origin/master
+
+#### remote、ローカル両方のブランチを削除
+    git push --delete origin develop
 
 #### originリモートブランチが削除された場合、ローカルの対応するremoteブランチも削除
     git remote prune origin 
+
+#### 他の場所で既に削除済のブランチをローカルでも削除する際
+    git fetch --prune Or git fetch -p
+
+#### originリモートリポジトリを削除する(githubにリモート自体は残る)
+    git remote rm origin
 
 #### こんなエラーがあった場合
     error: failed to push some refs to 'https://github.com/...'の場合
@@ -447,36 +466,13 @@ topicブランチのA~Cまでの変更を適用したい
 #### ブランチを新規作成
     git branch  newBranch
 
-#### リモートブランチをローカルにコピーする
-    ローカルブランチが空の場合
-    git checkout -b feature_A origin/feature_A
-
-#### ローカルブランチの履歴は残す必要がなく、完全にリモートブランチに一致させたい場合
-    ローカルブランチが既に存在する場合
-    git reset --hard origin/master
-
-#### ローカルリポジトリの変更をリモートのoriginリポジトリにあるローカルと
-#### 同じ名前のブランチに反映する
-    git push origin HEAD
-
-#### ローカルリポジトリのすべてのブランチをリモートのoriginリポジトリへ反映する
-    git push --all origin
-    git push --tags
-
 #### ブランチを削除
     git branch --delete hotfix
     Or
     git branch -d hotfix
 
-#### remote ブランチを削除（githubとローカル両方が削除される)
-    git push --delete origin develop
-
-#### 他の場所で既に削除済のブランチをローカルでも削除する際
-    git fetch --prune Or git fetch -p
-
 #### ブランチを作成同時に、そのブランチに切り替える
     git checkout -b develop
-
 
 #### 消してしまったブランチを復活させるには？
     git reflog
