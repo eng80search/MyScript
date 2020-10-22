@@ -234,10 +234,10 @@ try:
         df.iat[0, 28] = out_image_url
 
         df.to_csv(
-            os.path.join(image_dir, "item.csv"), index=False, encoding="shift_jis"
+            os.path.join(resized_image_dir, "item.csv"), index=False, encoding="shift_jis"
         )
         #  コピペー用のPC用販売説明文を生成する
-        make_pc_descript(json_data, image_list, image_dir)
+        make_pc_descript(json_data, image_list, resized_image_dir)
 
 except Exception as e:
     print(e)
