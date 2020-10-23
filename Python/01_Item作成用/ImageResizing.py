@@ -197,11 +197,18 @@ try:
         resized_image_dir = image_dir + "\\01_complete"
 
         os.makedirs(original_image_dir, exist_ok=True)
-        os.makedirs(resized_image_dir, exist_ok=True)
+
+        #  リサイズ画像ファイルがある際には01_completeフォルダを初期化
+        if len(original_image_files) > 0 :
+            #  01_completeファルダにある既存のすべてのファイルを削除
+            if os.path.exists(resized_image_dir):
+                shutil.rmtree(resized_image_dir)
+            os.makedirs(resized_image_dir, exist_ok=True)
+
 
         image_list = []
 
-        #  フォルダにあるファイルに対して処理
+        #  各商品画像フォルダにあるファイルに対してリサイズ処理
         for i, original_image_file in enumerate(original_image_files):
             #  for i, image_file in enumerate(pathlib.Path(image_dir).iterdir()):
 
@@ -214,6 +221,11 @@ try:
             #  画像ファイルをリサイズして保存
             resize_image(original_image_file, resized_image_file)
             #  オリジナル画像ファイルを移動する
+            #  移動先にファイルが存在するとmoveするとエラーになるので先に削除する
+            dest_image_file = original_image_dir + "\\" + \
+                                os.path.basename(original_image_file)
+            if os.path.exists(dest_image_file):
+                os.remove(dest_image_file)
             shutil.move(original_image_file, original_image_dir)
 
             image_list.append(resized_image_name)
@@ -224,20 +236,21 @@ try:
             print(log_info)
             logging.info(log_info)
 
-        #  item.csvで使用されるデータを作成する
-        out_image_url = make_image_url(image_list)
-        #  print(out_image_url)
 
-        #  item.csvテンプレートを読み込む
-        df = pd.read_csv(item_csv_temp_path, encoding="shift_jis")
-        #  商品画像URLを設定
-        df.iat[0, 28] = out_image_url
+        #  リサイズ処理が合った場合、item.csvファイルを作成する
+        if len(original_image_files) > 0 :
+            #  item.csvで使用されるデータを作成する
+            out_image_url = make_image_url(image_list)
+            #  print(out_image_url)
 
-        df.to_csv(
-            os.path.join(resized_image_dir, "item.csv"), index=False, encoding="shift_jis"
-        )
-        #  コピペー用のPC用販売説明文を生成する
-        make_pc_descript(json_data, image_list, resized_image_dir)
+            #  item.csvテンプレートを読み込む
+            df = pd.read_csv(item_csv_temp_path, encoding="shift_jis")
+            #  商品画像URLを設定
+            df.iat[0, 28] = out_image_url
+
+            df.to_csv(os.path.join(resized_image_dir, "item.csv"), index=False, encoding="shift_jis")
+            #  コピペー用のPC用販売説明文を生成する
+            make_pc_descript(json_data, image_list, resized_image_dir)
 
 except Exception as e:
     print(e)
