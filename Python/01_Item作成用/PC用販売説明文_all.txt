@@ -1,0 +1,15 @@
+<table width="700" border="0" align="center">
+<tr>
+
+$1
+</tr>
+<tr height="10"></tr>
+<tr>
+<td align="left">
+<br> ※撮影場所やイメージにより<br> 実際の商品と色味が若干異なる場合がございます。<br>製造時期によって商品の生地やデザイン形などが異なる場合がございます。 <br> 
+</td>
+</tr><tr height="10"></tr>
+
+$2
+
+</table>

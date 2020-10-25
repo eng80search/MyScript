@@ -2,8 +2,9 @@
     "resize_folder" : "E:\\00_OurFamily\\900_Temp\\",
     "item_csv_temp_path" : "E:\\00_OurFamily\\300_共有フォルダ\\item.csv",
     "log_file_path" : "E:\\00_OurFamily\\900_Temp\\",
-    "pc_descript_1"  : "E:\\00_OurFamily\\300_共有フォルダ\\PC用販売説明文_1.txt",
-    "pc_descript_2"  : "E:\\00_OurFamily\\300_共有フォルダ\\PC用販売説明文_2.txt",
+    "pc_descript_all"  : "E:\\00_OurFamily\\300_共有フォルダ\\PC用販売説明文_all.txt",
+    "pc_descript_part1"  : "E:\\00_OurFamily\\300_共有フォルダ\\PC用販売説明文_part1.txt",
+    "pc_descript_part2"  : "E:\\00_OurFamily\\300_共有フォルダ\\PC用販売説明文_part2.txt",
     "pc_descript_out" : "PC用販売説明文コピペー用.txt",
     "log_file_name" : "ResizeImage.log"
 }
