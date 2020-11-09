@@ -112,13 +112,13 @@ def make_pc_descript(json_data, image_list, image_dir):
     for i, image_name in enumerate(image_list):
         #  第一枚画像用
         if i == 0:
-            descript_part1 = "<!-- ----第一枚画像説明文----- -->\n"
+            #  descript_part1 = "<!-- ----第一枚画像説明文----- -->\n"
             descript_part1 += pc_template_list[0]
             descript_part1 = descript_part1.replace("$1", image_name)
         #  第二枚画像以降用
         else:
-            if i == 1:
-                descript_part2 += "<!-- ----第二枚以降画像説明文----- -->\n"
+            #  if i == 1:
+                #  descript_part2 += "<!-- ----第二枚以降画像説明文----- -->\n"
             descript_part2 += pc_template_list[1]
             descript_part2 = descript_part2.replace("$1", image_name)
 
