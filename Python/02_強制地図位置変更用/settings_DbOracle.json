@@ -1,0 +1,9 @@
+{
+    "import_csv_path" : "C:\\Users\\setupuser\\Documents\\00_Ri\\00_作業\\70_強制地図位置変更\\20201109_MNT_STOREINFO.csv",
+    "batch_run_path"  : "D:\\強制地図位置解除用バッチ\\MNT001_GetStoreInfo.exe",
+    "HOST" : "user016-vcdb.cyrxdrjqohbd.ap-northeast-1.rds.amazonaws.com",
+    "PORT" : "1521",
+    "SVS" :"vcdb",
+    "ID" :"LOUPE",
+    "PASSWORD" :"LOUPE"
+}
