@@ -6,4 +6,4 @@ SELECT a.no, a.clinic_id
 FROM temp_new a
 LEFT JOIN temp_old b
 ON a.clinic_id = b.clinic_id 
-ORDER BY a.no asc
+ORDER BY a.no asctemp_old
