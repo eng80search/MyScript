@@ -406,6 +406,66 @@ topicブランチのA~Cまでの変更を適用したい
      * New_Commit
      * Original_Commit
 
+#### masterにdevelopにないコミットが存在する場合、developをマージする
+
+    最初のイメージ(master)
+    やりたいこと：commit50を                (develop) 
+    マージコミットに変更した後、developをマージしたい
+
+                                            *   merge_commit53
+                                            |\
+                                            | * commit52
+                                            | * commit51
+    *commit50 <<問題あり                     |/
+    *merge_commit49                         *merge_commit49
+    |\                                      |\
+    | * commit48                            | * commit48
+    | * commit47                            | * commit47
+    | /                                     | /
+    *merge_commit46                         *merge_commit46
+
+    変更後のイメージ(master)
+
+    *merge_commit53
+    |\
+    | * commit52
+    | * commit51
+    |/
+    *merge_commit50
+    |\
+    |* commit50
+    |/
+    *merge_commit49
+    |\
+    |*commit48
+    |*commit47
+    |/
+    *merge_commit46
+
+    [使用されるコマンド]
+
+    git checkout -b [Branch_name]
+    git rebase [Branch_name]
+    git merge --no-ff [Branch_name]
+    git reset --hard HEAD~XX
+
+    [手順]
+    ・masterからtmp_master作成
+
+    ・developからブランチからmasterブランチをrebase
+      (develop)git rebase master
+      これでdevelopでmerge_commit46,merge_commit50,merge_commit51,merge_commit52
+      の順コミットが生成される
+
+    ・masterからHEAD~1を削除->merge --no-ff tmp_masterで
+      commit50のマージコミットを作成する
+
+    ・developで以下のコマンドでmasterのcommit50のマージコミットを取り込む
+      (develop)git rebase master
+
+    ・masterで以下のコマンドを実行すれば変更後のコミットのようなものが得られる
+      (master)git merge --no-ff develop
+
 
 ## Git Remote
 #### リモートレポジトリの一覧を取得する
