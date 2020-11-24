@@ -82,3 +82,20 @@ SELECT INSTANCE_NAME FROM V$INSTANCE;
 
 -- sqlplusにてpdb(データベース)一覧を確認する
 select pdb_id, pdb_name,status from cdb_pdbs;
+
+--  画像データをコピーする
+--  注意：結合条件は必ずキーになる列を選択すること
+--  でなければORA-01779エラーが発生する
+UPDATE 
+(
+    SELECT
+    TO_TB.BINARY_STOREIMG TO_BINARY_STOREIMG,
+    FROM_TB.BINARY_STOREIMG FROM_BINARY_STOREIMG
+    FROM 
+        TBLCINFON_BACKUP1124 TO_TB
+    INNER JOIN
+        TBLCINFON FROM_TB
+    ON
+        TO_TB.CLINICID = FROM_TB.CLINICID
+)
+SET TO_BINARY_STOREIMG = FROM_BINARY_STOREIMG

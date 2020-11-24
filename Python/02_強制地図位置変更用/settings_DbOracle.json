@@ -5,5 +5,9 @@
     "PORT" : "1521",
     "SVS" :"vcdb",
     "ID" :"LOUPE",
-    "PASSWORD" :"LOUPE"
+    "PASSWORD" :"LOUPE",
+    "EXCEL_PATH" : "E:\\00_OurFamily\\_work\\77_Github_Temp_Private\\20201109_最新マッチングレベル一覧_修正対象記載済.xlsx",
+    "EXCEL_OUTPUT" : "E:\\00_OurFamily\\_work\\77_Github_Temp_Private\\20201124_SQL出力結果.xlsx",
+    "KAIJYO_CLINIC_ID_SHEET" : "強制地図位置解除施設一覧",
+    "QA_SQL_KAIJYO" : "work(QA)_強制地図位置解除クエリ"
 }
