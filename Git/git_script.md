@@ -398,7 +398,7 @@ topicブランチのA~Cまでの変更を適用したい
     file11 file21 file31 file32 file33
 
     (この時、ファイル変更はそのままで、tmpコミットのみ削除したい)
-     git reset mixed HEAD~3 (indexとcommitが削除される)
+     git reset --mixed HEAD~3 (indexとcommitが削除される)
      git add . (file11 file21 file31 file32 file33がindexへ追加される)
      git commit (file11 file21 file31 file32 file33がcommitへ追加される)
 
