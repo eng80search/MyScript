@@ -26,7 +26,7 @@ Oracleデータベースとは？
 
 WindowsServerでの確認
 インスタンスはWindowsサーバーの「サービス」から確認できる。
-![OracleInstanceWin](./00_Image/OracleSetting_Service.jpg)
+![OracleInstanceWin](./00_Image/OracleSetting_Service.png)
 
 #### リスナーについて
 
@@ -193,7 +193,7 @@ Oracle Netの構成
 以下のように設定する
 
 
-![sqlDeveloperConnect](./00_Image/OracleSetting_sqldeveloper.jpg)
+![sqlDeveloperConnect](./00_Image/OracleSetting_sqldeveloper.png)
 
 
 #### DB移行
