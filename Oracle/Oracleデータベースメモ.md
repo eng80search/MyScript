@@ -67,6 +67,10 @@ Oracle Netの構成
     ID：sys as sysdba
     password: (設定したパスワードを入力)
 
+    接続記述子を使ったログイン(形式：ID/Pasword@接続記述子)
+    sqlplus LOUPE/LOUPE@vcdb
+    sqlplus LOUPE/LOUPE@user016-vcdb.cyrxdrjqohbd.ap-northeast-1.rds.amazonaws.com/vcdb
+
 ![起動画像](./00_Image/sqlplus_1.png)
 
 ```
