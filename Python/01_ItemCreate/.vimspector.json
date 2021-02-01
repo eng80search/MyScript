@@ -1,0 +1,18 @@
+{
+  "configurations": {
+    "<name>: Launch": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "<name>: Launch",
+        "type": "python",
+        "request": "launch",
+        "cwd": "E:\\00_OurFamily\\00_Develop\\33_Git\\11_MyScript\\Python\\01_ItemCreate",
+        "python": "C:\\Python38\\python.exe",
+        "stopOnEntry": true,
+        "console": "internalConsole",
+        "debugOptions": [],
+        "program": "E:\\00_OurFamily\\00_Develop\\33_Git\\11_MyScript\\Python\\01_ItemCreate\\ImageResizing.py"
+      }
+    }
+  }
+}

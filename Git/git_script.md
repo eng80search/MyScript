@@ -483,13 +483,20 @@ topicブランチのA~Cまでの変更を適用したい
 #### 同じ名前のブランチに反映する
     git push origin HEAD
 
+#### ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
+    git push origin master
+    git push -f origin master ←強制的にリモートブランチを上書きする
+
 #### ローカルリポジトリのすべてのブランチをリモートのoriginリポジトリへ反映する
     git push --all origin
     git push --tags
 
-#### ローカルリポジトリの変更をリモートのoriginリポジトリとmasterタグに反映する。
-    git push origin master
-    git push -f origin master ←強制的にリモートブランチを上書きする
+#### remoteブランチを削除
+    git push --delete origin develop
+
+#### 他の場所で既に削除済のリモートブランチを自分の環境でも削除する際
+    git fetch --prune 
+    git fetch -p
 
 #### リモートブランチをローカルにコピーする
     ローカルブランチが空の場合
@@ -499,14 +506,8 @@ topicブランチのA~Cまでの変更を適用したい
     ローカルブランチが既に存在する場合
     git reset --hard origin/master
 
-#### remote、ローカル両方のブランチを削除
-    git push --delete origin develop
-
-#### originリモートブランチが削除された場合、ローカルの対応するremoteブランチも削除
+#### リモート側で既にoriginリモートブランチが削除された場合、ローカルにあるremoteブランチも削除
     git remote prune origin 
-
-#### 他の場所で既に削除済のブランチをローカルでも削除する際
-    git fetch --prune Or git fetch -p
 
 #### originリモートリポジトリを削除する(githubにリモート自体は残る)
     git remote rm origin
