@@ -1,13 +1,13 @@
 {
-    "import_csv_path" : "C:\\Users\\setupuser\\Documents\\00_Ri\\00_作業\\70_強制地図位置変更\\20201109_MNT_STOREINFO.csv",
+    "import_csv_path" : "C:\\Users\\setupuser\\Documents\\00_Ri\\00_作業\\13_GitPrivate_Temp\\20210202_強制地図位置変更作業\\MNT_STOREINFO.csv",
     "batch_run_path"  : "D:\\強制地図位置解除用バッチ\\MNT001_GetStoreInfo.exe",
     "HOST" : "user016-vcdb.cyrxdrjqohbd.ap-northeast-1.rds.amazonaws.com",
     "PORT" : "1521",
     "SVS" :"vcdb",
     "ID" :"LOUPE",
     "PASSWORD" :"LOUPE",
-    "EXCEL_PATH" : "E:\\00_OurFamily\\_work\\77_Github_Temp_Private\\20201109_最新マッチングレベル一覧_修正対象記載済.xlsx",
-    "EXCEL_OUTPUT" : "E:\\00_OurFamily\\_work\\77_Github_Temp_Private\\20201124_SQL出力結果.xlsx",
+    "EXCEL_PATH" : "C:\\Users\\setupuser\\Documents\\00_Ri\\00_作業\\13_GitPrivate_Temp\\20210202_強制地図位置変更作業\\20210202_最新マッチングレベル一覧.xlsx",
+    "EXCEL_OUTPUT" : "C:\\Users\\setupuser\\Documents\\00_Ri\\00_作業\\13_GitPrivate_Temp\\20210202_強制地図位置変更作業\\SQL出力結果.xlsx",
     "KAIJYO_CLINIC_ID_SHEET" : "強制地図位置解除施設一覧",
     "QA_SQL_KAIJYO" : "work(QA)_強制地図位置解除クエリ"
 }
