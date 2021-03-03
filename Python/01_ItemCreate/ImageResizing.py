@@ -274,7 +274,7 @@ try:
             #  m = re.match(patternReplace, pc_descript_item)
             #  print(m.group(1))
 
-            #  正規表現でマッチングして、その対象を置換する場合はre.sub関すを使用する
+            #  正規表現でマッチングして、その対象を置換する場合はre.sub関数を使用する
             pc_descript_item = re.sub(patternReplace, pc_descript_all, pc_descript_item)
             #  print(pc_descript_item)
             #  商品画像URLを設定

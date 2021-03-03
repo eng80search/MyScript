@@ -1,0 +1,19 @@
+
+{
+  "import_excel_info": {
+    "DIRECTORY": "E:\\00_OurFamily\\_work\\77_Github_Temp_Private\\2021-03-03_QA環境DBショップ優先度変更",
+    "FILE_NAME": "【取扱店検索】得意先リスト_紹介プライオリティ変更テスト用_YM_藤田プライオリティ2桁化.xlsx",
+    "encoding": "cp932",
+    "selection": [
+        { "SHEET_NAME": "Sheet1", 
+          "selection_infos": [0,2,3], 
+          "duplicate_infos":    [], 
+          "column_name_infos": {"CLINICID":0, "PRTFLG":1, "CMPFLG_SPARE2":2}, 
+          "key_infos": {"CLINICID":0}, 
+          "skip_rows_list": [0],
+          "db_table":"TBLCINFON",
+          "export_file":"10_UPDATE_TBLCINFON" 
+        }
+    ]
+  }
+}

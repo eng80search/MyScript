@@ -8,8 +8,8 @@
         "type": "python",
         "request": "launch",
         "cwd": "${fileDirname}",
-        "python": "C:\\Python38\\python.exe",
-        "stopOnEntry": true,
+        "python": "python.exe",
+        "stopOnEntry": false,
         "console": "internalConsole",
         "debugOptions": [],
         "program": "${file}"

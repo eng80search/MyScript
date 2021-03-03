@@ -10,6 +10,7 @@
   "import_excel_info": {
     "DIRECTORY": "E:\\00_OurFamily\\900_Temp",
     "FILE_NAME": "テスト仕様書_新製品対応.xlsx",
+    "encoding": "cp932",
     "selection": [
         { "SHEET_NAME": "テストデータ", 
           "selection_infos":    [17,18,19,20,21,22,23,
@@ -21,16 +22,19 @@
                                  94,95,96,97,98,99,100,101,102,103,104,105,
                                  106,107,108,109,110,111,112,113,114,115,
                                  116,117,118,119], 
+          "duplicate_infos":    [], 
           "db_table":"TBLCINFON",
           "export_file":"01_Insert_TBLCINFON" 
         },
         { "SHEET_NAME": "テストデータ", 
           "selection_infos": [123,124,125,126,127,128,129,130,131], 
+          "duplicate_infos":    [0,8], 
           "db_table":"STORE_INSTITUTION",
           "export_file":"02_Insert_STORE_INSTITUTION" 
         },
         { "SHEET_NAME": "テストデータ", 
           "selection_infos": [133,134,135,136,137,138], 
+          "duplicate_infos":    [0], 
           "db_table":"MCHLV_ADD",
           "export_file":"03_Insert_MCHLV_ADD" 
         }

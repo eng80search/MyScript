@@ -7,33 +7,25 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import my_lib
 
 """
-sotore locatorにおいて、新商品追加時のテストデータを作成する
+excelファイルから特定範囲のデータをOracleのupdate Sql文として出力する
 手順：
-    ・テストデータがあるExcelファイルからCSVファイルを作成
-    ・CSVファイルからテストデータInsert用SQL文を生成し、ファイルに保存
-    ・Insert用SQLを実行して、テスト用DBを更新する
+    ・ExcelファイルからCSVファイルを作成
+    ・CSVファイルからUpdate用SQL文を生成し、ファイルに保存
 """
 
 if __name__ == "__main__":
     try:
 
         #  json設定ファイルから必要情報を取得
-        with open("settings.json", "r", encoding="utf-8") as json_file:
+        with open("settings_update.json", "r", encoding="utf-8") as json_file:
             json_data = json.loads(json_file.read())
-
-            #  DB接続部分の設定
-            json_data_db = json_data["database"]
-            HOST = json_data_db["HOST"]
-            PORT = json_data_db["PORT"]
-            SVS = json_data_db["SVS"]
-            ID = json_data_db["ID"]
-            PASSWORD = json_data_db["PASSWORD"]
 
             #  import用Excelの情報を読み取り
             json_data_import = json_data["import_excel_info"]
             import_dir = json_data_import["DIRECTORY"]
             import_file = json_data_import["FILE_NAME"]
             import_selections = json_data_import["selection"]
+            encoding = json_data_import["encoding"]
 
         #  フォルダとファイル名を結合して、フルパスを取得する
         _fileio = my_lib.FileIo()
@@ -55,8 +47,11 @@ if __name__ == "__main__":
                 import_excel_file,
                 item["SHEET_NAME"],
                 item["selection_infos"],
+                item["duplicate_infos"],
                 export_csv_file,
-                [0],
+                encoding,
+                item["column_name_infos"],
+                item["skip_rows_list"],
             )
 
             if not result:
@@ -68,8 +63,11 @@ if __name__ == "__main__":
                 print("Success: Excelから" + item["export_file"] 
                       + ".csvファイル作成が完了しました。")
 
-            #  CSVファイルからInsert用SQLを作成する
-            insert_sql_list = _csv.get_insert_sql(export_csv_file, item["db_table"])
+            #  CSVファイルからUpdate用SQLを作成する
+            insert_sql_list = _csv.get_update_sql(export_csv_file,
+                                                  item["db_table"],
+                                                  item["key_infos"],
+                                                  encoding)
 
             if len(insert_sql_list) < 1:
                 raise Exception(
