@@ -17,8 +17,9 @@ class CsvOperation:
         sql_list = []
 
         #  CSVファイルをdataframeに格納 第一行をヘッダーに設定
-        df = pd.read_csv(csv_file, header=0, encoding=encoding)
+        df = pd.read_csv(csv_file, header=0, encoding=encoding, dtype=str)
         #  dataframeにあるnull値を空白に書き換える
+        #  注意：NULLとnullはOK Nullは文字列として認識される
         df = df.fillna("")
 
         #  例：insert into table_name (col1, col2)
@@ -58,8 +59,11 @@ class CsvOperation:
         sql_list = []
 
         #  CSVファイルをdataframeに格納 第一行をヘッダーに設定
-        df = pd.read_csv(csv_file, header=0, encoding=encoding)
+        #  注意：01を勝手に1として取り込むことを防ぐため、dtype=strを指定
+        df = pd.read_csv(csv_file, header=0, encoding=encoding, dtype=str)
+
         #  dataframeにあるnull値を空白に書き換える
+        #  注意：NULLとnullはOK Nullは文字列として認識される
         df = df.fillna("")
 
         #  例：update table_name set col1 = value1, col2 = value2 where 1=1
@@ -93,8 +97,9 @@ class CsvOperation:
             #  series型をlist型に変更してからループ処理
             for col_index, update_value in enumerate(list(row)):
                 replace_index = "$" + str(col_index)
+                update_value_single_qutote = "'" + str(update_value) + "'"
                 update_one_row = update_one_row.replace(
-                    replace_index, str(update_value)
+                    replace_index, update_value_single_qutote
                 )
 
             #  一行SQL文終了

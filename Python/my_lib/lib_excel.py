@@ -29,8 +29,8 @@ class ExcelOperation:
         duplicate_cols_list,
         export_csv_name,
         encoding,
-        column_name_infos=None,
         skip_rows_list=None,
+        column_name_infos={},
         skipfooter_num=0,
     ):
         """Excelの特定のシートの指定部分をCSVファイルへ出力する
@@ -39,6 +39,7 @@ class ExcelOperation:
 
         :file_name: 読込元のExcelファイル
         :sheet_name: Excelシート名
+        :dtype: strに指定 01を1に取り込みことを防ぐため
         :user_cols: CSVデータにしたい列を指定する(例：[0,1,3])
         :duplicate_cols_list: 重複する列名(例：３行が他の列名と同じの場合: [3])
         :export_csv_name: 出力されるCSVファイル
@@ -55,6 +56,7 @@ class ExcelOperation:
             #  Excelから指定範囲のセルをDataframeへ読み込み
             df = pd.read_excel(
                 file_name,
+                dtype=str,
                 usecols=user_cols_list,
                 skiprows=skip_rows_list,
                 skipfooter=skipfooter_num,
