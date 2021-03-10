@@ -1,4 +1,9 @@
 # Git Memo
+## Git Add
+#### Gitで変更があったファイルのみAddしたい
+
+    git add -u
+
 ## Git Log
 #### Gitで特定ファイルの変更履歴を見る
 
@@ -205,7 +210,7 @@
      ●git bashコマンドプロンプトにて
      2.git add file.txt
      3.git status
-     4.git clear -n(削除対象ファイルを確認)   git clear -f(実際に削除)
+     4.git clean -n(削除対象ファイルを確認)   git clean -f(実際に削除)
      5.git commit -m "input commit message"
 
 #### マジする際に使われるコミットメッセージを指定する
