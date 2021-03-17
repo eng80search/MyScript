@@ -149,3 +149,12 @@ INSERT INTO TBLCINFON SELECT * FROM TBLCINFON_2021MMDD;
 INSERT INTO STORE_INSTITUTION SELECT * FROM STORE_INSTITUTION_2021MMDD;
 INSERT INTO STORE_MCHLV_ADD SELECT * FROM STORE_MCHLV_ADD_2021MMDD;
 INSERT INTO T_STORE_LIST SELECT * FROM T_STORE_LIST_2021MMDD;
+
+--シーケンス開始番号を既定値に設定する　注意：この時Currvalはまだ変更されていない！
+alter SEQUENCE storeseq restart start with {10000};
+
+--シーケンスの現在値を確認（何回実行しても値は不変）
+select storeseq.CURRVAL from dual;
+
+--シーケンスの新しい値を生成（実行するたびに値が前に進む）
+--select storeseq.NEXTVAL from dual;
