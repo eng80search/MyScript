@@ -5,6 +5,60 @@
     git add -u
 
 ## Git Log
+#### Gitで一定期間中、コミット毎変更されたファイル一覧を見る(ソース修正量含む)
+
+    git logg --stat HEAD~1..HEAD
+
+    * 9a5cc076 [2021/04/09 15:19:53]  (HEAD -> feature_Sprint37_新商品対応Spectrum30p) Sprint37_新商品対応：Spectrum30p_detail-print対応済 | 
+    |  PC/AcuvuePC/detail-print.aspx             | 8 ++++++++
+    |  PC/AcuvuePC/detail-print.aspx.designer.vb | 9 +++++++++
+    |  PC/AcuvuePC/detail-print.aspx.vb          | 8 ++++++++
+    |  3 files changed, 25 insertions(+)
+
+    * a5986d37 [2021/04/09 13:47:54]  Sprint37_新商品対応：Spectrum30p_detail対応済 | 
+    |  PC/AcuvuePC/detail.aspx             | 13 +++++++++++++
+    |  PC/AcuvuePC/detail.aspx.designer.vb |  9 +++++++++
+    |  PC/AcuvuePC/detail.aspx.vb          |  8 ++++++++
+    |  3 files changed, 30 insertions(+)
+
+#### Gitで一定期間中、コミット毎変更されたファイル一覧を見る
+
+    git logg --name-only HEAD~1..HEAD
+
+    (例) 以下のコミットがある場合：
+    *   558e2691 [2021/02/25 09:25:15]  (HEAD -> master, origin/master, origin/HEAD) Sprint33_新商品対応 
+    |\  
+    | * 74e18b11 [2021/02/18 14:18:59]  Sprint33_新商品登録:BugFix_index画面でBrandIDを指定すると新商品にチェックがついてない不具合を修正 
+    | * 00995610 [2021/02/18 13:53:27]  Sprint33_新商品対応:BugFix_detailとdetail-printのデザインがTempleHtmlと一致しない部分を修正 
+    | * 9fe17dcd [2021/02/18 10:35:10]  Sprint33_新商品対応:Spectrum10p_detail-print対応済 
+    | * d221c0cf [2021/02/17 20:37:35]  Sprint33_新商品対応:Spectrum10p_detail対応済 
+    | * d238782c [2021/02/17 17:28:41]  Sprint33_新商品対応:Spectrum10p_result追加対応_DB取得処理と関連javascriptを含む 
+    | * 65d57a0f [2021/02/16 14:11:53]  Sprint33_新商品対応:Spectrum10p_result対応済 
+    | * 8b9cfd0f [2021/02/16 11:53:04]  Sprint33_新商品対応:Spectrum10p_index対応済 
+    |/  
+    *   2cd68e8b [2021/01/26 09:45:33]  Sprint30_XSS脆弱性対応_Flagshopバナー削除_PartnerShop文言変更 
+    |\  
+
+    出力結果は以下の通り
+
+    * 558e2691 [2021/02/25 09:25:15]  (HEAD -> master, origin/master, origin/HEAD) Sprint33_新商品対応 
+    * 74e18b11 [2021/02/18 14:18:59]  Sprint33_新商品登録:BugFix_index画面でBrandIDを指定すると新商品にチェックがついてない不具合を修正 | 
+    | PC/AcuvuePC/index.aspx.vb
+
+    * 00995610 [2021/02/18 13:53:27]  Sprint33_新商品対応:BugFix_detailとdetail-printのデザインがTempleHtmlと一致しない部分を修正 | 
+    | PC/AcuvuePC/detail-print.aspx
+    | PC/AcuvuePC/detail.aspx
+
+#### 一つのコミットの変更状況を調べる
+
+    git show 00995610 PC/AcuvuePC/detail-print.aspx
+    更に詳しく見るためには
+    git log -S 'changed_content' --patch test.vb
+
+#### 特定ファイルの過去3回分のログを見たい(n:回数 p:差分形式)
+
+    git logg -n 3 -p AA/BB.txt
+
 #### Gitで特定ファイルの変更履歴を見る
 
     git log -p Directory1/FileName1
@@ -12,10 +66,6 @@
 #### 現在のコミットから過去2回分の特定ファイル(フォルダ)の変更文字単位を見る
     e.g. 表示の仕方は 1:HEAD..HEAD~1 2:HEAD~1..HEAD~2
     git log --word-diff HEAD -n 2 -p batch/BCTK005/template_html/
-
-#### 特定ファイルの過去3回分のログを見たい
-
-    git logg -n 3 -p AA/BB.txt
 
 #### 昨日からの変更したログ一覧を見たい
 
@@ -101,13 +151,6 @@
     git blame test.vb
     125行目から130行目を表示する
     git blame -L 125, 130 test.vb
-
-## Git show
-#### 一つのコミットの変更状況を調べる
-
-    git show 6654e0c3
-    更に詳しく見るためには
-    git log -S 'changed_content' --patch test.vb
 
 ## Git Archive
 #### 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
