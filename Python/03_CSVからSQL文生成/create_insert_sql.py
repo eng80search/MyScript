@@ -39,7 +39,10 @@ if __name__ == "__main__":
         #  フォルダとファイル名を結合して、フルパスを取得する
         _fileio = my_lib.FileIo()
         import_excel_file = _fileio.combine_file_path(import_dir, import_file)
+
+        all_sql_list = []
         insert_sql_list = []
+        delete_sql_list = []
 
         #  必要なクラスの初期化
         #  _oracle = my_lib.OracleOperation(HOST, PORT, SVS, ID, PASSWORD)
@@ -71,34 +74,50 @@ if __name__ == "__main__":
                 print("Success: Excelから" + item["export_file"] 
                       + ".csvファイル作成が完了しました。")
 
+            #  CSVファイルからDelete用SQLを作成する
+            all_sql_list.clear()
+            all_sql_list.extend(["--ここからはDelete", ""])
+            delete_sql_list = _csv.get_delete_sql(export_csv_file,
+                                                  item["db_table"],
+                                                  item["key_infos"],
+                                                  encoding)
+            all_sql_list.extend(delete_sql_list)
+
+            all_sql_list.extend(["-- commit;", "", "--ここからはInsert"])
+
             #  CSVファイルからInsert用SQLを作成する
             insert_sql_list = _csv.get_insert_sql(export_csv_file,
                                                   item["db_table"],
                                                   encoding)
+            all_sql_list.extend(insert_sql_list)
+            all_sql_list.extend(["-- commit;"])
 
-            if len(insert_sql_list) < 1:
+            if len(delete_sql_list) < 1 or len(insert_sql_list) < 1:
                 raise Exception(
-                    "Error: CSVから" + item["db_table"] + "のInsert用Sql文作成が失敗しました"
+                    "Error: CSVから" + item["db_table"] + "のDelete,Insert用Sql文作成が失敗しました"
                 )
             else:
                 print("Success: CSVから" + item["db_table"] 
-                      + "のInsert用Sql文作成が完了しました")
+                      + "のDelete,Insert用Sql文作成が完了しました")
 
             #  Sql文の結果を出力
             export_sql_file = _fileio.combine_file_path(
                 import_dir, item["export_file"] + ".sql"
             )
-            #  Insert用SQLをファイルに出力する
-            result = _fileio.write_list_tofile(insert_sql_list, export_sql_file)
+
+            #  Delete用SQLをファイルに出力する
+            result = _fileio.write_list_tofile(all_sql_list, export_sql_file)
 
             if not result:
                 raise Exception(
-                    "Error: Insert用" + item["export_file"] 
+                    "Error: Delete用" + item["export_file"] 
                     + ".sql文のファイル出力が失敗しました"
                 )
             else:
-                print("Success: Insert用" 
+                print("Success: Delete用" 
                       + item["export_file"] + ".sql文のファイル出力が完了しました")
+
+
 
     except Exception:
         print("Unexpected error:", sys.exc_info())
