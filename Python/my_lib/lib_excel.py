@@ -12,14 +12,14 @@ class ExcelOperation:
         """TODO: 初期化クラス. """
         pass
 
-    def __init__(self, excel_file):
-        """Excel 操作クラス　コンストラクタ
-
-        :excel_file: Excelファイル
-        :returns: TODO
-
-        """
-        self.wb = openpyxl.load_workbook(excel_file)
+    #  def __init__(self, excel_file):
+    #      """Excel 操作クラス　コンストラクタ
+    #
+    #      :excel_file: Excelファイル
+    #      :returns: TODO
+    #
+    #      """
+    #      self.wb = openpyxl.load_workbook(excel_file)
 
     def excel_to_csv(
         self,
@@ -114,6 +114,6 @@ class ExcelOperation:
         """
 
         #  まずは既存のデータをクリアする
-        self.clear_excel_sheet(book_name, sheet_name)
+        #  self.clear_excel_sheet(book_name, sheet_name)
         with pd.ExcelWriter(book_name, mode="a", engine="openpyxl") as writer:
             data_frame.to_excel(writer, sheet_name=sheet_name, index=False, header=True)
