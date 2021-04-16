@@ -1,0 +1,62 @@
+2021-04-16 10:20:07,068 <class 'selenium.common.exceptions.NoSuchElementException'>Unexpected error:Message: no such element: Unable to locate element: {"method":"css selector","selector":"#regist_syukkin_date_nowtime_from_left_menu"}
+  (Session info: headless chrome=89.0.4389.128)
+Unexpected error:<traceback object at 0x0000025A72C3E300>
+2021-04-16 10:22:39,878 POST http://127.0.0.1:61059/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "platformName": "any", "goog:chromeOptions": {"extensions": [], "args": ["--disable-gpu", "--disable-extensions", "--proxy-server=\"direct://\"", "--proxy-bypass-list=*", "--start-maximized", "--headless"]}}}, "desiredCapabilities": {"browserName": "chrome", "version": "", "platform": "ANY", "goog:chromeOptions": {"extensions": [], "args": ["--disable-gpu", "--disable-extensions", "--proxy-server=\"direct://\"", "--proxy-bypass-list=*", "--start-maximized", "--headless"]}}}
+2021-04-16 10:22:39,886 Starting new HTTP connection (1): 127.0.0.1:61059
+2021-04-16 10:22:40,407 http://127.0.0.1:61059 "POST /session HTTP/1.1" 200 749
+2021-04-16 10:22:40,409 Finished Request
+2021-04-16 10:22:40,409 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/timeouts {"implicit": 10000}
+2021-04-16 10:22:40,410 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/timeouts HTTP/1.1" 200 14
+2021-04-16 10:22:40,411 Finished Request
+2021-04-16 10:22:40,411 start access web page...
+2021-04-16 10:22:40,411 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/url {"url": "https://adopo.group.shiftinc.jp/sns/sns_login.cgi"}
+2021-04-16 10:22:42,055 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/url HTTP/1.1" 200 14
+2021-04-16 10:22:42,056 Finished Request
+2021-04-16 10:22:42,056 get login field
+2021-04-16 10:22:42,056 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/element {"using": "css selector", "value": "body > div > form > input:nth-child(4)"}
+2021-04-16 10:22:42,069 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/element HTTP/1.1" 200 88
+2021-04-16 10:22:42,069 Finished Request
+2021-04-16 10:22:42,069 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/element {"using": "css selector", "value": "body > div > form > input:nth-child(5)"}
+2021-04-16 10:22:42,079 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/element HTTP/1.1" 200 88
+2021-04-16 10:22:42,079 Finished Request
+2021-04-16 10:22:42,080 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/element {"using": "css selector", "value": "body > div > form > button"}
+2021-04-16 10:22:42,088 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/element HTTP/1.1" 200 88
+2021-04-16 10:22:42,089 Finished Request
+2021-04-16 10:22:42,089 input login id and password
+2021-04-16 10:22:42,089 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/element/77ebe207-8a4f-42e4-9742-d7c3fed9971a/value {"text": "ri.geishun@hopes-ise.co.jp", "value": ["r", "i", ".", "g", "e", "i", "s", "h", "u", "n", "@", "h", "o", "p", "e", "s", "-", "i", "s", "e", ".", "c", "o", ".", "j", "p"], "id": "77ebe207-8a4f-42e4-9742-d7c3fed9971a"}
+2021-04-16 10:22:42,153 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/element/77ebe207-8a4f-42e4-9742-d7c3fed9971a/value HTTP/1.1" 200 14
+2021-04-16 10:22:42,153 Finished Request
+2021-04-16 10:22:42,153 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/element/a85c34ad-bb3b-4522-8b04-5fee09b603e1/value {"text": "Rigeishun2021@401", "value": ["R", "i", "g", "e", "i", "s", "h", "u", "n", "2", "0", "2", "1", "@", "4", "0", "1"], "id": "a85c34ad-bb3b-4522-8b04-5fee09b603e1"}
+2021-04-16 10:22:42,203 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/element/a85c34ad-bb3b-4522-8b04-5fee09b603e1/value HTTP/1.1" 200 14
+2021-04-16 10:22:42,203 Finished Request
+2021-04-16 10:22:42,204 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/element/a943f424-947a-43e5-96ed-20927307db6f/click {"id": "a943f424-947a-43e5-96ed-20927307db6f"}
+2021-04-16 10:22:44,535 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/element/a943f424-947a-43e5-96ed-20927307db6f/click HTTP/1.1" 200 14
+2021-04-16 10:22:44,536 Finished Request
+2021-04-16 10:22:44,536 clicked login button
+2021-04-16 10:22:44,536 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/element {"using": "css selector", "value": "#regist_syukkin_date_nowtime_from_left_menu"}
+2021-04-16 10:22:54,569 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/element HTTP/1.1" 404 1173
+2021-04-16 10:22:54,569 Finished Request
+2021-04-16 10:22:54,569 <class 'selenium.common.exceptions.NoSuchElementException'>Unexpected error:Message: no such element: Unable to locate element: {"method":"css selector","selector":"#regist_syukkin_date_nowtime_from_left_menu"}
+  (Session info: headless chrome=89.0.4389.128)
+Unexpected error:<traceback object at 0x0000029482A870C0>
+2021-04-16 10:22:54,570 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/execute/sync {"script": "return document.body.scrollWidth", "args": []}
+2021-04-16 10:22:54,574 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/execute/sync HTTP/1.1" 200 13
+2021-04-16 10:22:54,574 Finished Request
+2021-04-16 10:22:54,574 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/execute/sync {"script": "return document.body.scrollHeight", "args": []}
+2021-04-16 10:22:54,578 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/execute/sync HTTP/1.1" 200 13
+2021-04-16 10:22:54,579 Finished Request
+2021-04-16 10:22:54,579 POST http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/window/rect {"x": null, "y": null, "width": 783, "height": 921}
+2021-04-16 10:22:54,692 http://127.0.0.1:61059 "POST /session/12bf9e26861dbb71daba0870943fa532/window/rect HTTP/1.1" 200 48
+2021-04-16 10:22:54,692 Finished Request
+2021-04-16 10:22:54,692 GET http://127.0.0.1:61059/session/12bf9e26861dbb71daba0870943fa532/screenshot {}
+2021-04-16 10:22:54,989 http://127.0.0.1:61059 "GET /session/12bf9e26861dbb71daba0870943fa532/screenshot HTTP/1.1" 200 77276
+2021-04-16 10:22:54,989 Finished Request
+2021-04-16 10:22:54,991 saved screenshot
+2021-04-16 10:25:24,476 start access web page...
+2021-04-16 10:25:26,000 get login field
+2021-04-16 10:25:26,028 input login id and password
+2021-04-16 10:25:28,040 clicked login button
+2021-04-16 10:25:38,074 <class 'selenium.common.exceptions.NoSuchElementException'>Unexpected error:Message: no such element: Unable to locate element: {"method":"css selector","selector":"#regist_syukkin_date_nowtime_from_left_menu"}
+  (Session info: headless chrome=89.0.4389.128)
+Unexpected error:<traceback object at 0x00000218B078C340>
+2021-04-16 10:25:38,513 saved screenshot
