@@ -85,6 +85,10 @@ try:
     element_work_time = driver.find_element_by_css_selector(selector_work_time)
     element_work_time.send_keys('8')
 
+    # 一度クリックしてからページダウンするとスクロールができました
+    # 最下部前スクロールしたければPAGE_DOWNを繰り返す
+    driver.find_element_by_tag_name('body').click()
+    driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
 
     #  close browser
     #  driver.quit()
