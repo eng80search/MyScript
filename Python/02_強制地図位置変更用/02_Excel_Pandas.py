@@ -19,7 +19,7 @@ with open("settings_DbOracle.json", "r", encoding="utf-8") as json_file:
 df_sheet_kaijyo_source = pd.read_excel(
     EXCEL_PATH,
     sheet_name=KAIJYO_CLINIC_ID_SHEET,
-    usecols=[1, 12, 15, 16],
+    usecols=[1, 12, 13, 14],
     names=["FLG_KAIJYO", "CLINIC_ID", "STORE_SEQ", "STORE_NAME"],
 )
 
