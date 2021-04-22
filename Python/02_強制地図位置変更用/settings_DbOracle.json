@@ -6,7 +6,7 @@
     "SVS" :"vcdb",
     "ID" :"LOUPE",
     "PASSWORD" :"LOUPE",
-    "EXCEL_PATH" : "C:\\Users\\setupuser\\Documents\\00_Ri\\00_作業\\13_GitPrivate_Temp\\20210414_強制地図位置変更作業\\20210414_最新マッチングレベル一覧.xlsx",
+    "EXCEL_PATH" : "C:\\Users\\setupuser\\Documents\\00_Ri\\00_作業\\13_GitPrivate_Temp\\20210414_強制地図位置変更作業\\20210414_最新マッチングレベル一覧_解除対象.xlsx",
     "EXCEL_OUTPUT" : "C:\\Users\\setupuser\\Documents\\00_Ri\\00_作業\\13_GitPrivate_Temp\\20210414_強制地図位置変更作業\\SQL出力結果.xlsx",
     "KAIJYO_CLINIC_ID_SHEET" : "強制地図位置解除施設一覧",
     "QA_SQL_KAIJYO" : "work(QA)_強制地図位置解除クエリ"

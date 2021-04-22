@@ -26,7 +26,7 @@ df_sheet_kaijyo_source = pd.read_excel(
 #  本番環境にて強制変更対象になるデータのみを絞り込む
 df_sheet_kaijyo_index_hon = df_sheet_kaijyo_source.query('FLG_KAIJYO=="○"')
 
-#  QA環境へ解除済sqlをファイルをpandasに読み込み
+#  QA環境へ解除済sqlをファイルをpandasに読み込み indexは0始まり
 df_sheet_kaijyo_index_qa = pd.read_excel(
     EXCEL_PATH,
     sheet_name=QA_SQL_KAIJYO,
