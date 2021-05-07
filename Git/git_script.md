@@ -49,6 +49,23 @@
     | PC/AcuvuePC/detail-print.aspx
     | PC/AcuvuePC/detail.aspx
 
+#### 差分を見るいつくかの方法
+
+1. commit前の場合<br>
+    diffで見る
+
+1. commit後の場合
+    1. git logで回数もしくはブランチ間の変更を見る方法<br>
+    ```コマンド
+    git logg -p -n 2 DirectoryA/FileName1
+    git logg -p Branch_from..Branch_to(←省略可能)  DirectoryA/FileName1
+    ```
+
+    1. git showで任意の過去時点での変更を見る方法<br>
+    ```コマンド
+    git show SHA-number DirectoryA/FileName1
+    ```
+
 #### 一つのコミットの変更状況を調べる
 
     git show 00995610 PC/AcuvuePC/detail-print.aspx
