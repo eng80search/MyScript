@@ -145,145 +145,29 @@
 
     :diffupdate
 
-## Git blame
-#### 特定の行がいつだれに変更されたかを知る
-
-    git blame test.vb
-    125行目から130行目を表示する
-    git blame -L 125, 130 test.vb
-
-## Git Archive
-#### 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
-    diff-filter=ad は抽出対象から新規追加と削除されたファイルを外すとの意味
-    なのでnewの場合はdiff-filter=d(削除されたのを外す)で、oldの場合はdiff-filter=a(新規追加のを外す)で良さそう
-
-    git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=ad --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
-
-#### マージしたコミット履歴の場合HEADとHEAD~1の場所
-    commit_A ←HEAD
-    | \
-    |  commit_m1
-    |  commit_m2
-    | / 
-    commit_B ←HEAD~1
-
-## Git Commit
-#### 前回のコミットにもう一度コミットする
-
-    git commit --amend --no-edit
-
-#### 前回のコミットのメッセージを修正する
-
-    git commit --amend -m "修正後のメッセージ"
-
-## Git Reset
-#### git addしたものを取り消す(ステージングしたものをなしにする)
-
-    git reset .
-    git reset HEAD
-
-#### git addしたコミット履歴、作業フォルダを取り消す
-
-    git reset --hard HEAD~1
-
-
-## Git Checkout
-#### ブランチを作成同時に、そのブランチに切り替える
-
-    git checkout -b develop
-
-#### ローカルに加えたすべての変更を取り消す
-
-    git checkout .
-
-## Git Merge
-#### ブランチを試してマージしてみる
-
-    git merge --no-commit --no-ff develop  ←取り込みたいブランチを指定
-    実行結果をみて、confilictがなければOK
-
-    現在マージ状態なので、とりあえず取り消し
-    git merge --abort
-
-#### ブランチをマージする(いつもマージがある部分がわかるようにする)
-
-    git merge --no-ff develop  ←取り込みたいブランチを指定
-
-#### confilictが発生した場合
-    必ず GitBashコマンドプロンプトから
-    git mergetool aa.txt でマージを開始する
-    gvimが起動され、以下のようなdiffモードが表示される
-
-     --------------------------------------
-    |           |            |            |
-    |   LOCAL   |    BASE    |   REMOTE   |
-    |    (1)    |     (2)    |     (3)    |
-    |           |            |            |
-    |-------------------------------------|
-    |                                     |
-    |                MERGED               |
-    |                  (4)                |
-    |                                     |
-     ------------------------------------- 
-
-     説明：
-     LOCAL: 現在のWorkingTree上のファイル
-     BASE:  マージ前の共通先祖
-     REMOTE: マージしたいブランチ上のファイル
-     MERGED: 最終的にマージされた後のファイル
-
-     ●マージ編集方法
-
-     (1)MERGEDウィンドウにカーソルがある場合Normalモードで
-         1do: LOCALの修正 2do: BASEの修正 3do: REMOTEの修正
-         それぞれをMERGEDに取り込む
-
-     (2)LOCAL,BASE,REMOTEそれぞれのウィンドウにカーソルがある場合Normalモードで
-         4dp: LOCAL,BASE,REMOTEのウィンドウでノーマルモードで入力すると
-              そのウィンドウの内容がMERGEDに反映される
-
-         REMOTEバッファの内容を全部MERGEDに反映したい場合は↓
-         :1,$diffput 4
-
-         MERGEDバッファにカーソルあり、REMOTEの内容を全部取り込みたい場合は↓
-         :1,$diffget 3
-
-     (3)vimでwqaを打ってマージを終了する
-
-     ●git bashコマンドプロンプトにて
-     2.git add file.txt
-     3.git status
-     4.git clean -n(削除対象ファイルを確認)   git clean -f(実際に削除)
-     5.git commit -m "input commit message"
-
-#### マジする際に使われるコミットメッセージを指定する
-
-    git merge other-branch -m "Commit Message"
-
-#### マジ完了したけど、マージ自体をキャンセルする場合（コミット履歴が残らない方式）
-
-    git reset --hard ORIG_HEAD
-
-
-
-## Git Tag
-#### タグをつける
-
-    git tag -a original -m "修正前のソース"  f26ea96  ←コミット値
-#### タグ一覧を表示する
-
-    git tag  --sort=-taggerdate --format='%(taggerdate:short) [%(tag)]   %(subject)'
-#### タグを削除
-
-    git tag -d TAG_NAME
-#### タグ名を変更する
-
-    既存タグを削除して、つけ直す！
-
-
 ## Git Rebase&Reset
+#### 過去のコミットの内容を修正する(注意：必ずGitbashから実行すること)
+[参考URL:Gitマニュアル-歴史の書き換え](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%81%95%E3%81%BE%E3%81%96%E3%81%BE%E3%81%AA%E3%83%84%E3%83%BC%E3%83%AB-%E6%AD%B4%E5%8F%B2%E3%81%AE%E6%9B%B8%E3%81%8D%E6%8F%9B%E3%81%88)
+
+    1. git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
+    2. 別ウィンドウでGvimが開かれるが、その時コミットしたいSHAのpickをeditに変更
+       して終了。
+    3. gitBashターミナルに戻る。
+    4. エディターもしくはIDEで追加対象であるfileAの変更を行う。
+    5. git add fileA
+    6. git commit --amend (この操作で修正対象のコミットにfileAを追加することになる)
+       gitのコミット一覧ファイルがVim上に立ち上がるので、
+       コメントメッセージなど適切に変更して、保存終了する。
+    7. git rebase --continue でRebase作業を終了する。
+
+    これで過去任意時点でのコミットの変更ができる。
+    またgitのコミット一覧ファイルからコミット順番を変更することもできる。
+
+
+    途中でやめたい場合は、git rebase --abort
+
 #### 過去のコミットのコメントを修正する(注意：必ずGitbashから実行すること)
-    参考URL:https://backlog.com/ja/git-tutorial/stepup/33/
+[参考URL:サル先生のGit入門](https://backlog.com/ja/git-tutorial/stepup/33/)
 
     1. git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
     2. 別ウィンドウでGvimが開かれるが、その時コミットしたいSHAのpickをeditに変更
@@ -514,6 +398,142 @@ topicブランチのA~Cまでの変更を適用したい
     ・masterで以下のコマンドを実行すれば変更後のコミットのようなものが得られる
       (master)git merge --no-ff develop
 
+## Git blame
+#### 特定の行がいつだれに変更されたかを知る
+
+    git blame test.vb
+    125行目から130行目を表示する
+    git blame -L 125, 130 test.vb
+
+## Git Archive
+#### 前回のコミットから変更があるファイルのみ抽出して、ZIPファイルを作成
+    diff-filter=ad は抽出対象から新規追加と削除されたファイルを外すとの意味
+    なのでnewの場合はdiff-filter=d(削除されたのを外す)で、oldの場合はdiff-filter=a(新規追加のを外す)で良さそう
+
+    git archive --format=zip   HEAD←出力するrevision `git diff --diff-filter=ad --name-only HEAD~1..HEAD` -o archive_20190729_new.zip
+
+#### マージしたコミット履歴の場合HEADとHEAD~1の場所
+    commit_A ←HEAD
+    | \
+    |  commit_m1
+    |  commit_m2
+    | / 
+    commit_B ←HEAD~1
+
+## Git Commit
+#### 前回のコミットにもう一度コミットする
+
+    git commit --amend --no-edit
+
+#### 前回のコミットのメッセージを修正する
+
+    git commit --amend -m "修正後のメッセージ"
+
+## Git Reset
+#### git addしたものを取り消す(ステージングしたものをなしにする)
+
+    git reset .
+    git reset HEAD
+
+#### git addしたコミット履歴、作業フォルダを取り消す
+
+    git reset --hard HEAD~1
+
+
+## Git Checkout
+#### ブランチを作成同時に、そのブランチに切り替える
+
+    git checkout -b develop
+
+#### ローカルに加えたすべての変更を取り消す
+
+    git checkout .
+
+## Git Merge
+#### ブランチを試してマージしてみる
+
+    git merge --no-commit --no-ff develop  ←取り込みたいブランチを指定
+    実行結果をみて、confilictがなければOK
+
+    現在マージ状態なので、とりあえず取り消し
+    git merge --abort
+
+#### ブランチをマージする(いつもマージがある部分がわかるようにする)
+
+    git merge --no-ff develop  -m "Merge Message" ←取り込みたいブランチを指定
+
+#### confilictが発生した場合
+    必ず GitBashコマンドプロンプトから
+    git mergetool aa.txt でマージを開始する
+    gvimが起動され、以下のようなdiffモードが表示される
+
+     --------------------------------------
+    |           |            |            |
+    |   LOCAL   |    BASE    |   REMOTE   |
+    |    (1)    |     (2)    |     (3)    |
+    |           |            |            |
+    |-------------------------------------|
+    |                                     |
+    |                MERGED               |
+    |                  (4)                |
+    |                                     |
+     ------------------------------------- 
+
+     説明：
+     LOCAL: 現在のWorkingTree上のファイル
+     BASE:  マージ前の共通先祖
+     REMOTE: マージしたいブランチ上のファイル
+     MERGED: 最終的にマージされた後のファイル
+
+     ●マージ編集方法
+
+     (1)MERGEDウィンドウにカーソルがある場合Normalモードで
+         1do: LOCALの修正 2do: BASEの修正 3do: REMOTEの修正
+         それぞれをMERGEDに取り込む
+
+     (2)LOCAL,BASE,REMOTEそれぞれのウィンドウにカーソルがある場合Normalモードで
+         4dp: LOCAL,BASE,REMOTEのウィンドウでノーマルモードで入力すると
+              そのウィンドウの内容がMERGEDに反映される
+
+         REMOTEバッファの内容を全部MERGEDに反映したい場合は↓
+         :1,$diffput 4
+
+         MERGEDバッファにカーソルあり、REMOTEの内容を全部取り込みたい場合は↓
+         :1,$diffget 3
+
+     (3)vimでwqaを打ってマージを終了する
+
+     ●git bashコマンドプロンプトにて
+     2.git add file.txt
+     3.git status
+     4.git clean -n(削除対象ファイルを確認)   git clean -f(実際に削除)
+     5.git commit -m "input commit message"
+
+#### マジする際に使われるコミットメッセージを指定する
+
+    git merge other-branch -m "Commit Message"
+
+#### マジ完了したけど、マージ自体をキャンセルする場合（コミット履歴が残らない方式）
+
+    git reset --hard ORIG_HEAD
+
+
+
+## Git Tag
+#### タグをつける
+
+    git tag -a original -m "修正前のソース"  f26ea96  ←コミット値
+#### タグ一覧を表示する
+
+    git tag  --sort=-taggerdate --format='%(taggerdate:short) [%(tag)]   %(subject)'
+#### タグを削除
+
+    git tag -d TAG_NAME
+#### タグ名を変更する
+
+    既存タグを削除して、つけ直す！
+
+
 
 ## Git Remote
 #### リモートレポジトリの一覧を取得する
@@ -717,5 +737,11 @@ topicブランチのA~Cまでの変更を適用したい
     git add .
     git commit -m ".gitignore is now working"
     git push origin master
+
+    gitでファイル名補完時に大文字と小文字が区別されるときは、
+    その設定を以下の操作で無効化する
+
+    git terminalで
+    echo set completion-ignore-case on > ~/.inputrc
 
 
