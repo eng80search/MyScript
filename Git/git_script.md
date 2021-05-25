@@ -528,7 +528,7 @@ topicブランチのA~Cまでの変更を適用したい
 
 #### マジする際に使われるコミットメッセージを指定する
 
-    git merge other-branch -m "Commit Message"
+    git merge --no-ff other-branch -m "Commit Message"
 
 #### マジ完了したけど、マージ自体をキャンセルする場合（コミット履歴が残らない方式）
 
@@ -759,6 +759,6 @@ topicブランチのA~Cまでの変更を適用したい
     その設定を以下の操作で無効化する
 
     git terminalで
-    echo set completion-ignore-case on > ~/.inputrc
+    echo set completion-ignore-case on >> ~/.inputrc
 
 
