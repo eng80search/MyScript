@@ -196,6 +196,84 @@
 
     途中でやめたい場合は、git rebase --abort
 
+#### rebaseで過去のマージブランチの中にあるコミットを修正する
+
+
+    *   1b9cf2f4 [2021/05/25 14:18:08]  (HEAD -> develop_fix) Sprint39:都度便対応 
+    |\  
+    | * 9c8a98a2 [2021/05/25 14:18:04]  Sprint39:都度便対応_Bugfix_result画面コメント歴あり 
+    | * 00e903cb [2021/05/25 14:18:03]  Sprint39:都度便対応_市区町村一覧画面対応済 
+    | * eb989d8c [2021/05/25 14:18:02]  Sprint39:都度便対応_detail-print対応済 
+    | * c5f4f303 [2021/05/25 14:18:00]  Sprint39:都度便対応_detail対応済 
+    | * d259f914 [2021/05/25 14:17:59]  Sprint39:都度便対応_result対応済 
+    | * 3f4271bf [2021/05/25 14:17:58]  Sprint39:都度便対応_index対応済 
+    |/  
+    *   ef38cfa8 [2021/05/25 14:17:58]  Sprint38_パートナーショップ廃止 
+    |\  
+    | * ab794883 [2021/05/25 14:17:57]  Sprint38:パートナーショップ廃止_v_conversion_account対応済 
+    | * f09389ec [2021/05/25 14:17:57]  Changed_スクリプトファイルのencodeをsjisからutf8に変更 
+    | * a15e5f62 [2021/05/25 14:17:57]  Deleted_不要なViewスクリプトを削除 
+    | * 5a34f031 <-- 修正対象 [2021/05/25 14:17:31]  Sprint38:パートナーショップ廃止_store_list対応済 
+    | * 792a2be1 [2021/04/26 14:07:06]  Sprint38:パートナーショップ廃止_detail-print対応済 
+    | * 61e8305f [2021/04/26 14:06:39]  Sprint38:パートナーショップ廃止_detail対応済 
+    | * 7db4ead0 [2021/04/26 11:54:49]  Sprint38:パートナーショップ廃止_result_地図及び店舗リストのパートナーショップ表示廃止 
+    | * 19a0f428 [2021/04/26 11:54:15]  Sprint38:パートナーショップ廃止_result_画面からパートナーショップcheckbox及び文言削除 
+    | * 3c796e1c [2021/04/26 11:53:04]  Sprint38:パートナーショップ廃止_result_内部処理無効化 
+    | * fe77e7ad [2021/04/26 11:52:26]  Sprint38:パートナーショップ廃止_index対応済 
+    |/  
+    *   13eb7454 [2021/04/20 09:54:24]  Sprint37_新商品対応（pectrum30p） 
+    |\  
+    | * 9a5cc076 [2021/04/09 15:19:53]  Sprint37_新商品対応：Spectrum30p_detail-print対応済 
+    | * a5986d37 [2021/04/09 13:47:54]  Sprint37_新商品対応：Spectrum30p_detail対応済 
+    | * ce04935f [2021/04/08 17:31:32]  Sprint37_新商品対応：Spectrum30p_result追加対応_DB関連処理とjavascriptを含む 
+
+    手順：
+    git rebase --rebase-merge  -i HEAD~2
+    (Vimエディタでcommit一覧が開かれるので、 修正対象のコミット5a34f031をeditに変更し、:wqする)
+    出力例：
+
+    label onto
+
+    # Branch Sprint38-パートナーショップ廃止
+    reset onto
+    pick fe77e7ad Sprint38:パートナーショップ廃止_index対応済
+    pick 3c796e1c Sprint38:パートナーショップ廃止_result_内部処理無効化
+    pick 19a0f428 Sprint38:パートナーショップ廃止_result_画面からパートナーショップcheckbox及び文言削除
+    pick 7db4ead0 Sprint38:パートナーショップ廃止_result_地図及び店舗リストのパートナーショップ表示廃止
+    pick 61e8305f Sprint38:パートナーショップ廃止_detail対応済
+    pick 792a2be1 Sprint38:パートナーショップ廃止_detail-print対応済
+    pick 5a34f031 Sprint38:パートナーショップ廃止_store_list対応済（地図表示はCSS変更が必要）
+    pick a15e5f62 Deleted_不要なViewスクリプトを削除
+    pick f09389ec Changed_スクリプトファイルのencodeをsjisからutf8に変更
+    pick ab794883 Sprint38:パートナーショップ廃止_v_conversion_account対応済
+    label Sprint38-パートナーショップ廃止
+
+    # Branch Sprint39-都度便対応
+    reset onto
+    merge -C ef38cfa8 Sprint38-パートナーショップ廃止 # Sprint38_パートナーショップ廃止
+    label branch-point
+    pick 3f4271bf Sprint39:都度便対応_index対応済
+    pick d259f914 Sprint39:都度便対応_result対応済
+    pick c5f4f303 Sprint39:都度便対応_detail対応済
+    pick eb989d8c Sprint39:都度便対応_detail-print対応済
+    pick 00e903cb Sprint39:都度便対応_市区町村一覧画面対応済
+    pick 9c8a98a2 Sprint39:都度便対応_Bugfix_result画面コメント歴あり
+    label Sprint39-都度便対応
+
+    reset branch-point # Sprint38_パートナーショップ廃止
+    merge -C 1b9cf2f4 Sprint39-都度便対応 # Sprint39:都度便対応
+
+    # Rebase 13eb7454..1b9cf2f4 onto 13eb7454 (25 commands)
+
+    以下のようにファイルを修正し、コミットする
+    git add .
+    git commit --amend
+    git rebase --continue
+
+    結果：
+    マージポイントは維持したまま、コミットのみ変更される。
+
+
 #### rebaseで枝分けを直す
 
 masterからdevelopブランチを切った後に、masterから他のcommitがある際
