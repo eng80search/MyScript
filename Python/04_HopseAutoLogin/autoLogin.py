@@ -35,7 +35,7 @@ options.add_argument('--headless'); # ※ヘッドレスモードを使用する
 driver = webdriver.Chrome(executable_path=DRIVER_PATH, chrome_options=options)
 
 #  要素を探すまでの最大の待ち時間（秒）
-driver.implicitly_wait(10)
+driver.implicitly_wait(60)
 
 try:
 
@@ -89,7 +89,7 @@ except Exception as e:
     logging.error('Unexpected error:'.join(map(str, sys.exc_info())))
 
 finally:
-    #  time.sleep(9)
+    time.sleep(9)
     now = datetime.datetime.now()
     screenshot_path = (
         "00_screenshot/screenshot_login_" + now.strftime("%Y%m%d_%H%M%S") + ".png"

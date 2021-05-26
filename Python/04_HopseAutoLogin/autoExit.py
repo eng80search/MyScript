@@ -64,7 +64,8 @@ try:
     element_button_taikin.click()
 
     #  工数１
-    select_option_1 = 'body > div.container > div > div.span9 > form > table > tbody > tr:nth-child(14) > td > div.area_option_project_list > select'
+    #  select_option_1 = 'body > div.container > div > div.span9 > form > table > tbody > tr:nth-child(14) > td > div.area_option_project_list > select'
+    select_option_1 = 'body > div.container > div > div.span9 > form > table > tbody > tr:nth-child(15) > td > div.area_option_project_list > select'
     element_option_1 = driver.find_element_by_css_selector(select_option_1)
 
     #  select by index
@@ -74,14 +75,16 @@ try:
     #  実稼働
     #  少し間隔を置かないとdropdownlistの選択ができないので注意
     time.sleep(3)
-    select_option_jitsukadou = 'body > div.container > div > div.span9 > form > table > tbody > tr:nth-child(14) > td > span > select'
+    #  select_option_jitsukadou = 'body > div.container > div > div.span9 > form > table > tbody > tr:nth-child(14) > td > span > select'
+    select_option_jitsukadou = 'body > div.container > div > div.span9 > form > table > tbody > tr:nth-child(15) > td > span > select'
     element_option_jitsukadou = driver.find_element_by_css_selector(select_option_jitsukadou)
     Select(element_option_jitsukadou).select_by_index(1)
 
 
     #  仕事時間
     time.sleep(1)
-    selector_work_time = 'body > div.container > div > div.span9 > form > table > tbody > tr:nth-child(14) > td > input[type=number]'
+    #  selector_work_time = 'body > div.container > div > div.span9 > form > table > tbody > tr:nth-child(14) > td > input[type=number]'
+    selector_work_time = 'body > div.container > div > div.span9 > form > table > tbody > tr:nth-child(15) > td > input[type=number]'
     element_work_time = driver.find_element_by_css_selector(selector_work_time)
     element_work_time.send_keys('8')
 
