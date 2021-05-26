@@ -810,6 +810,10 @@ topicブランチのA~Cまでの変更を適用したい
 	git svn show-ignore >> .git/info/exclude
 
 
+## GitのバージョンUp
+    git update-git-for-windows
+
+
 ## Git ignore
 #### Gitのignore
 
@@ -838,5 +842,4 @@ topicブランチのA~Cまでの変更を適用したい
 
     git terminalで
     echo set completion-ignore-case on >> ~/.inputrc
-
 
