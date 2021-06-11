@@ -128,6 +128,13 @@
 
     git log -S 'oasys_ast' --patch  sprint14_start..sprint14_end
 
+    正規表現を使うこともできるが、\dなどは使えない（POSIX正規表現形式）
+    (e.g) masterブランチの最新コミットから現ブランチのHEADまで
+          store.css?20210401の文字列が入ったコミット一覧を見たい場合
+
+    git logg -p -S "store.css\?2021[0-9]{4}" --pickaxe-regex  master..
+
+
 ## Git Diff
 #### 前回のコミットから変更をファイル単位で見る
 
@@ -196,7 +203,7 @@
 
     途中でやめたい場合は、git rebase --abort
 
-#### rebaseで過去のマージブランチの中にあるコミットを修正する
+#### rebase --rebase-merge で過去のマージブランチの中にあるコミットを修正する
 
 
     *   1b9cf2f4 [2021/05/25 14:18:08]  (HEAD -> develop_fix) Sprint39:都度便対応 
