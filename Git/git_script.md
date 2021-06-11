@@ -76,6 +76,41 @@
 
     git logg -n 3 -p AA/BB.txt
 
+#### Gitで特定ファイルのある時点から現在までの変更履歴を見る(ファイルパス曖昧指定)
+
+    e.g. パス名は不明であるが、ファイル名だけ分かる場合、
+    masterブランチのコミット時点から、最新のコミット時点までの変更履歴を見たい
+
+    git logg -p master.. */icon.js 
+
+    (結果)
+
+    * 7db4ead0 [2021/04/26 11:54:49]  Sprint38:パートナーショップ廃止_result_地図及び店舗リストのパートナーショップ表示廃止   
+      diff --git a/PC/AcuvuePC/shared/js/icon.js b/PC/AcuvuePC/shared/js/icon.js
+      index 0e3bc115..3ded79f7 100644
+      --- a/PC/AcuvuePC/shared/js/icon.js
+      +++ b/PC/AcuvuePC/shared/js/icon.js
+      @@ -6,7 +6,10 @@
+           // JSONで来る場合と配列で来る場合があるので最初のプロパティの有無で判定する。
+           var isArray = (typeof marker.RunsAnyFreeTrial === "undefined")
+           var FS = (marker.RunsFlagShip || isArray && marker[FLAGSHIP] === TRUE)          ? "FS_" : "";
+      -    var P = (marker.RunsPartnerShop || isArray && marker[PARTNERSHOP] === TRUE)     ? "P" : NA;
+      +    // '2021/04/20 パートナーショップ廃止対応 --START--
+      +    // var P = (marker.RunsPartnerShop || isArray && marker[PARTNERSHOP] === TRUE)     ? "P" : NA;
+      +    var P = NA;
+      +    // '2021/04/20 パートナーショップ廃止対応 --END--
+           var E = (marker.RunsAOS || isArray && marker[AOS] === TRUE) ? "E" : NA;
+       
+           //var M = (marker.RunsOmisedePoint || isArray && marker[MYACUVUE] === TRUE)       ? "M" : NA;
+      @@ -61,4 +64,4 @@
+           return new MarkerImage(getIconsByMarker(marker) + "-focus" + EXTENTION, new ZDC.WH(68, 68), new ZDC.Pixel(-34, -65));
+         };
+       
+      -})();
+      \ No newline at end of file
+      +})();
+
+
 #### Gitで特定ファイルの変更履歴を見る
 
     git log -p Directory1/FileName1
