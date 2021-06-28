@@ -111,6 +111,81 @@
       +})();
 
 
+#### Gitで特定ファイルが含まれているコミットを確認したい
+
+    正規表現を使うが、\dなどは使えない（POSIX正規表現形式）
+    (e.g) masterブランチの最新コミットから現ブランチのHEADまで
+          store.css?20210401の文字列が入ったコミット一覧を見たい場合
+
+    git logg -p -S "store.css\?2021[0-9]{4}" --pickaxe-regex  master..
+
+    (結果)
+    * 9bd8343b [2021/05/26 14:01:00]  Sprint38:パートナーショップ廃止_store_list対応済（地図表示はCSS変更が必要） | 
+    | diff --git a/batch/BCTK005/CreateRunningStoreList/TemplateHtml/templateStoreHTML.htm b/batch/BCTK005/CreateRunningStoreList/TemplateHtml/templateStoreHTML.htm
+    | index 880a34da..4dbbd3fa 100644
+    | --- a/batch/BCTK005/CreateRunningStoreList/TemplateHtml/templateStoreHTML.htm
+    | +++ b/batch/BCTK005/CreateRunningStoreList/TemplateHtml/templateStoreHTML.htm
+    | @@ -9,7 +9,7 @@
+    |      <meta name="date" content="2014-10-28" scheme="YYYY-MM-DD">
+    |      <link rel="stylesheet" href="/shared/css/base.css">
+    |      <link rel="stylesheet" href="/shared/css/parts.css">
+    | -    <link rel="stylesheet" href="/store/shared/css/store.css">
+    | +    <link rel="stylesheet" href="/store/shared/css/store.css?20210420">
+    |  
+    |      <!-- _____________________________ 2018.07.02 今回追加 _____________________________ -->
+    |      <link rel="stylesheet" href="/store/shared/css/store_header_footer.css?20200121">
+    | @@ -40,8 +40,8 @@
+    |      <script src="../../store/shared/js/isPC.js"></script>
+    |      <script src="../../store/shared/js/map.js"></script>
+    |      <script src="../../store/shared/js/store.js"></script>
+    | -    <script src="../../store/shared/js/icon.js"></script>
+    | -    <script src="../js/store_list_htm.js"></script>
+    | +    <script src="../../store/shared/js/icon.js?20210420"></script>
+    | +    <script src="../js/store_list_htm.js?20210420"></script>
+    |      <script src="../js/jquery.blockUI.js"></script> 
+    |      <!-- <<<<<<<<<< 2017/03/13 4.18.0 ADD #ENH-0041 -->
+    |      <script>
+    | @@ -128,11 +128,16 @@
+    |                  <div class="icnBoxPopupArw"><img src="/shared/img/icnBoxPopupArw.png" alt=""></div>
+    |                  <div class="icnBoxPopupInr">
+    |                    <h3><a href="javascript:;" class="js-iconlegendclose"><img src="/shared/img/spmenu_btn_001.png" alt=""></a><span>アイコン凡例</span></h3>
+    | -                  <dl class="icnBoxItemAP">
+    | -                    <dt>アキュビュー<sup>&reg;</sup> パートナーショップ</dt>
+    | -                    <dd>アキュビュー<sup>&reg;</sup> 新製品の先行発売など、ショップ限定のサービスメニューをご用意しています。<br>
+    | -                      <span style="font-size:90%;">※新製品の取扱いは、パートナーショップにより異なります。</span></dd>
+    | -                  </dl>
+    | +
+    | +
+    | +                  <!--  2021/04/20 パートナーショップ廃止対応 START ADD -->
+    | +                  <!-- <dl class="icnBoxItemAP"> --!>
+    | +                  <!--   <dt>アキュビュー<sup>&reg;</sup> パートナーショップ</dt> --!>
+    | +                  <!--   <dd>アキュビュー<sup>&reg;</sup> 新製品の先行発売など、ショップ限定のサービスメニューをご用意しています。<br> --!>
+    | +                  <!--     <span style="font-size:90%;">※新製品の取扱いは、パートナーショップにより異なります。</span></dd> --!>
+    | +                  <!-- </dl> --!>
+    | +                  <!-- 2021/04/20 パートナーショップ廃止対応 END ADD -->
+    | +
+    |                    <!--20190401 リリース 定期便-->
+    |                    <dl class="icnBoxItemAT">
+    |                      <dt>アキュビュー<sup>&reg;</sup> 定期便サービス加盟店</dt>
+    | @@ -162,9 +167,14 @@
+    |              </div>
+    |              <!--partnershop info-->
+    |              <div class="partnerShopArea noSP">
+    | -              <h2><span><img class="mr10 h27" src="/store/shared/img/store_ico_Pb.png" alt="パートナー"></span>アキュビュー<sup>&reg;</sup> パートナーショップ</h2>
+    | -              <p>アキュビュー<sup>&reg;</sup> 新製品の先行発売など、ショップ限定のサービスメニューをご用意しています。<br><span style="font-size:90%;">※新製品の取扱いは、パートナーショップにより異なります。</span></p>
+    | +
+    | +            <!--  2021/04/20 パートナーショップ廃止対応 START ADD -->
+    | +              <!-- <h2><span><img class="mr10 h27" src="/store/shared/img/store_ico_Pb.png" alt="パートナー"></span>アキュビュー<sup>&reg;</sup> パートナーショップ</h2> --!>
+    | +              <!-- <p>アキュビュー<sup>&reg;</sup> 新製品の先行発売など、ショップ限定のサービスメニューをご用意しています。<br><span style="font-size:90%;">※新製品の取扱いは、パートナーショップにより異なります。</span></p> --!>
+    | +            <!--  2021/04/20 パートナーショップ廃止対応 END ADD -->
+    | +
+    |                <!--/partnershop info-->
+    | +
+    |              </div>
+    |            <!--/iconGlobalArea-->
+    |            </div>
+
+
 #### Gitで特定ファイルの変更履歴を見る
 
     git log -p Directory1/FileName1
@@ -163,13 +238,6 @@
 
     git log -S 'oasys_ast' --patch  sprint14_start..sprint14_end
 
-    正規表現を使うこともできるが、\dなどは使えない（POSIX正規表現形式）
-    (e.g) masterブランチの最新コミットから現ブランチのHEADまで
-          store.css?20210401の文字列が入ったコミット一覧を見たい場合
-
-    git logg -p -S "store.css\?2021[0-9]{4}" --pickaxe-regex  master..
-
-
 ## Git Diff
 #### 前回のコミットから変更をファイル単位で見る
 
@@ -214,7 +282,8 @@
     3. gitBashターミナルに戻る。
     4. エディターもしくはIDEで追加対象であるfileAの変更を行う。
     5. git add fileA
-    6. git commit --amend (この操作で修正対象のコミットにfileAを追加することになる)
+    6. git commit --amend (この操作で修正対象のコミットにfileAを追加することになる) OR
+       git commit --amend -m "新しいコメント入力"
        gitのコミット一覧ファイルがVim上に立ち上がるので、
        コメントメッセージなど適切に変更して、保存終了する。
     7. git rebase --continue でRebase作業を終了する。
@@ -225,18 +294,6 @@
 
     途中でやめたい場合は、git rebase --abort
 
-#### 過去のコミットのコメントを修正する(注意：必ずGitbashから実行すること)
-[参考URL:サル先生のGit入門](https://backlog.com/ja/git-tutorial/stepup/33/)
-
-    1. git rebase -i HEAD~2 　←　修正したいコミットまでのoffset + 1
-    2. 別ウィンドウでGvimが開かれるが、その時コミットしたいSHAのpickをeditに変更
-       して終了。
-    3. gitBashターミナルに戻る。
-    6. git commit --amend -m "新しいコメントを入力"
-    7. git rebase --continue でRebase作業を終了する。
-
-
-    途中でやめたい場合は、git rebase --abort
 
 #### rebase --rebase-merge で過去のマージブランチの中にあるコミットを修正する
 
