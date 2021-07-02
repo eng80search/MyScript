@@ -763,6 +763,8 @@ topicブランチのA~Cまでの変更を適用したい
 #### リモートブランチをローカルにコピーする
     ローカルブランチが空の場合
     git checkout -b feature_A origin/feature_A
+    もしくはもっと簡単に
+    git checkout -b feature_A (すでにリモートブランorigin/feature_Aがある前提)
 
 #### ローカルブランチの履歴は残す必要がなく、完全にリモートブランチに一致させたい場合
     ローカルブランチが既に存在する場合
