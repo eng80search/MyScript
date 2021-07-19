@@ -944,3 +944,28 @@ topicブランチのA~Cまでの変更を適用したい
     git terminalで
     echo set completion-ignore-case on >> ~/.inputrc
 
+
+#### Git Bashプロンプトにstatusを表示する設定
+[参考リンク](https://tm.root-n.com/unix:command:git:bash_prompt)
+
+1. まず「git-completion.bash」と「git-prompt.sh」ダウンロード
+
+        $wget https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
+        $wget https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
+
+1. bashrc に下記を追記
+
+        export LANG=ja_JP.UTF-8
+
+        GIT_PS1_SHOWDIRTYSTATE=true
+        GIT_PS1_SHOWUNTRACKEDFILES=true
+        GIT_PS1_SHOWSTASHSTATE=true
+        GIT_PS1_SHOWUPSTREAM=auto
+            
+
+1. sourceコマンドで設定を反映
+
+        source ~/.bashrc
+
+1. ファイル構成
+![ファイル構成](./displayStatusInGitBash/displayStatusInGitBash.png)
