@@ -20,6 +20,27 @@ import pandas as pd
 
 URL_PREFIX = "https://www.rakuten.ne.jp/gold/newimage/2015-7/"
 
+def expand2square(pil_img, background_color):
+    """長方形に余白を追加し正方形にする
+
+
+    :pil_img: 変換元画像
+    :background_color: 背景色
+    :returns: 変換後の画像
+
+    """
+
+    width, height = pil_img.size
+    if width == height:
+        return pil_img
+    elif width > height:
+        result = Image.new(pil_img.mode, (width, width), background_color)
+        result.paste(pil_img, (0, (width - height) // 2))
+        return result
+    else:
+        result = Image.new(pil_img.mode, (height, height), background_color)
+        result.paste(pil_img, ((height - width) // 2, 0))
+        return result
 
 def resize_image(original_image_file, resized_image_file):
     """画像を読み込んだ後、リサイズする
@@ -32,6 +53,9 @@ def resize_image(original_image_file, resized_image_file):
 
     #  画像ファイルをリサイズして保存
     img = Image.open(original_image_file)
+    #  オリジナル画像を正方形に変形する
+    img = expand2square(img, (255, 255, 255))
+
     if i == 0:
         img_resize = img.resize((900, 900))
     else:
