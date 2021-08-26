@@ -1,12 +1,20 @@
 #!/bin/sh
 
-echo "Overview: copy only files newer than the inputed date from local IIS"
+echo "Overview: copy only files newer than the inputed date from source_dirs"
 echo -e "          to the current directory\n"
 # 改行の場合は-eをつけ、改行したい場所に\nを挿入する
 
-iis_dir=d:/Websites/JNJWEB/store/pc/webApp
+# コピー元ディレクトリを配列に定義
+source_dirs=(
+        "d:/Websites/JNJWEB/store/pc/webApp"
+        "d:/store"
+)
 
-echo "IIS_DIR: " $iis_dir
+for dir in "${source_dirs[@]}"; do
+    echo "SOURCE_DIR: " $dir
+done
+
+# bashでは変数の値を取得する場ありは$[変数名]にする
 echo "please input start date(e.g. 2021/07/14) :"
 echo "press enter key start date is today"
 
@@ -26,26 +34,41 @@ start_date=${start_date}" 0:0:0"
 
 echo "start date : "  $start_date
 
-# find $iis_dir -type f -mtime -1 ;
+# 関数定義：一つのディレクトリに対して、指定した日付より新しいファイルをコピー
+copy_newer_file_to_dest() {
+    # 関数に引数をローカル変数に保存する
+    local source_dir=$1
+    local beginning_date=$2
 
-# 注意： $start_dateは"で囲むこと
-find $iis_dir -type f -newermt "$start_date" | while read -r var;
+    # findした結果をwhileでloopするやり方
+    # 注意： $beginning_dateは"で囲むこと
+    # セミコロン(;)はコマンドAが終了したら、エラーありなしに関係なく、
+    # セミコロン後ろのコマンドを実行するとの意味
+    find $source_dir -type f -newermt "$beginning_date" | while read -r var; do
 
-do
-    dir=.;
-    # d:/は削除
-    sourcefile=${var:3};
+        # コピー先はスクリプトが置かれているディレクトリと同じ
+        local dest_dir=.;
+        # 変数varにドライブ名d:/が入るのでこれを排除
+        local sourcefile=${var:3};
 
-    # echo $(dirname $sourcefile);
-    echo  $sourcefile;
+        # echo $(dirname $sourcefile);
+        echo  $sourcefile;
 
-    # 注意：dirnameがないとファイルがディレクトリとして作成される
-    mkdir -p $dir/$(dirname $sourcefile);
-    # mkdir -p $dir/$sourcefile;
+        # dirname $sourcefileで$sourcefileのディレクトリ部分のみ抽出する
+        # option -p: A/B/Cみたいな階層構造を作成する
+        mkdir -p $dest_dir/$(dirname $sourcefile);
+        # mkdir -p $dest_dir/$sourcefile;
 
-    # IISからリリースフォルダにコピーする p : 日付やユーザー情報を保持しながらコピー
-    cp -p $var $dir/$sourcefile;
+        # IISからリリースフォルダにコピーする p : 日付やユーザー情報を保持しながらコピー
+        cp -p $var $dest_dir/$sourcefile;
 
+    done
+
+}
+
+# 指定したディレクトリごとにコピーする
+for dir in "${source_dirs[@]}"; do
+    copy_newer_file_to_dest $dir $start_date
 done
 
 read -p "Press Enter key to exit・・・"
