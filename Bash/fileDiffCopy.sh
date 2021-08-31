@@ -10,6 +10,17 @@ source_dirs=(
         "d:/store"
 )
 
+# スキップするファイルもしくはディレクトリを定義(正規表現で定義)
+ignore_list=(
+        "\.pdb$"
+        "\.vshost\.exe$"
+        "\.log$"
+        "/log/"
+        "/seohtm_pc/"
+        "precompiledapp\.config$"
+        "createrunningstorelist\.xml$"
+)
+
 for dir in "${source_dirs[@]}"; do
     echo "SOURCE_DIR: " $dir
 done
@@ -21,6 +32,7 @@ echo "press enter key start date is today"
 # キーボードから開始日付を入力する
 read input
 
+# -z 文字列の長さが0ならtrue
 if [ -z $input ] ; then
     # 入力なしの場合は、今日の日付を開始日付に設定
     start_date=$(date '+%Y/%m/%d') 
@@ -50,6 +62,18 @@ copy_newer_file_to_dest() {
         local dest_dir=.;
         # 変数varにドライブ名d:/が入るのでこれを排除
         local sourcefile=${var:3};
+
+        # if文で正規表現の場合は[[]]で囲む =~は正規表現マッチング演算子
+        # スキップ対象のファイルやフォルダはコピーしない
+        for ignore in "${ignore_list[@]}" ; do
+            # echo "--debug:" $ignore
+            #  ${sourcefile,,} は全文字を小文字化
+            if [[ ${sourcefile,,} =~ $ignore  ]]; then
+                echo "skipping ->" $sourcefile
+                # continue 2は２階層上のloopにjumpする意味
+                continue 2
+            fi
+        done
 
         # echo $(dirname $sourcefile);
         echo  $sourcefile;
