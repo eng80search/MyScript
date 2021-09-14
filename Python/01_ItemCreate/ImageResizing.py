@@ -210,7 +210,7 @@ except Exception as e:
     sys.exit(1)
 
 #  内包表記でパターンにマッチングするフォルダだけ処理(サブフォルダは対象外)
-dir_list = [p for p in glob.iglob("**") if re.search("([A-Z]\d{6})-(\d{3}$)", p)]
+dir_list = [p for p in glob.iglob("**") if re.search("([A-Z]\d{6})-(\d{3})(-([A-Z]{2}))?$", p)]
 #  print(type(dir_list))
 #  print(dir_list)
 
