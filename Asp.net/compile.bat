@@ -2,7 +2,7 @@
 @REM 使用方法：コマンドプロンプトで実行する
 
 @echo ***** CurrentDirectoryをStoresLocatorプロジェクトに設定しています・・・
-@cd C:\Users\setupuser\Documents\00_Ri\00_作業\10_gitSvnSource\src\PC\AcuvueStore
+@cd D:\00_Ri\00_作業\10_gitSvnSource\src\PC\AcuvueStore
 @REM 空白行を追加
 @echo.
 @echo ***** msbuildでStoreLocatorプロジェクトをビルドしています・・・
