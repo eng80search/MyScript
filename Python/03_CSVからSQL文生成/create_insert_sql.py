@@ -1,6 +1,7 @@
 import sys
 import os
 import json
+import traceback
 
 #  自分より上のフォルダにあるモジュールを参照するために必要な設定
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -47,7 +48,7 @@ if __name__ == "__main__":
         #  必要なクラスの初期化
         #  _oracle = my_lib.OracleOperation(HOST, PORT, SVS, ID, PASSWORD)
         _csv = my_lib.CsvOperation()
-        _excel = my_lib.ExcelOperation(import_excel_file)
+        _excel = my_lib.ExcelOperation()
 
         for item in import_selections:
 
@@ -120,4 +121,6 @@ if __name__ == "__main__":
 
 
     except Exception:
-        print("Unexpected error:", sys.exc_info())
+        #  print("Unexpected error:", sys.exc_info())
+        #  どこでエラーが発生しているかトレースバックする
+        print(traceback.format_exc())
