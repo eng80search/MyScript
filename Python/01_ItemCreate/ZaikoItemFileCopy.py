@@ -49,7 +49,7 @@ def add_column_to_select_file(csv_file):
     df['在庫切れ時納期管理番号'] = ''
 
     #  既存のselect.csvを上書きする mode='w' 意味はなければ新規作成、あれば上書き
-    df.to_csv(csv_file, mode='w', encoding='cp932')
+    df.to_csv(csv_file, mode='w', encoding='cp932', index=False)
 
 def zaiko_item_file_copy():
     """在庫ロボット登録用ファイル2つをテンプレートフォルダからコピーし、
@@ -124,7 +124,7 @@ def zaiko_item_file_copy():
 
                 zaiko_dest_file = _fileio.get_filename_without_extention(zaiko_source_file)
                 #  ファイル名を変更する
-                zaiko_dest_file += "-" + dir_suffix + ".csv"
+                zaiko_dest_file += "-" + dir_suffix + "-z.csv"
                 zaiko_dest_file = _fileio.combine_file_path(zaiko_csv_dest_path, zaiko_dest_file)
 
                 log_info = "     --copy from [{0}] -> to [{1}]".format(
@@ -137,7 +137,7 @@ def zaiko_item_file_copy():
                 #  item.csv -> item-212.csv(ファイルコピーのみ)
                 _fileio.copy_file(zaiko_source_file, zaiko_dest_file)
 
-                if zaiko_source_file == "select.csv":
+                if os.path.basename(zaiko_source_file) == "select.csv":
                     #  selectファイルの列を追加する
                     add_column_to_select_file(zaiko_dest_file)
 
