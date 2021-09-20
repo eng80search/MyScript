@@ -1,0 +1,6 @@
+{
+    "zaiko_csv_temp_root_path" : "E:\\00_OurFamily\\900_Temp",
+    "zaiko_csv_dest_root_path" : "E:\\00_OurFamily\\2000_Work",
+    "log_file_path" : "E:\\00_OurFamily\\2000_Work",
+    "log_file_name" : "ZaikoItemFileCopy.log"
+}
