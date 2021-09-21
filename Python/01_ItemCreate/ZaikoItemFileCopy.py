@@ -31,6 +31,79 @@ import my_lib
 #  他に考慮すべき点
 #  1. エラーはログに吐く
 
+#  必要なライブラリをインポート
+_fileio = my_lib.FileIo()
+
+
+def make_product_csv_files(df, root_path):
+    """DBインポート用のproductNo.csv product-zaiko.csv 
+                       productColor.csvファイルを作成
+
+    :df: ファイル作成に必要なdataframe
+    :root_path: ファイルが作成されるディレクトリ
+    :returns: TODO
+
+    """
+
+    #  productNo.csvを作成
+    csv_product_no = "productNo.csv"
+    csv_product_no = _fileio.combine_file_path(root_path, csv_product_no)
+    #  loc: 特定の行と列を取得 [:, : すべての行  ['商品番号'・・・] : 特定の列
+    df_product_no = df.loc[:, ['商品番号', '商品管理番号（商品URL）']].drop_duplicates()
+    #  列名変更
+    df_product_no = df_product_no.rename(columns={'商品管理番号（商品URL）': '商品管理番号'})
+    df_product_no.to_csv(
+            csv_product_no, mode='w', encoding='cp932', index=False)
+
+    log_info = "     ==make file [{0}] ".format(csv_product_no)
+    print(log_info)
+    logging.info(log_info)
+
+    #  product-zaiko.csvを作成
+    csv_product_zaiko = "product-zaiko.csv"
+    csv_product_zaiko = _fileio.combine_file_path(root_path, csv_product_zaiko)
+    df_product_zaiko = df.loc[:, 
+                        ['商品番号', 
+                         '項目選択肢別在庫用縦軸選択肢', 
+                         '項目選択肢別在庫用縦軸選択肢子番号', 
+                         '項目選択肢別在庫用在庫数']
+                        ].drop_duplicates()
+    #  列名変更
+    df_product_zaiko = df_product_zaiko.rename(
+            columns={
+                '項目選択肢別在庫用縦軸選択肢': '商品在庫_日本語', 
+                '項目選択肢別在庫用縦軸選択肢子番号': '商品在庫_英語', 
+                '項目選択肢別在庫用在庫数': '商品在庫_数量'
+                     })
+    df_product_zaiko.to_csv(
+            csv_product_zaiko, mode='w', encoding='cp932', index=False)
+
+    log_info = "     ==make file [{0}] ".format(csv_product_zaiko)
+    print(log_info)
+    logging.info(log_info)
+
+#  productColor.csvを作成
+
+    #  product-zaiko.csvを作成
+    csv_product_color = "productColor.csv"
+    csv_product_color = _fileio.combine_file_path(root_path, csv_product_color)
+    df_product_color = df.loc[:, 
+                        ['商品番号', 
+                         '項目選択肢別在庫用横軸選択肢', 
+                         '項目選択肢別在庫用横軸選択肢子番号']
+                        ].drop_duplicates()
+    #  列名変更
+    df_product_color = df_product_color.rename(
+            columns={
+                '項目選択肢別在庫用横軸選択肢': '商品色_日本語', 
+                '項目選択肢別在庫用横軸選択肢子番号': '商品色_英語' 
+                     })
+    df_product_color.to_csv(
+            csv_product_color, mode='w', encoding='cp932', index=False)
+
+    log_info = "     ==make file [{0}] ".format(csv_product_color)
+    print(log_info)
+    logging.info(log_info)
 
 def add_column_to_select_file(csv_file):
     """select.csvファイルに列を追加
@@ -61,8 +134,6 @@ def zaiko_item_file_copy():
 
     """
     try:
-
-        _fileio = my_lib.FileIo()
 
         #  設定ファイルから各パラメータを取得する
         with open(
@@ -120,6 +191,12 @@ def zaiko_item_file_copy():
             #  split("-",1)は一回のみ分割するとの意味 A12-01-Aは["A12", "01-A"]
             dir_suffix = zaiko_source_dir.split("-", 1)[1]
 
+            #  data frameを初期化 初期化すると行数は0
+            df_item = pd.DataFrame()
+            df_select = pd.DataFrame()
+            df_all = pd.DataFrame()
+
+            #  item.csv select.csvファイルをコピーする
             for i, zaiko_source_file in enumerate(zaiko_soure_files):
 
                 zaiko_dest_file = _fileio.get_filename_without_extention(zaiko_source_file)
@@ -140,6 +217,29 @@ def zaiko_item_file_copy():
                 if os.path.basename(zaiko_source_file) == "select.csv":
                     #  selectファイルの列を追加する
                     add_column_to_select_file(zaiko_dest_file)
+                    #  csvファイルからdataframeを作成する
+                    df_select = pd.read_csv(zaiko_source_file, encoding='cp932')
+
+                elif os.path.basename(zaiko_source_file) == "item.csv":
+                    df_item = pd.read_csv(zaiko_source_file, encoding='cp932')
+
+                else:
+                    pass
+
+            #  dataframeにデータが入った場合のみ、DBインポート用csvファイルを作成する
+            #  dataframeの行数チェックはlen(df) ヘッダのみの場合は0 ファイルがnull時はエラー
+            if len(df_item) > 0 and len(df_select) > 0:
+                #  ２つのdataframeをleft join
+                df_all = pd.merge(df_item, df_select, on='商品管理番号（商品URL）', how='left')
+                make_product_csv_files(df_all, zaiko_csv_dest_path)
+
+            #  データがない場合は、警告メッセージを出力
+            else:
+                log_info = "     --Warning! Not Created CSV file For DB import in {0}".format( 
+                        zaiko_csv_dest_path)
+                print(log_info)
+                logging.info(log_info)
+
 
     except Exception as e:
         print(traceback.format_exc())
