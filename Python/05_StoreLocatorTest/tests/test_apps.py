@@ -26,9 +26,14 @@ from playwright.sync_api import Page
 
 
 class TestClassPc:
+
     @pytest.fixture(autouse=True)
     def setup(self, page: Page):
         self.page = page
+        page.set_viewport_size({
+            "width": 1920,
+            "height": 1080
+            })
 
     #  pytest --base-url https://acuvue.jnj.co.jp
     def test_index_working(self):
@@ -51,6 +56,13 @@ class TestClassPc:
         #  確認：チェックボックスにCheck Off
         checked = self.page.is_checked("#check01_20")
         assert checked == False
+
+        #  self.page.mouse.move(0, 0)
+        #  self.page.mouse.click(860, 590)
+        #  self.page.mouse.click(590, 560)
+        #  time.sleep(2)
+        #  self.page.mouse.click(1095, 395)
+        #  time.sleep(21)
 
         #  save screenshot
         self.page.screenshot(path="./screenshot/01_index.png", full_page=True)
@@ -80,6 +92,66 @@ class TestClassPc:
         self.page.screenshot(
             path="./screenshot/01_index_with_param.png", full_page=True
         )
+
+    def test_result_area_map_working(self):
+
+        #  Index画面
+        self.page.goto("/store/result.aspx?lat=35.690652778&lon=139.706638889")
+        time.sleep(5)
+
+        #  確認：店舗件数確認
+        store_cnt_normal = self.page.inner_text("#lblStoreCnt")
+        assert int(store_cnt_normal) > 20
+
+        #  #  確認：店舗画像確認
+        #  store_img = self.page.inner_text("div#resultList  div.storePhotoA01 > span.storePhotoA01 list")
+        #  assert "test" in store_img
+
+        #  店舗結果画面_地域選択_初期表示
+        self.page.screenshot(path="./screenshot/02_result_map_area.png", full_page=True)
+
+        #  地図拡大
+        for cnt in range(3):
+            self.page.mouse.click(505, 575)
+            time.sleep(3)
+
+        #  確認：店舗件数確認_拡大後
+        store_cnt_zoom_in = self.page.inner_text("#lblStoreCnt")
+        assert int(store_cnt_zoom_in) < int(store_cnt_normal)
+
+        #  店舗結果画面_地域選択_拡大表示
+        self.page.screenshot(path="./screenshot/02_result_map_area_zoom_in.png", full_page=True)
+
+        #  地図移動_倍率リセット
+        for cnt in range(3):
+            self.page.mouse.click(510, 705)
+            time.sleep(3)
+
+        #  地図移動_右移動
+        for cnt in range(3):
+            self.page.mouse.click(530, 530)
+            time.sleep(3)
+
+        #  確認：店舗件数確認_右移動後
+        store_cnt_right = self.page.inner_text("#lblStoreCnt")
+        assert int(store_cnt_right) != int(store_cnt_normal)
+
+        #  店舗結果画面_地域選択_右移動後
+        self.page.screenshot(path="./screenshot/02_result_map_area_move_right.png", \
+                             full_page=True)
+
+        #  地図縮小
+        for cnt in range(3):
+            self.page.mouse.click(510, 705)
+            time.sleep(3)
+
+        #  確認：店舗件数確認_縮小後
+        store_cnt_zoom_out = self.page.inner_text("#lblStoreCnt")
+        assert int(store_cnt_zoom_out) > int(store_cnt_normal)
+
+        #  店舗結果画面_地域選択_縮小表示
+        self.page.screenshot(path="./screenshot/02_result_map_area_zoom_out.png", full_page=True)
+
 
     def test_result_freeword_working(self):
 
