@@ -103,9 +103,13 @@ class TestClassPc:
         store_cnt_normal = self.page.inner_text("#lblStoreCnt")
         assert int(store_cnt_normal) > 20
 
-        #  #  確認：店舗画像確認
+        #  確認：店舗画像確認
         #  store_img = self.page.inner_text("div#resultList  div.storePhotoA01 > span.storePhotoA01 list")
-        #  assert "test" in store_img
+        store_list = self.page.inner_html("div#resultList")
+        #  store_img = self.page.get_attribute('img:right-of(:text("Ｊコンタクト　新宿店"))', "src")
+        #  確認：既存店舗名と表示画像確認
+        assert "Ｊコンタクト　新宿店" in store_list
+        assert "./BinaryStoreImage.aspx?StoreSeq=10237" in store_list
 
         #  店舗結果画面_地域選択_初期表示
         self.page.screenshot(path="./screenshot/02_result_map_area.png", full_page=True)
@@ -170,6 +174,11 @@ class TestClassPc:
         #  店舗詳細画面：丸尾コンタクト 高田馬場
         self.page.goto("/store/detail.aspx?StoreSeq=20758")
         time.sleep(3)
+
+        #  確認：ワンデー アキュビュー® セラビジョン® アレルケア® 取り扱いあり
+        icon_o = self.page.get_attribute("#lblHandleOnedayTheravisionK", "src")
+        assert icon_o == "/shared/img/cmn_ico_034.png"
+
         self.page.screenshot(path="./screenshot/03_detail.png", full_page=True)
 
         self.page.click("text='地図を印刷する'")
