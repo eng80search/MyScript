@@ -18,6 +18,7 @@ from playwright.sync_api import Page
 
 #  特定の関数のみテストする
 #  pytest test/test_foo.py::test_function
+#  pytest -k test_index (テストケース曖昧指定)
 
 #  デバイス指定でテストを行う
 #  pytest -vv --device="Desktop Chrome"
@@ -27,13 +28,17 @@ from playwright.sync_api import Page
 
 class TestClassPc:
 
+    #  @pytest.fixture(autouse=True)
+    #  def setup(self, page: Page):
+    #      self.page = page
+    #      page.set_viewport_size({
+    #          "width": 1920,
+    #          "height": 1080
+    #          })
+
     @pytest.fixture(autouse=True)
     def setup(self, page: Page):
         self.page = page
-        page.set_viewport_size({
-            "width": 1920,
-            "height": 1080
-            })
 
     #  pytest --base-url https://acuvue.jnj.co.jp
     def test_index_working(self):
