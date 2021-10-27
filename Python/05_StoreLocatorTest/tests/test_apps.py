@@ -3,6 +3,7 @@ import unittest
 import time
 from playwright.sync_api import Page
 
+
 #  pytest-playwright option list
 #  --headed  Run tests in headed mode (default: headless)
 #  --output  Directory for artifacts produced by tests (default: test-results).
@@ -40,7 +41,17 @@ class TestClassPc:
     def setup(self, page: Page):
         self.page = page
 
+    #  Decorator method to do screen scroll
+    def screen_scroll(func):
+        def wrapper(*args, **kwargs):
+            func(*args, **kwargs)
+            for i in range(80):
+                time.sleep(0.1)
+                args[0].page.keyboard.press("ArrowDown")
+        return wrapper
+
     #  pytest --base-url https://acuvue.jnj.co.jp
+    @screen_scroll
     def test_index_working(self):
 
         #  Index画面
@@ -72,6 +83,7 @@ class TestClassPc:
         #  save screenshot
         self.page.screenshot(path="./screenshot/01_index.png", full_page=True)
 
+    @screen_scroll
     def test_index_with_param_working(self):
 
         #  Index画面
@@ -93,11 +105,17 @@ class TestClassPc:
         checked = self.page.is_checked("#check01_20")
         assert checked == True
 
+        #  #  for i in range(4):
+        #  for i in range(80):
+        #      time.sleep(0.1)
+        #      self.page.keyboard.press("ArrowDown")
+
         #  save screenshot
         self.page.screenshot(
             path="./screenshot/01_index_with_param.png", full_page=True
         )
 
+    @screen_scroll
     def test_result_area_map_working(self):
 
         #  Index画面
@@ -161,7 +179,7 @@ class TestClassPc:
         #  店舗結果画面_地域選択_縮小表示
         self.page.screenshot(path="./screenshot/02_result_map_area_zoom_out.png", full_page=True)
 
-
+    @screen_scroll
     def test_result_freeword_working(self):
 
         #  Index画面
@@ -174,6 +192,7 @@ class TestClassPc:
         #  店舗結果画面
         self.page.screenshot(path="./screenshot/02_result.png", full_page=True)
 
+    @screen_scroll
     def test_detail_working(self):
 
         #  店舗詳細画面：丸尾コンタクト 高田馬場
@@ -189,6 +208,7 @@ class TestClassPc:
         self.page.click("text='地図を印刷する'")
         time.sleep(3)
 
+    @screen_scroll
     def test_store_list_working(self):
 
         #  店舗詳細画面：丸尾コンタクト 高田馬場
@@ -200,6 +220,7 @@ class TestClassPc:
         time.sleep(3)
         self.page.screenshot(path="./screenshot/05_store-list.png", full_page=True)
 
+    @screen_scroll
     def test_detail_print_working(self):
 
         #  地図印刷プレビュー画面
