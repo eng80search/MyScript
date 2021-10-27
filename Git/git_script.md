@@ -910,6 +910,78 @@ topicブランチのA~Cまでの変更を適用したい
     Append svn:ignore settings to the default Git exclude file:
 	git svn show-ignore >> .git/info/exclude
 
+#### SVNを移行
+    svnリポジトリが変更された場合、既存のworking directoryでの切り替えは不可である。
+    なので新しいフォルダで再度新SVNリポジトリから取り直すことになる。
+
+    例：
+
+    現在のフォルダ構成
+
+    D:
+     |__ src (既存のSVNがあるディレクトリ)
+
+    作業後のフォルダ構成
+
+    D: <-- ここに移動してgit svn cloneする
+     |__ src_old (注意：必ず元のディレクトリの名前を変更する)
+     |__ src (git svn cloneによって新規作成されたもの)
+
+    ・作業手順
+    cd D: (一つ上のディレクトリに移動)
+    git svn clone --username geishun http://oldchiba.prj57.scloud.scskinfo.jp/svn/team0001/trunk/src
+    cd src
+    (master)git svn info (これでSVNのURLが予定のURLであればOK)
+    ※初期ブランチの名前はmasterになっている
+    (master)git clone -b svn-master
+    注意：svn-masterは削除しないように！このブランチ及びこのブランチからの
+    派生したブランチのみsvn dcommitできる！
+    (master)git remote add origin git@github.com:eng80search/storeLocator_v2.git
+    (master)git fetch origin
+    (master)git checkout -b master(origin/masterブランチをチェックアウトする)
+    (master)git push -u origin master(masterブランチのupstreamを設定する)
+
+    作業後のブランチ一覧
+    master(origin/master)
+    develop(origin/develop)
+    svn-master(git-svn)
+
+    運用方針
+    普段の開発はmaster及びdevelopで行う。これらのブランチは
+    svnと何の関係性もない。
+    リリースされたらmasterブランチの変更をsvn-masterへ取り込む。
+
+    例：
+    (master) ブランチ
+
+    Commit_A
+    |\
+    | commit_A1
+    | commit_A2
+    | commit_A3
+    |/
+    Commit_B
+    |\
+    | commit_B1 \
+    | commit_B2  |-> この変更をSVNへ取り込む場合
+    | commit_B3 /
+    |/
+    Commit_C
+
+    (master)git checkout svn-master
+    (svn-master)git cherry-pick master~1 -m 1 (注意：このままコミットされる)
+
+    mオプション解説
+    Commit_B <-- master~1に該当
+    |\
+    | commit_B1 <-- オプション -m 2 (ここからCommit_Bまでの変更を適応)
+    | commit_B2
+    | commit_B3
+    |/
+    Commit_C <-- オプション -m 1(ここからCommit_Bまでの変更を適応)
+
+    (svn-master)git svn dcommit
+
 
 ## GitのバージョンUp
     git update-git-for-windows
