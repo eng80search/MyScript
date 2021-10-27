@@ -1,0 +1,1211 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pep8-ja 1.0 ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/_static/css/theme.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html#document-index" class="icon icon-home"> pep8-ja
+          
+
+          
+          </a>
+
+          
+            
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html#document-index">pep8-ja</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html#document-index">Docs</a> &raquo;</li>
+        
+      <li>pep8-ja 1.0 ドキュメント</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/mumumu/pep8-ja/blob/master/index.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="line-block">
+<div class="line">PEP: 8</div>
+<div class="line">Title: Python コードのスタイルガイド</div>
+<div class="line">Version: $Revision$</div>
+<div class="line">Last-Modified: $Date$</div>
+<div class="line">Author: Guido van Rossum &lt;<a class="reference external" href="mailto:guido&#37;&#52;&#48;python&#46;org">guido<span>&#64;</span>python<span>&#46;</span>org</a>&gt;,</div>
+<div class="line-block">
+<div class="line">Barry Warsaw &lt;<a class="reference external" href="mailto:barry&#37;&#52;&#48;python&#46;org">barry<span>&#64;</span>python<span>&#46;</span>org</a>&gt;,</div>
+<div class="line">Nick Coghlan &lt;<a class="reference external" href="mailto:ncoghlan&#37;&#52;&#48;gmail&#46;com">ncoghlan<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</div>
+</div>
+<div class="line">Status: Active</div>
+<div class="line">Type: Process</div>
+<div class="line">Content-Type: text/x-rst</div>
+<div class="line">Created: 05-Jul-2001</div>
+<div class="line">Post-History: 05-Jul-2001, 01-Aug-2013</div>
+<div class="line">X-Original-Text: <a class="reference external" href="https://github.com/python/peps/blob/master/pep-0008.txt">https://github.com/python/peps/blob/master/pep-0008.txt</a></div>
+<div class="line">X-Translator: Yoshinari Takaoka &lt;reversethis -&gt; gro tod umumum ta umumum&gt;</div>
+</div>
+<div class="section" id="id1">
+<h1>はじめに<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この文書は Python の標準ライブラリに含まれているPythonコードのコーディング規約です。CPython に含まれるC言語のコード <a class="footnote-reference" href="#id47" id="id2">[1]</a> については、対応するC言語のスタイルガイドを記した PEP を参照してください。</p>
+<p>この文書と PEP 257 (Docstring 規約) は、Guido が書いたオリジナルのPythonスタイルガイドのエッセイと、 Barry のスタイルガイドに少し追記したものをまとめたものです。 <a class="footnote-reference" href="#id48" id="id3">[2]</a></p>
+<p>このスタイルガイドは、追加の規約が必要だとわかったり、Pythonの言語自体が変更されることで過去の規約が時代遅れになった時に徐々に改訂されてゆきます。</p>
+<p>多くのプロジェクトには、自分たちのコーディングスタイルに関するガイドラインがあります。それとこの文書の規約の内容が矛盾した場合は、そのプロジェクトのガイドラインが優先します。</p>
+</div>
+<div class="section" id="id4">
+<h1>一貫性にこだわりすぎるのは、狭い心の現れである<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Guido の重要な洞察のひとつに、コードは書くよりも読まれることの方が多い、というものがあります。この文書で示すガイドラインの目的は、コードを読みやすくするとともに、Pythonで書かれた幅広いコードのスタイルを一貫させることです。PEP 20 にもあるように &quot;可読性重要&quot; です。</p>
+<p>スタイルガイドは一貫性に関するものです。このスタイルガイドに合わせることは重要ですが、プロジェクトの中で一貫性を保つことはもっと重要です。一番重要なのは、特定のモジュールや関数の中で一貫性を保つことです。</p>
+<p>しかし、一貫性を崩すべき場合があることも知っておいてください - つまり、このスタイルガイドが適用されない場合があります。疑問に思ったときは、あなたの判断を優先してください。他の例を調べ、一番良さそうなものを決めて下さい。そして、躊躇せずに質問して下さい！</p>
+<p>特に、このPEPに準拠するためにコードの後方互換性を壊すようなことは絶対にしないで下さい！</p>
+<p>この他に、特定のガイドラインを無視する正当な理由がいくつか考えられます:</p>
+<ol class="arabic simple">
+<li>ガイドラインに従うとコードが読みにくくなること。このPEPに準拠したコードを読んでいた人にとっても読みにくくなったのならなおさらです。</li>
+<li>(多分歴史的な理由で) ガイドラインに従っていない周囲のコードと一貫性を保つため -- しかし、これは誰かの汚いコードを綺麗にするチャンスでもあります。</li>
+<li>問題になっているコードが、ガイドラインが出てくるより前に書かれたもので、 それに準拠させること以外にコードを変更する理由がないとき。</li>
+<li>スタイルガイドで推奨されている機能をサポートしていない古いバージョンの Python と互換性を保つ必要がある場合。</li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h1>コードのレイアウト<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id6">
+<h2>インデント<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>1レベルインデントするごとに、スペースを4つ使いましょう。</p>
+<p>行を継続する場合は、折り返された要素を縦に揃えるようにすべきです。括弧やブラケットおよび波括弧で囲まれた要素については、Python が暗黙のうちに行を結合することを利用して揃えます。そうでない場合は、手でインデントさせることで揃えます。<em>突き出しインデント</em> <a class="footnote-reference" href="#fn-hi" id="id7">[6]</a> を使う場合は、次のことを考慮すべきです： はじめの行には引数を付けずに次の行以降をインデントし、継続行だとはっきりわかるようにしましょう。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+
+<span class="c1"># 開き括弧に揃える</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">long_function_name</span><span class="p">(</span><span class="n">var_one</span><span class="p">,</span> <span class="n">var_two</span><span class="p">,</span>
+                         <span class="n">var_three</span><span class="p">,</span> <span class="n">var_four</span><span class="p">)</span>
+
+<span class="c1"># 引数とそれ以外を区別するため、スペースを4つ(インデントをさらに)加える</span>
+<span class="k">def</span> <span class="nf">long_function_name</span><span class="p">(</span>
+        <span class="n">var_one</span><span class="p">,</span> <span class="n">var_two</span><span class="p">,</span> <span class="n">var_three</span><span class="p">,</span>
+        <span class="n">var_four</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">var_one</span><span class="p">)</span>
+
+<span class="c1"># 突き出しインデントはインデントのレベルを深くする</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">long_function_name</span><span class="p">(</span>
+    <span class="n">var_one</span><span class="p">,</span> <span class="n">var_two</span><span class="p">,</span>
+    <span class="n">var_three</span><span class="p">,</span> <span class="n">var_four</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+
+<span class="c1"># 折り返された要素を縦に揃えない場合、1行目の引数は禁止</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">long_function_name</span><span class="p">(</span><span class="n">var_one</span><span class="p">,</span> <span class="n">var_two</span><span class="p">,</span>
+    <span class="n">var_three</span><span class="p">,</span> <span class="n">var_four</span><span class="p">)</span>
+
+<span class="c1"># インデントが区別できないので、2行目以降でさらにインデントが必要</span>
+<span class="k">def</span> <span class="nf">long_function_name</span><span class="p">(</span>
+    <span class="n">var_one</span><span class="p">,</span> <span class="n">var_two</span><span class="p">,</span> <span class="n">var_three</span><span class="p">,</span>
+    <span class="n">var_four</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">var_one</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>複数行を継続したときにインデントする場合は、4つスペースを使うルールを守らなくても構いません。</p>
+<p>任意:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 突き出しインデントの場合は、インデントに *スペースを4つ使わなくてもよい*</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">long_function_name</span><span class="p">(</span>
+  <span class="n">var_one</span><span class="p">,</span> <span class="n">var_two</span><span class="p">,</span>
+  <span class="n">var_three</span><span class="p">,</span> <span class="n">var_four</span><span class="p">)</span>
+</pre></div>
+</div>
+<p id="if"><code class="docutils literal notranslate"><span class="pre">if</span></code> 文の条件部分が、複数行にまたがって書かなければならないくらい十分に長い場合があります。この場合、2文字のキーワード(つまり、 <code class="docutils literal notranslate"><span class="pre">if</span></code>) の後にスペースを一つ置き、開き括弧を置くと、2行目以降の条件部分は通常スペース4つ分インデントされることになります。 <code class="docutils literal notranslate"><span class="pre">if</span></code> 文の中でネストされるインデントされたコードも通常スペース4つ分インデントされるので、ネストされたコードの固まりと条件部分が見た目上区別がつかなくなってしまう可能性があります。 この PEP は、 <code class="docutils literal notranslate"><span class="pre">if</span></code> 文に含まれるネストされたコードの部分と、継続された条件部分を区別するかどうか(またはどうやって区別するか)については立場を示しませんが、許容できるやり方はいくつかあります:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 追加のインデントをしない</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">this_is_one_thing</span> <span class="ow">and</span>
+    <span class="n">that_is_another_thing</span><span class="p">):</span>
+    <span class="n">do_something</span><span class="p">()</span>
+
+<span class="c1"># シンタックスのハイライトをサポートするエディタで区別するため</span>
+<span class="c1"># コメントを追加する</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">this_is_one_thing</span> <span class="ow">and</span>
+    <span class="n">that_is_another_thing</span><span class="p">):</span>
+    <span class="c1"># 両方の条件がtrueなので、処理を調整可能</span>
+    <span class="n">do_something</span><span class="p">()</span>
+
+<span class="c1"># 継続された行の条件をインデントする</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">this_is_one_thing</span>
+        <span class="ow">and</span> <span class="n">that_is_another_thing</span><span class="p">):</span>
+    <span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(後で述べる、2項演算子の前で改行すべきか、後で改行すべきかについての議論も参照してください)</p>
+<p>行を継続して 波括弧/ブラケット/括弧 を閉じる時は、「リストの最後の要素が置かれた行の、はじめのホワイトスペースでない文字の直下」に閉じる記号を置いても構いません。次のようにします:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">some_function_that_takes_arguments</span><span class="p">(</span>
+    <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>もしくは、閉じる記号を「継続された行のはじめの文字」に合わせて置いても構いません。次のようにします:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">some_function_that_takes_arguments</span><span class="p">(</span>
+    <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>タブか、スペースか?<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>スペースが好ましいインデントの方法です。</p>
+<p>タブを使うのは、既にタブでインデントされているコードと一貫性を保つためだけです。</p>
+<p>Python では、インデントにタブとスペースを混ぜることを禁止しています。</p>
+</div>
+<div class="section" id="id9">
+<h2>1行の長さ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>すべての行の長さを、最大79文字までに制限しましょう。</p>
+<p>(docstring やコメントのように) 構造に関する制約が少ないテキストのブロックについては、1行72文字までに制限すべきです。</p>
+<p>エディタのウィンドウの幅を制限すると、複数のファイルを並べて開くことができ、二つのバージョンを隣り合ったカラムに表示するコードレビューツールを使うときにもうまくいきます。</p>
+<p>ほとんどのツールのデフォルトの折り返し動作は、コードの見た目の構造を壊し、理解するのを難しくします。79文字という制限は、ウィンドウの幅を80に制限し、行を折り返すときにツールが行末にマーカーを置いたとしても、エディタに折り返す動作をさせない目的で選ばれています。</p>
+<p>1行を79文字より長くするのを好むチームもあります。この問題について合意できるチームが独占的に、もしくは重点的にメンテナンスするコードについては、1行99文字まで制限を緩めてもOKです。ただし、コメントや docstring については72文字で折り返すようにすることが条件です。</p>
+<p>Python の標準ライブラリは保守的なので、1行の文字数は79文字に制限することが必須です(docstring やコメントは72文字)。</p>
+<p>長い行を折り返す好ましい方法は、Python が括弧やブラケット、波括弧の中では暗黙のうちに行を継続させることを利用することです。長い行は文を括弧で囲むことで、複数行に分割できます。行を継続させるには、バックスラッシュよりもこれらを使用すべきです。</p>
+<p>バックスラッシュを使うのが適切な場合もあります。たとえば、長い複数の <code class="docutils literal notranslate"><span class="pre">with</span></code> 文は暗黙のうちに行を継続してくれません。よって、バックスラッシュが望ましいです:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/path/to/some/file/you/want/to/read&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_1</span><span class="p">,</span> \
+     <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/path/to/some/file/being/written&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_2</span><span class="p">:</span>
+    <span class="n">file_2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_1</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>(このように <code class="docutils literal notranslate"><span class="pre">with</span></code> 文が複数行にまたがって使われる場合の詳しい考え方については、 <a class="reference internal" href="#if">条件が複数行にまたがるif文</a> の議論も参照してください)</p>
+<p>バックスラッシュを使うのが好ましい別のケースとして <code class="docutils literal notranslate"><span class="pre">assert</span></code> 文を使う場合が挙げられます。</p>
+<p>必ず、行を継続させた場合はインデントを適切に行うようにしてください。</p>
+</div>
+<div class="section" id="id10">
+<h2>2項演算子の前で改行すべきか、後で改行すべきか?<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>数十年の間、2項演算子の後で改行するスタイルが推奨されていました。しかし、このやり方は2つの理由で読みにくくなってしまいます。画面のいろんな場所に演算子が散らばってしまいがちです。つまり、それぞれの演算子が前の行の演算子から離れてしまいます。以下の例では、どのオペランドが加算されているのか、減算されているのかを知るために、眼を余計に動かさなければなりません:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="c1"># 演算子がオペランドと離れてしまっている</span>
+<span class="n">income</span> <span class="o">=</span> <span class="p">(</span><span class="n">gross_wages</span> <span class="o">+</span>
+          <span class="n">taxable_interest</span> <span class="o">+</span>
+          <span class="p">(</span><span class="n">dividends</span> <span class="o">-</span> <span class="n">qualified_dividends</span><span class="p">)</span> <span class="o">-</span>
+          <span class="n">ira_deduction</span> <span class="o">-</span>
+          <span class="n">student_loan_interest</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>この読みやすさの問題を解決するため、数学者や、数学の本の出版社は全く逆の規約に従っています。Donald Knuth は自身の <em>Computers and Typesetting</em> に関する一連の論文の中で、この伝統的なルールについて以下のように説明しています: &quot;段落の中にある式は、常に2項演算子や関係演算子の後で改行しますが、構造化された式は常に2項演算子の前で改行します&quot; <a class="footnote-reference" href="#id49" id="id11">[3]</a></p>
+<p>数学の伝統に従うと、通常はもっと読みやすいコードになります:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="c1"># 演算子とオペランドを一致させやすい</span>
+<span class="n">income</span> <span class="o">=</span> <span class="p">(</span><span class="n">gross_wages</span>
+          <span class="o">+</span> <span class="n">taxable_interest</span>
+          <span class="o">+</span> <span class="p">(</span><span class="n">dividends</span> <span class="o">-</span> <span class="n">qualified_dividends</span><span class="p">)</span>
+          <span class="o">-</span> <span class="n">ira_deduction</span>
+          <span class="o">-</span> <span class="n">student_loan_interest</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Python のコードでは、プロジェクトの内部で統一されているのであれば、2項演算子の前後どちらででも改行して構いません。新しいコードでは、Knuth のスタイルをお勧めします。</p>
+</div>
+<div class="section" id="id12">
+<h2>空行<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>トップレベルの関数やクラスは、2行ずつ空けて定義するようにしてください。</p>
+<p>クラス内部では、1行ずつ空けてメソッドを定義してください。</p>
+<p>関連する関数のグループを分けるために、2行以上空けても構いません(ただし控えめに)。
+関連するワンライナーの場合は、空行を省略しても問題ありません。(例: ダミー実装)</p>
+<p>関数の中では、ロジックの境目を示すために、空行を控えめに使うようにします。</p>
+<p>Python は 用紙送りをあらわす Control-L (^L) 文字を空白文字として認めています。多くのツールはこの文字をページの区切りとして扱います。よって、ファイルの関連する部分を複数のページに分割する用途で、こうした文字を使っても構いません。ただし、Webベースのコードビューアやエディタの中には、Control-L を用紙送り文字として認識せず、違うグリフを表示するものもあるので注意してください。</p>
+</div>
+<div class="section" id="id13">
+<h2>ソースファイルのエンコーディング<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Python のコアディストリビューションに含まれるコードは常に UTF-8 を使用すべきで、エンコーディング宣言を入れるべきではありません。</p>
+<p>標準ライブラリでは、UTF-8 以外のエンコーディングを使うのはテスト目的に限るべきです。ASCII でない文字は控えめに使い、場所や人の名前にのみ使うのが望ましいです。ASCII でない文字をデータとして使う場合、z̯̯͡a̧͎̺l̡͓̫g̹̲o̡̼̘ のようなノイズが多い Unicode 文字や、BOM を入れるのを避けましょう。</p>
+<p>Python の標準ライブラリの識別子には ASCII のみを使わなければなりませんし、適切な場合 (英語でない技術的な用語や略語が使われる場合が多くあります) はいつでも英単語を使うべきです。</p>
+<p>世界中の人が利用するオープンソースプロジェクトは、これと似たポリシーを採用することを推奨します。</p>
+</div>
+<div class="section" id="import">
+<h2>import<a class="headerlink" href="#import" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul>
+<li><p class="first">import文は、通常は行を分けるべきです:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 悪い:</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+</pre></div>
+</div>
+<p>しかし、次のやり方はOKです:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">import文 は常にファイルの先頭、つまり モジュールコメントや docstring の直後、そしてモジュールのグローバル変数や定数定義の前に置くようにします。</p>
+<p>import文 は次の順番でグループ化すべきです:</p>
+<ol class="arabic simple">
+<li>標準ライブラリ</li>
+<li>サードパーティに関連するもの</li>
+<li>ローカルな アプリケーション/ライブラリ に特有のもの</li>
+</ol>
+<p>上のグループそれぞれの間には、1行空白を置くべきです。</p>
+</li>
+<li><p class="first">絶対import を推奨します。なぜなら、絶対import の方が通常は読みやすく、importシステムが正しく設定されなかった(たとえばパッケージ内部のディレクトリが <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> で終わっていた) 場合でも、より良い振る舞いをする(または少なくともより良いエラーメッセージを出す)からです:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mypkg.sibling</span>
+<span class="kn">from</span> <span class="nn">mypkg</span> <span class="kn">import</span> <span class="n">sibling</span>
+<span class="kn">from</span> <span class="nn">mypkg.sibling</span> <span class="kn">import</span> <span class="n">example</span>
+</pre></div>
+</div>
+<p>しかしながら、明示的に相対importを使うことが許される場合があります。特に絶対importを使うと不必要に冗長になる複雑なパッケージレイアウトを扱う場合です。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">sibling</span>
+<span class="kn">from</span> <span class="nn">.sibling</span> <span class="kn">import</span> <span class="n">example</span>
+</pre></div>
+</div>
+<p>標準ライブラリのコードは複雑なパッケージレイアウトを避け、常に絶対importを使うようにすべきです。</p>
+</li>
+<li><p class="first">クラスを含んだモジュールからクラスをimportする場合は、次のようにしても通常はOKです:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">myclass</span> <span class="kn">import</span> <span class="n">MyClass</span>
+<span class="kn">from</span> <span class="nn">foo.bar.yourclass</span> <span class="kn">import</span> <span class="n">YourClass</span>
+</pre></div>
+</div>
+<p>このやり方で名前の衝突が起きたら、次のように明示的にimportします:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">myclass</span>
+<span class="kn">import</span> <span class="nn">foo.bar.yourclass</span>
+</pre></div>
+</div>
+<p>そして &quot;myclass.MyClass&quot; や &quot;foo.bar.yourclass.YourClass&quot; を使います。</p>
+</li>
+<li><p class="first">ワイルドカードを使った import (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">&lt;module&gt;</span> <span class="pre">import</span> <span class="pre">*</span></code>) は避けるべきです。なぜなら、どの名前が名前空間に存在しているかをわかりにくくし、コードの読み手や多くのツールを混乱させるからです。ワイルドカードを使った import を正当化できるユースケースがひとつあります。内部インターフェイスを公開APIとして再公開する場合 (たとえば、Pure Python の実装をオプションの高速化モジュールの内容で上書きし、どの定義が上書きされるかがあらかじめわからない場合) です。</p>
+<p>名前をこのやり方で再公開する場合でも、公開インターフェイスと内部インターフェイスに関するガイドラインは有効です。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h2>モジュールレベルの二重アンダースコア変数名<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">__all__</span></code>, <code class="docutils literal notranslate"><span class="pre">__author__</span></code>, <code class="docutils literal notranslate"><span class="pre">__version__</span></code> のような、モジュールレベルの &quot;二重アンダースコア変数&quot; (変数名の前後にアンダースコアが2つ付いている変数)  は、モジュールに関する docstring の後、そして <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span></code> <em>以外の</em> あらゆるimport文の前に置くべきです。Python はfuture importを、docstring 以外のあらゆるコードの前に置くように強制します:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;This is the example module.</span>
+
+<span class="sd">This module does stuff.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">barry_as_FLUFL</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.1&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Cardinal Biggles&#39;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h1>文字列に含まれる引用符<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Python では、単一引用符 <code class="docutils literal notranslate"><span class="pre">'</span></code> で囲まれた文字列と、二重引用符 <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> で囲まれた文字列は同じです。この PEP では、どちらを推奨するかの立場は示しません。どちらを使うかのルールを決めて、守るようにして下さい。単一引用符 や 二重引用符 が文字列に含まれていた場合は、文字列中でバックスラッシュを使うことを避けるため、もう一方の引用符を使うようにしましょう。可読性が向上します。</p>
+<p>三重引用符 で文字列を囲むときは、PEP 257 での docstring に関するルールと一貫させるため、常に二重引用符 <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code> を使うようにします。</p>
+</div>
+<div class="section" id="id16">
+<h1>式や文中の空白文字<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id17">
+<h2>イライラの元<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>次の場合に、余計な空白文字を使うのはやめましょう:</p>
+<ul>
+<li><p class="first">括弧やブラケット、波括弧 のはじめの直後と、終わりの直前:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="n">spam</span><span class="p">(</span><span class="n">ham</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">{</span><span class="n">eggs</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">spam</span><span class="p">(</span> <span class="n">ham</span><span class="p">[</span> <span class="mi">1</span> <span class="p">],</span> <span class="p">{</span> <span class="n">eggs</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}</span> <span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">末尾のカンマと、その後に続く閉じカッコの間:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">カンマやセミコロン、コロンの直前:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span> <span class="nb">print</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">4</span> <span class="p">:</span> <span class="nb">print</span> <span class="n">x</span> <span class="p">,</span> <span class="n">y</span> <span class="p">;</span> <span class="n">x</span> <span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="p">,</span> <span class="n">x</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">しかし、スライスではコロンは二項演算子のように振る舞います。よって、(コロンは優先度が最も低い演算子として扱われるので)両側に同じ数(訳注: 無しでも可だと思われる)のスペースを置くべきです。拡張スライスでは、両側に同じ数のスペースを置かなければなりません。例外: スライスのパラメータが省略された場合は、スペースも省略されます。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="n">ham</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">9</span><span class="p">],</span> <span class="n">ham</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">9</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">ham</span><span class="p">[:</span><span class="mi">9</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">ham</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">3</span><span class="p">],</span> <span class="n">ham</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">9</span><span class="p">:]</span>
+<span class="n">ham</span><span class="p">[</span><span class="n">lower</span><span class="p">:</span><span class="n">upper</span><span class="p">],</span> <span class="n">ham</span><span class="p">[</span><span class="n">lower</span><span class="p">:</span><span class="n">upper</span><span class="p">:],</span> <span class="n">ham</span><span class="p">[</span><span class="n">lower</span><span class="p">::</span><span class="n">step</span><span class="p">]</span>
+<span class="n">ham</span><span class="p">[</span><span class="n">lower</span><span class="o">+</span><span class="n">offset</span> <span class="p">:</span> <span class="n">upper</span><span class="o">+</span><span class="n">offset</span><span class="p">]</span>
+<span class="n">ham</span><span class="p">[:</span> <span class="n">upper_fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">:</span> <span class="n">step_fn</span><span class="p">(</span><span class="n">x</span><span class="p">)],</span> <span class="n">ham</span><span class="p">[::</span> <span class="n">step_fn</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+<span class="n">ham</span><span class="p">[</span><span class="n">lower</span> <span class="o">+</span> <span class="n">offset</span> <span class="p">:</span> <span class="n">upper</span> <span class="o">+</span> <span class="n">offset</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">ham</span><span class="p">[</span><span class="n">lower</span> <span class="o">+</span> <span class="n">offset</span><span class="p">:</span><span class="n">upper</span> <span class="o">+</span> <span class="n">offset</span><span class="p">]</span>
+<span class="n">ham</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span> <span class="mi">9</span><span class="p">],</span> <span class="n">ham</span><span class="p">[</span><span class="mi">1</span> <span class="p">:</span><span class="mi">9</span><span class="p">],</span> <span class="n">ham</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">9</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">ham</span><span class="p">[</span><span class="n">lower</span> <span class="p">:</span> <span class="p">:</span> <span class="n">upper</span><span class="p">]</span>
+<span class="n">ham</span><span class="p">[</span> <span class="p">:</span> <span class="n">upper</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">関数呼び出しの引数リストをはじめる開き括弧の直前:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="n">spam</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">spam</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">インデックスやスライスの開き括弧の直前:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="n">dct</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">dct</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lst</span> <span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">代入(や他の)演算子を揃えるために、演算子の周囲に1つ以上のスペースを入れる:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">long_variable</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">x</span>             <span class="o">=</span> <span class="mi">1</span>
+<span class="n">y</span>             <span class="o">=</span> <span class="mi">2</span>
+<span class="n">long_variable</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h2>その他の推奨事項<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul>
+<li><p class="first">行末に余計な空白文字を残さないようにしましょう。通常それは目に見えないため、混乱のもとになるかもしれません。たとえば、バックスラッシュの後にスペースをひとつ入れて改行してしまうと、行を継続すると見なされません。エディタによっては行末の余計な空白文字を保存しないものもありますし、多くのプロジェクト (CPythonもそうです) ではコミット前のフックでそれを拒否するように設定しています。</p>
+</li>
+<li><p class="first">次の2項演算子は、両側に常にひとつだけスペースを入れましょう: 代入演算子 (<code class="docutils literal notranslate"><span class="pre">=</span></code>), 拡張代入演算子 (<code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>
+など.), 比較演算子 (<code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">in</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">in</span></code>, <code class="docutils literal notranslate"><span class="pre">is</span></code>, <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">not</span></code>), ブール演算子 (<code class="docutils literal notranslate"><span class="pre">and</span></code>,
+<code class="docutils literal notranslate"><span class="pre">or</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span></code>).</p>
+</li>
+<li><p class="first">優先順位が違う演算子を扱う場合、優先順位が一番低い演算子の両側にスペースを入れることを考えてみましょう。入れるかどうかはあなたの判断にお任せしますが、二つ以上のスペースを絶対に使わないでください。そして、2項演算子の両側には、常に同じ数の空白文字を入れてください。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">submitted</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">hypot2</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">submitted</span> <span class="o">+=</span><span class="mi">1</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">hypot2</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">関数アノテーションは、 コロンに関する通常のルール(訳注:コロンの前には余計なスペースを入れない)を守るようにしつつ、 <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> 演算子がある場合、その両側には常にスペースを入れるようにしましょう。(関数アノテーションについて詳しくは、 <a class="reference internal" href="#id43">関数アノテーション</a> も参照してください):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">def</span> <span class="nf">munge</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">):</span> <span class="o">...</span>
+<span class="k">def</span> <span class="nf">munge</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PosInt</span><span class="p">:</span> <span class="o">...</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">def</span> <span class="nf">munge</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span><span class="n">AnyStr</span><span class="p">):</span> <span class="o">...</span>
+<span class="k">def</span> <span class="nf">munge</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">PosInt</span><span class="p">:</span> <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><em>アノテーションされていない</em> 関数の引数におけるキーワード引数や、デフォルトパラメータを示す <code class="docutils literal notranslate"><span class="pre">=</span></code> の両側にスペースを入れてはいけません:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">def</span> <span class="nf">complex</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">magic</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">real</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">imag</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">def</span> <span class="nf">complex</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">magic</span><span class="p">(</span><span class="n">r</span> <span class="o">=</span> <span class="n">real</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">imag</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>しかし、デフォルト値をもった引数アノテーションと組み合わせる場合、 <code class="docutils literal notranslate"><span class="pre">=</span></code> の前後にはスペースを入れるようにしてください:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">def</span> <span class="nf">munge</span><span class="p">(</span><span class="n">sep</span><span class="p">:</span> <span class="n">AnyStr</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span> <span class="o">...</span>
+<span class="k">def</span> <span class="nf">munge</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">sep</span><span class="p">:</span> <span class="n">AnyStr</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span> <span class="o">...</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">def</span> <span class="nf">munge</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="n">AnyStr</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="o">...</span>
+<span class="k">def</span> <span class="nf">munge</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">):</span> <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">複合文 (一行に複数の文を入れること) は一般的に推奨されません。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s1">&#39;blah&#39;</span><span class="p">:</span>
+    <span class="n">do_blah_thing</span><span class="p">()</span>
+<span class="n">do_one</span><span class="p">()</span>
+<span class="n">do_two</span><span class="p">()</span>
+<span class="n">do_three</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>やらない方が良い:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s1">&#39;blah&#39;</span><span class="p">:</span> <span class="n">do_blah_thing</span><span class="p">()</span>
+<span class="n">do_one</span><span class="p">();</span> <span class="n">do_two</span><span class="p">();</span> <span class="n">do_three</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">if/for/while と 短い文を同じ行に置くことがOKな場合もありますが、複合文を置くのはやめてください。また、複合文でできた長い行を折り返すのもやめましょう！</p>
+<p>やらない方が良い:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s1">&#39;blah&#39;</span><span class="p">:</span> <span class="n">do_blah_thing</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span> <span class="n">total</span> <span class="o">+=</span> <span class="n">x</span>
+<span class="k">while</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span> <span class="n">t</span> <span class="o">=</span> <span class="n">delay</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>絶対やってはいけない:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s1">&#39;blah&#39;</span><span class="p">:</span> <span class="n">do_blah_thing</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span> <span class="n">do_non_blah_thing</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span> <span class="n">something</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span> <span class="n">cleanup</span><span class="p">()</span>
+
+<span class="n">do_one</span><span class="p">();</span> <span class="n">do_two</span><span class="p">();</span> <span class="n">do_three</span><span class="p">(</span><span class="n">long</span><span class="p">,</span> <span class="n">argument</span><span class="p">,</span>
+                             <span class="nb">list</span><span class="p">,</span> <span class="n">like</span><span class="p">,</span> <span class="n">this</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s1">&#39;blah&#39;</span><span class="p">:</span> <span class="n">one</span><span class="p">();</span> <span class="n">two</span><span class="p">();</span> <span class="n">three</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id19">
+<h1>末尾にカンマを付けるべき場合<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>末尾にカンマを付けるかどうかは、通常は任意です。但し、要素数がひとつのタプルを作るときは例外的に必須です。混乱を防ぐため、要素数がひとつのタプルを作るときは、(技術的には冗長ですが) 括弧で囲むことを推奨します。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="n">FILES</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;setup.cfg&#39;</span><span class="p">,)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">FILES</span> <span class="o">=</span> <span class="s1">&#39;setup.cfg&#39;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>末尾のカンマは冗長ですが、便利な場合もあります。たとえば値や引数、もしくはimportされた値のリストが繰り返し展開されることが期待される場合や、バージョン管理システムを使っている場合です。それぞれの値(など)を一行にひとつずつ置き、末尾にカンマをひとつ追加し、その次の行を 閉じ括弧/角括弧/中括弧 で閉じるというのがひとつのパターンです。しかし、区切りの終わりを示す目的で、同じ行の末尾にカンマを付けることは意味がありません(但し、既に示した、要素数がひとつのタプルの場合は除きます)。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="n">FILES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;setup.cfg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;tox.ini&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="n">initialize</span><span class="p">(</span><span class="n">FILES</span><span class="p">,</span>
+           <span class="n">error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+           <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">FILES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;setup.cfg&#39;</span><span class="p">,</span> <span class="s1">&#39;tox.ini&#39;</span><span class="p">,]</span>
+<span class="n">initialize</span><span class="p">(</span><span class="n">FILES</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id20">
+<h1>コメント<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>コードと矛盾するコメントは、コメントしないことよりタチが悪いです。コードを変更した時は、コメントを最新にすることをいつも優先させてください！</p>
+<p>コメントは複数の完全な文で書くべきです。はじめの単語はそれが小文字で始まる識別子でない限り、大文字にすべきです(間違ってもその識別子の大文字小文字を変更しないでね！)。</p>
+<p>ブロックコメントは一般的にひとつかそれ以上の段落からなり、段落は複数の完全な文からできています。そしてそれぞれの文はピリオドで終わります。</p>
+<p>コメントが2つ以上の文からなる場合、文の終わりのピリオドの後は、二つスペースを入れるべきです。ただし、最後の文を除きます。</p>
+<p>コメントを書くときは、あなたが今書いている言葉の他の話者から見ても、明快かつわかりやすいコメントにしましょう。</p>
+<p>英語を話さない国出身の Python プログラマの方々へ：あなたのコードが、自分の言葉を話さない人に 120% 読まれないと確信していなければ、コメントを英語で書くようにお願いします。</p>
+<div class="section" id="id21">
+<h2>ブロックコメント<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ブロックコメントは、一般的にその後に続くいくつか（またはすべて）のコードに適用され、そのコードと同じレベルにインデントされます。ブロックコメントの各行は (コメント内でインデントされたテキストでない限り) <code class="docutils literal notranslate"><span class="pre">#</span></code> とスペースひとつではじまります。</p>
+<p>ブロックコメント内の段落は、<code class="docutils literal notranslate"><span class="pre">#</span></code> だけを含んだ1行で区切るようにします。</p>
+</div>
+<div class="section" id="id22">
+<h2>インラインコメント<a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>インラインコメントは控えめに使いましょう。</p>
+<p>インラインコメントは、文と同じ行に書くコメントです。文とインラインコメントの間は、少なくとも二つのスペースを置くべきです。インラインコメントは <code class="docutils literal notranslate"><span class="pre">#</span></code> とスペースひとつから始めるべきです。</p>
+<p>自明なことを述べている場合、インラインコメントは不要ですし、邪魔です。次のようなことはしないでください:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>                 <span class="c1"># xを1増やす</span>
+</pre></div>
+</div>
+<p>しかし次のように、役に立つ場合もあります:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>                 <span class="c1"># 境目を補う</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id23">
+<h2>ドキュメンテーション文字列<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>良いドキュメンテーション文字列(別名 &quot;docstrings&quot;)を書くための規約は、PEP 257 にまとめられています。</p>
+<ul>
+<li><p class="first">すべての公開されているモジュールや関数、クラス、メソッドの docstring を書いてください。docstring は公開されていないメソッドには不要ですが、そのメソッドが何をしているのかは説明すべきです。このコメントは <code class="docutils literal notranslate"><span class="pre">def</span></code> の行のあとに置くべきです。</p>
+</li>
+<li><p class="first">PEP 257 は良い docstring の規約です。もっとも重要なのは、複数行の docstring は <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code> だけからなる行で閉じることです:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Return a foobang</span>
+
+<span class="sd">Optional plotz says to frobnicate the bizbaz first.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">docstring が1行で終わる場合は、同じ行を <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code> で閉じるようにしてください:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Return an ex-parrot.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id24">
+<h1>命名規約<a class="headerlink" href="#id24" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>Python のライブラリで採用されている命名規約はちょっと面倒です。よって、この命名規約を完全に一貫したものにするつもりはありません - とはいえ、現在推奨している命名規約をここで説明します。新しいモジュールとパッケージ (サードパーティのフレームワークを含む) はこの規約に従って書くべきです。しかし、既にあるライブラリが異なるスタイルを採用している場合は、内部を一貫させることが望ましいです。</p>
+<div class="section" id="id25">
+<h2>一番重要な原則<a class="headerlink" href="#id25" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>公開されている API の一部としてユーザーに見える名前は、実装よりも使い方を反映した名前にすべきです。</p>
+</div>
+<div class="section" id="id26">
+<h2>実践されている命名方法<a class="headerlink" href="#id26" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>命名のやり方には多くのバリエーションがあります。どういう目的で使われているのかは別として、どんなやり方が使われているのかがわかります。</p>
+<p>よく知られたやり方として、次のものが挙げられます:</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">b</span></code> (小文字1文字)</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">B</span></code> (大文字1文字)</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">lowercase</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">lower_case_with_underscores</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">UPPERCASE</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">UPPER_CASE_WITH_UNDERSCORES</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">CapitalizedWords</span></code> (CapWords, または CamelCase - 文字がデコボコに見えることからこう呼ばれます <a class="footnote-reference" href="#id50" id="id27">[4]</a>)。StudlyCaps という呼び名でも知られています。</p>
+<p>注意: CapWords の中で頭字語 <a class="footnote-reference" href="#fn-hu" id="id28">[7]</a> を含める場合、頭字語の全ての文字を大文字にします。つまりこのやり方だと、HttpServerError より HTTPServerError の方が良いということになります。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">mixedCase</span></code> (はじめの文字が小文字である点が、CapitalizedWords と違います！)</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">Capitalized_Words_With_Underscores</span></code> (醜い！)</p>
+</li>
+</ul>
+<p>関連する名前の集まりに、短い一意なプレフィックスを付けるやり方もあります。Python ではこのやり方を多く使っているわけではありませんが、完全を期すために紹介しておきます。たとえば、 <code class="docutils literal notranslate"><span class="pre">os.stat()</span></code> 関数は伝統的に <code class="docutils literal notranslate"><span class="pre">st_mode</span></code>, <code class="docutils literal notranslate"><span class="pre">st_size</span></code>, <code class="docutils literal notranslate"><span class="pre">st_mtime</span></code> などの名前からなるタプルを返します。 (これは、 POSIX システムコールが返す構造体のフィールドとの関連を強調するために使われており、POSIXシステムコール に馴染んだプログラマを助けてくれます)</p>
+<p>X11ライブラリは、公開されている関数全てに「X」を付けています。Python では一般的にこのやり方は不要だと考えられています。なぜなら、Python の属性やメソッドの名前の前にはクラス名が付きますし、関数名の前にはモジュール名が付くからです。</p>
+<p>それに加えて、次のようにアンダースコアを名前の前後に付ける特別なやり方が知られています(これらに大文字小文字に関する規約を組み合わせるのが一般的です):</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">_single_leading_underscore</span></code>: &quot;内部でだけ使う&quot; ことを示します。
+たとえば <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">M</span> <span class="pre">import</span> <span class="pre">*</span></code> は、アンダースコアで始まる名前のオブジェクトをimportしません。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">single_trailing_underscore_</span></code>: Python のキーワードと衝突するのを避けるために使われる規約です。例を以下に挙げます:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tkinter</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;ClassName&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">__double_leading_underscore</span></code>: クラスの属性に名前を付けるときに、名前のマングリング機構を呼び出します (クラス Foobar の <code class="docutils literal notranslate"><span class="pre">__boo</span></code> という名前は <code class="docutils literal notranslate"><span class="pre">_FooBar__boo</span></code> になります。以下も参照してください)</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">__double_leading_and_trailing_underscore__</span></code>: ユーザーが制御する名前空間に存在する &quot;マジック&quot;オブジェクト または &quot;マジック&quot;属性です。
+たとえば <code class="docutils literal notranslate"><span class="pre">__init__</span></code>, <code class="docutils literal notranslate"><span class="pre">__import__</span></code>, <code class="docutils literal notranslate"><span class="pre">__file__</span></code> が挙げられます。この手の名前を再発明するのはやめましょう。ドキュメントに書かれているものだけを使ってください。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id29">
+<h2>守るべき命名規約<a class="headerlink" href="#id29" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id30">
+<h3>こんな名前は嫌だ<a class="headerlink" href="#id30" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>単一の文字 'l' (小文字のエル)、'O' (大文字のオー)、'I'(大文字のアイ) を決して変数に使わないでください。</p>
+<p>フォントによっては、これらの文字は数字の1や0と区別が付かない場合があります。'l'(小文字のエル) を使いたくなったら、'L' を代わりに使いましょう。</p>
+</div>
+<div class="section" id="ascii">
+<h3>ASCII との互換性<a class="headerlink" href="#ascii" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>標準ライブラリで使われる識別子は、PEP 3131 の <a class="reference external" href="https://www.python.org/dev/peps/pep-3131/#policy-specification">policy section</a> にあるとおり、 ASCII と互換性がなければなりません。</p>
+</div>
+<div class="section" id="id31">
+<h3>パッケージとモジュールの名前<a class="headerlink" href="#id31" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>モジュールの名前は、全て小文字の短い名前にすべきです。読みやすくなるなら、アンダースコアをモジュール名に使っても構いません。Python のパッケージ名は、全て小文字の短い名前を使うべきですが、アンダースコアを使うのは推奨されません。</p>
+<p>C や C++ で書かれた Python の拡張モジュールに、高レベルの (例：オブジェクト指向的な) インターフェイスを提供する Python モジュールが付いている場合は C/C++ のモジュールはアンダースコアで始まります (例： <code class="docutils literal notranslate"><span class="pre">_socket</span></code>)</p>
+</div>
+<div class="section" id="id32">
+<h3>クラスの名前<a class="headerlink" href="#id32" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラスの名前には通常 CapWords 方式を使うべきです。</p>
+<p>主に callable として使われる、ドキュメント化されたインターフェイスの場合は、クラスではなく関数向けの命名規約を使っても構いません。</p>
+<p>Python にビルドインされている名前には別の規約があることに注意してください： ビルトインされている名前のほとんどは、単一の単語(または、二つの単語が混ざったもの) ですが、例外的に CapWords 方式が使われている名前や定数も存在しています。</p>
+</div>
+<div class="section" id="id33">
+<h3>型変数の名前<a class="headerlink" href="#id33" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>PEP 484 で導入された型変数の名前には、通常 CapWords 方式を使うべきです。また、 <code class="docutils literal notranslate"><span class="pre">T</span></code> や <code class="docutils literal notranslate"><span class="pre">AnyStr</span></code> や <code class="docutils literal notranslate"><span class="pre">Num</span></code> のような短い名前が好ましいです。 共変や反変の振る舞いをする変数を宣言するために <code class="docutils literal notranslate"><span class="pre">_co</span></code> や <code class="docutils literal notranslate"><span class="pre">_contra</span></code> のような名前を変数の末尾に付け加えることを推奨します:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
+
+<span class="n">VT_co</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;VT_co&#39;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">KT_contra</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;KT_contra&#39;</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id34">
+<h3>例外の名前<a class="headerlink" href="#id34" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>例外はクラスであるべきです。よって、クラスの命名規約がここにも適用されます。しかし、(その例外が実際にエラーである場合は) 例外の名前の最後に &quot;Error&quot; をつけるべきです 。</p>
+</div>
+<div class="section" id="id35">
+<h3>グローバル変数の名前<a class="headerlink" href="#id35" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>(ここで言う「グローバル変数」はモジュールレベルでグローバルという意味だと思いたいですが) ここで示す規約は、関数レベルのものについても同じです。</p>
+<p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">M</span> <span class="pre">import</span> <span class="pre">*</span></code> 方式でimportされるように設計されているモジュールは、 グローバル変数をエクスポートするのを防ぐため <code class="docutils literal notranslate"><span class="pre">__all__</span></code> の仕組みを使うか、エクスポートしたくないグローバル変数の頭にアンダースコアをつける古い規約を使うべきです (こうすることで、これらのグローバル変数は「モジュールレベルで公開されていない」ことを開発者が示したいかもしれません)。</p>
+</div>
+<div class="section" id="id36">
+<h3>関数や変数の名前<a class="headerlink" href="#id36" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>関数の名前は小文字のみにすべきです。また、読みやすくするために、必要に応じて単語をアンダースコアで区切るべきです。</p>
+<p>変数の名前についても、関数と同じ規約に従います。</p>
+<p>mixedCase が既に使われている (例: threading.py) 場合にのみ、互換性を保つために mixedCase を許可します。</p>
+</div>
+<div class="section" id="id37">
+<h3>関数やメソッドに渡す引数<a class="headerlink" href="#id37" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>インスタンスメソッドのはじめの引数の名前は常に <code class="docutils literal notranslate"><span class="pre">self</span></code> を使ってください。</p>
+<p>クラスメソッドのはじめの引数の名前は常に <code class="docutils literal notranslate"><span class="pre">cls</span></code> を使ってください。</p>
+<p>関数の引数名が予約語と衝突していた場合、アンダースコアを引数名の後ろに追加するのが一般的には望ましいです。衝突した名前を変更しようとして、略語を使ったりスペルミスをするよりマシです。よって、 <code class="docutils literal notranslate"><span class="pre">class_</span></code> は <code class="docutils literal notranslate"><span class="pre">clss</span></code> より好ましいです。 (多分、同義語を使って衝突を避けるのがよいのでしょうけど)</p>
+</div>
+<div class="section" id="id38">
+<h3>メソッド名とインスタンス変数<a class="headerlink" href="#id38" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>関数の命名規約を使ってください。つまり、名前は小文字のみにして、読みやすくするために必要に応じて単語をアンダースコアで区切ります。</p>
+<p>公開されていないメソッドやインスタンス変数にだけ、アンダースコアを先頭に付けてください。</p>
+<p>サブクラスと名前が衝突した場合は、Python のマングリング機構を呼び出すためにアンダースコアを先頭に二つ付けてください。</p>
+<p>Python はアンダースコアが先頭に二つ付いた名前にクラス名を追加します。つまり、クラス Foo に <code class="docutils literal notranslate"><span class="pre">__a</span></code> という名前の属性があった場合、この名前は <code class="docutils literal notranslate"><span class="pre">Foo.__a</span></code> ではアクセスできません (どうしてもアクセスしたいユーザーは <code class="docutils literal notranslate"><span class="pre">Foo._Foo__a</span></code> とすればアクセスできます)。一般的には、アンダースコアを名前の先頭に二つ付けるやり方は、サブクラス化されるように設計されたクラスの属性が衝突したときに、それを避けるためだけに使うべきです。</p>
+<p>注意: アンダースコアを名前の先頭に二つ付けるやり方については、別の議論があります。 (下を参照)</p>
+</div>
+<div class="section" id="id39">
+<h3>定数<a class="headerlink" href="#id39" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>定数は通常モジュールレベルで定義します。全ての定数は大文字で書き、単語をアンダースコアで区切ります。例として <code class="docutils literal notranslate"><span class="pre">MAX_OVERFLOW</span></code> や <code class="docutils literal notranslate"><span class="pre">TOTAL</span></code> があります。</p>
+</div>
+<div class="section" id="id40">
+<h3>継承の設計<a class="headerlink" href="#id40" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラスのメソッドやインスタンス変数 (まとめて &quot;属性&quot; といいます) を公開するかどうかをいつも決めるようにしましょう。よくわからないなら、公開しないでおきます。なぜなら、公開されている属性を非公開にすることよりも、非公開の属性を公開することの方がずっと簡単だからです。</p>
+<p>クラスのユーザーは、公開されている(public)属性に対して、開発者が後方互換性を壊す変更をしないことを期待します。公開されていない(non-public)属性は、サードパーティに使われてることを意図していないものです。つまり、非公開の属性に変更されない保証はありませんし、削除されない保証すらありません。</p>
+<p>ここでは &quot;private&quot; という用語を使っていません。なぜなら、Python の世界で本当の意味で private なものは存在しない (実現するには通常は不要なほどの多くの作業が必要です) からです。</p>
+<p>別の属性のカテゴリとして &quot;サブクラスで実装されるAPI&quot; (Python以外の言語では &quot;protected&quot; と呼ばれます) があります。クラスによっては、継承されることでクラスを拡張したり、クラスの振る舞いの一部を変えられるように設計されているものがあります。このようなクラスを設計する場合、どの属性が公開されるか、どの属性が &quot;サブクラスで実装されるAPI&quot; なのか、そしてどれが基底クラスでだけ本当に使われるのかを明示的に決めるようにしましょう。</p>
+<p>これらのことを念頭に置くと、Pythonic なガイドラインは以下のようになります:</p>
+<ul>
+<li><p class="first">公開されている(public)属性の先頭にはアンダースコアを付けない</p>
+</li>
+<li><p class="first">もしあなたが公開している属性の名前が予約語と衝突する場合は、属性の名前の直後にアンダースコアを追加します。省略語を使ったり、スペルミスをするよりはマシです。 (しかし、このルールに関わらず、'cls' という名前はクラスを示す変数や引数、特にクラスメソッドのはじめの引数として望ましいものです)</p>
+<p>注意1: 上のクラスメソッドの引数に関する推奨事項も参照してください。</p>
+</li>
+<li><p class="first">公開する属性をシンプルにするには、複雑なアクセサやミューテータ(訳注:内部状態を変更するメソッド) を公開せず、属性の名前だけを公開するのがベストです。そういった属性に関数的な振る舞いが必要になった場合でも、Python はそういった拡張を将来簡単に行える手段を提供していることを覚えておきましょう。この場合は、関数呼び出しの実装をシンプルなデータアクセスの文法で隠すために、プロパティを使います。</p>
+<p>注意1: 関数的な振る舞いは、副作用がない状態を保つようにしましょう。しかし、キャッシュのような副作用は一般的に問題ありません。</p>
+<p>注意2: 計算コストが高く付く処理でプロパティを使うのはやめましょう。この機能を使うと、属性を呼び出す側は、この演算のコストが（比較的）安いものだと思ってしまいます。</p>
+</li>
+<li><p class="first">サブクラス化して使うクラスがあるとします。サブクラスで使って欲しくない属性があった場合、その名前の最後ではなく、先頭にアンダースコアを二つ付けることを検討してみましょう。これによって Python のマングリングアルゴリズムが呼び出され、その属性にはクラス名が付加されます。これはサブクラスにうっかり同名の属性が入ってしまうことによる属性の衝突を避けるのに役立ちます。</p>
+<p>注意1: マングリングされる名前は、単なるクラス名であることに注意して下さい。よって、サブクラスで親クラスと同じ名前のクラス名と属性名を選んだ場合、衝突は回避できません。</p>
+<p>注意2: 名前のマングリングは、ユースケースによっては不便な場合もあります。たとえば <code class="docutils literal notranslate"><span class="pre">__getattr__()</span></code> を使ったり、デバッグを行う場合です。しかし、名前のマングリングアルゴリズムはきちんとドキュメント化されているので、簡単に手動で実行できます。</p>
+<p>注意3: 皆がマングリングを好きだとは限りません。うっかり名前を衝突させてしまうリスクを避けることと、Pythonの上級者が使う可能性があることとのバランスを考えましょう。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id41">
+<h2>公開インターフェイスと内部インターフェイス<a class="headerlink" href="#id41" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>後方互換性は公開されているインターフェイスにのみ保証されます。よって、公開インターフェイスと内部インターフェイスをユーザーが明確に区別できることが重要になります。</p>
+<p>ドキュメントが明示的に一時的な、もしくは互換性を保つ義務が免除された内部インターフェイスだと宣言していない限り、ドキュメント化されたインターフェイスは公開インターフェイスと見なされます。ドキュメント化されていないインターフェイスはすべて内部的なものと見なすべきです。</p>
+<p>イントロスペクションがうまく機能するようにするため、モジュールは公開しているAPIを <code class="docutils literal notranslate"><span class="pre">__all__</span></code> 属性を使ってすべて宣言すべきです。 <code class="docutils literal notranslate"><span class="pre">__all__</span></code> 属性を空にすると、そのモジュールには公開しているAPIはないということになります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">__all__</span></code> 属性を適切に設定したとしても、内部インターフェイス (パッケージ、モジュール、クラス、関数、属性、その他の名前) は名前の前にアンダースコアをひとつ付けるべきです。</p>
+<p>あるインターフェイスが含まれている名前空間（パッケージ、モジュール、クラス）が内部的なものだと見なされる場合は、そのインターフェイスも内部インターフェイスと見なされます。</p>
+<p>importされた名前は、常に実装の詳細を表現していると見なすべきです。他のモジュールは、importされた名前に間接的にアクセスされることによって生じる動作に依存してはいけません。但し、それが明示的にドキュメント化されたモジュールAPIの一部の場合、 たとえば <code class="docutils literal notranslate"><span class="pre">os.path</span></code> や パッケージのサブモジュールの機能を公開している <code class="docutils literal notranslate"><span class="pre">__init__</span></code> モジュール を除きます。</p>
+</div>
+</div>
+<div class="section" id="id42">
+<h1>プログラミングに関する推奨事項<a class="headerlink" href="#id42" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<ul>
+<li><p class="first">他のPython実装 (PyPy, Jython, IronPython, Cython, Psyco など) で不利にならないようなコードを書くべきです。</p>
+<p>たとえば <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+=</span> <span class="pre">b</span></code> や <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code> のように、データを直接置き換える CPython の効率的な実装に依存しないでください。この最適化は CPython の場合でも弱い(いくつかの型でしか機能しません)ですし、リファレンスカウントが入っていないPython実装には存在しません。ライブラリの中でパフォーマンスに敏感な部分には、 <code class="docutils literal notranslate"><span class="pre">''.join()</span></code> を代わりに使うべきです。このやり方であれば、様々なPython実装で、文字列の連結が線形時間で終わることを保証してくれます。</p>
+</li>
+<li><p class="first">None のようなシングルトンと比較をする場合は、常に <code class="docutils literal notranslate"><span class="pre">is</span></code> か <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">not</span></code> を使うべきです。絶対に等値演算子を使わないでください。</p>
+<p>また、 本当は <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">x</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">None</span></code> と書いているつもりで、 <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">x</span></code> と書いている場合は注意してください - たとえば、デフォルトの値がNoneになる変数や引数に、何かしら別の値が設定されているかどうかをテストする場合です。この「別の値」は、ブール型のコンテクストでは False と評価される(コンテナのような)型かもしれませんよ！</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">...</span> <span class="pre">is</span> <span class="pre">...</span></code> ではなく、 <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">not</span></code> 演算子を使いましょう。これらは機能的に同じですが、後者の方が読みやすく、好ましいです。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">if</span> <span class="n">foo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">foo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">拡張比較(rich comparion)を使って並び替えを実装する場合、特定の比較を実行するだけの他のコードに依存するよりはむしろ、全ての演算 (<code class="docutils literal notranslate"><span class="pre">__eq__</span></code>, <code class="docutils literal notranslate"><span class="pre">__ne__</span></code>, <code class="docutils literal notranslate"><span class="pre">__lt__</span></code>, <code class="docutils literal notranslate"><span class="pre">__le__</span></code>, <code class="docutils literal notranslate"><span class="pre">__gt__</span></code>, <code class="docutils literal notranslate"><span class="pre">__ge__</span></code>) を実装するのがベストです。</p>
+<p>必要な作業を最小の労力で行えるように、 <code class="docutils literal notranslate"><span class="pre">functools.total_ordering()</span></code> デコレータが存在しない比較メソッドを自動生成するツールを提供しています。</p>
+<p>PEP 207 は、Python では 反射律 <em>が</em> 想定されていると述べています。つまり、インタプリタは <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">&gt;</span> <span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">&gt;=</span> <span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">y</span></code> がそれぞれ交換可能であり、<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">y</span></code> と <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">!=</span> <span class="pre">y</span></code> の引数が交換可能だということです。 <code class="docutils literal notranslate"><span class="pre">sort()</span></code> と <code class="docutils literal notranslate"><span class="pre">min()</span></code> 演算は <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> を確実に使いますし、 <code class="docutils literal notranslate"><span class="pre">max()</span></code> 関数は確実に <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> 演算子を使います。しかし、他のコンテクストで混乱が起きないように6つの演算を全て実装するのがベストです。</p>
+</li>
+<li><p class="first">ラムダ式を直接識別子に結びつける代入文を書くのではなくて、常に def 文を使いましょう。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+</pre></div>
+</div>
+<p>はじめの書き方は、結果として生成される関数オブジェクトの名前が、ラムダではなくて <code class="docutils literal notranslate"><span class="pre">f</span></code> であると明示的に述べています。これは traceback や文字列表現を使うときに役立ちます。代入文を使うと、ラムダ式が提供できる唯一の利点(つまり、大きな式に埋め込めること)を消してしまいます。</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">BaseException</span></code> ではなくて、 <code class="docutils literal notranslate"><span class="pre">Exception</span></code> から例外を派生させるようにしましょう。 <code class="docutils literal notranslate"><span class="pre">BaseException</span></code> を直接継承する方法は、例外をキャッチするのが殆どの場合不適切な場合向けに予約されています。</p>
+<p>例外の階層は、例外が投げられる場所ではなく、<em>キャッチする</em> コードが必要そうなコードの特徴に基づいて設計すべきです。&quot;問題が起きました&quot; と言うだけではなく、プログラム的に &quot;何が起こった？&quot; のか、という質問に答えるようにしましょう (ビルトイン例外の階層から学んだこの教訓の例が PEP 3151 にあります。参照してください)。</p>
+<p>クラスの命名規約がここにあてはまります。しかし、例外がエラーである場合は、例外クラスの名前の最後に &quot;Error&quot; を付けるべきです。ローカルに閉じていないフローの制御や、他のシグナルを送信する用途に使う例外については、特別なサフィックスは不要です。</p>
+</li>
+<li><p class="first">例外チェインを適切に使いましょう。オリジナルの traceback を失わず明示的に例外を入れ替えるために <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">X</span> <span class="pre">from</span> <span class="pre">Y</span></code> を使うべきです。</p>
+<p>内部の例外をわざと入れ替える (<code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">X</span> <span class="pre">from</span> <span class="pre">None</span></code> を使います) ときは、例外の詳細を新しい例外にも伝えるようにしましょう（たとえば KeyError を AttributeError に変換するときに、KeyError が持っていた属性の名前を保護したりとか、オリジナルの例外が持っていたエラーメッセージを新しい例外にも埋め込む、みたいなことです）。</p>
+</li>
+<li><p class="first">例外をキャッチする時は、可能なときはいつでも、例外を指定しない生の <code class="docutils literal notranslate"><span class="pre">except:</span></code> ではなく、特定の例外を指定するようにしましょう:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">platform_specific_module</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">platform_specific_module</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>生の  <code class="docutils literal notranslate"><span class="pre">except:</span></code> は SystemExit や KeyboardInterrupt 例外もキャッチしてしまうため、プログラムを Control-C で中断することが難しくなりますし、他の問題をもみ消してしまうかもしれません。シグナルのエラーもすべて例外でキャッチしたい場合は、 <code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">Exception:</span></code> を使ってください (生の except は <code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">BaseException:</span></code> と同義です)。</p>
+<p>よく使うやり方は、生の 'except' を使う場合を次の二つに限ることです:</p>
+<ol class="arabic simple">
+<li>例外ハンドラが traceback を出力するかロギングする場合。ユーザーは少なくともエラーが起きたことがわかります。</li>
+<li>リソースの後始末が必要な場合、後始末をしたのちに <code class="docutils literal notranslate"><span class="pre">raise</span></code> を使って上流に例外を伝播させるとき。 この手の問題は、 <code class="docutils literal notranslate"><span class="pre">try...finally</span></code> の方が適切かもしれません。</li>
+</ol>
+</li>
+<li><p class="first">オペレーティングシステムのエラーをキャッチするときは、Python 3.3 以降では <code class="docutils literal notranslate"><span class="pre">errno</span></code> の値を調べるのではなく、新しいオペレーティングシステム関連のエラー階層を明示的に使うのが望ましいです。</p>
+</li>
+<li><p class="first">それに加えて、 すべての try/except について、<code class="docutils literal notranslate"><span class="pre">try</span></code> で囲む範囲を必要最小限のコードに限るようにしましょう。繰り返しますが、これはバグのもみ消しを防いでくれます。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">collection</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">key_not_found</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">handle_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># try で囲む処理が大きすぎる！</span>
+    <span class="k">return</span> <span class="n">handle_value</span><span class="p">(</span><span class="n">collection</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+    <span class="c1"># handle_value() が発生させる KeyError もキャッチする</span>
+    <span class="k">return</span> <span class="n">key_not_found</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">リソースがコードの特定の部分だけで使われる場合、 使った後すぐ信頼できるやり方で後始末ができるように <code class="docutils literal notranslate"><span class="pre">with</span></code> 文を使いましょう。 try/finally 文でも問題ありません。</p>
+</li>
+<li><p class="first">コンテキストマネージャーは、リソースの取得や解放以外のことをするときは常に、別の関数やメソッドを通じて呼び出すべきです。
+例を挙げます:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">begin_transaction</span><span class="p">():</span>
+    <span class="n">do_stuff_in_transaction</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">with</span> <span class="n">conn</span><span class="p">:</span>
+    <span class="n">do_stuff_in_transaction</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>後者の例は、 <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> と <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> メソッドがトランザクションの後に接続を閉じる以外に何をするかがまったく分かりません。明示的にそれを示すのがこの場合は重要です。</p>
+</li>
+<li><p class="first">return文は一貫した書き方をしましょう。関数の中の全てのreturn文は式を返すか、全く何も返さないかのどちらかにすべきです。式を返しているreturn文が関数の中にある場合、値を何も返さないreturn文は 明示的に <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">None</span></code> と書くべきですし、(到達可能であれば)return文を関数の最後に明示的に置くべきです。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">文字列に特定のプレフィックスやサフィックスがついているかをチェックするには、文字列のスライシングではなく <code class="docutils literal notranslate"><span class="pre">''.startswith()</span></code> と <code class="docutils literal notranslate"><span class="pre">''.endswith()</span></code> を使いましょう。</p>
+<p>startswith() と endswith() を使うと、綺麗で間違いが起こりにくいコードになります:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">if</span> <span class="n">foo</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">):</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="n">foo</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span><span class="p">:</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">オブジェクトの型の比較は、型を直接比較するかわりに、常に isinstance() を使うようにすべきです。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">シーケンス (文字列, リスト, タプル) については、 空のシーケンスが False であることを利用しましょう。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">seq</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">seq</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">):</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">):</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">行末の空白文字に依存した文字列リテラルを書かないでください。そういった空白文字は視覚的に判別することができず、エディタによっては (つい最近では reindent.py も) 自動で削除するものもあります。</p>
+</li>
+<li><p class="first">ブール型の値と True や False を比較するのに <code class="docutils literal notranslate"><span class="pre">==</span></code> を使うのはやめましょう。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+<span class="k">if</span> <span class="n">greeting</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="n">greeting</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>もっと悪い:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">if</span> <span class="n">greeting</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">try...finally</span></code> の組み合わせの中で、finally の外に脱出する制御構文 <code class="docutils literal notranslate"><span class="pre">return</span></code>/<code class="docutils literal notranslate"><span class="pre">break</span></code>/<code class="docutils literal notranslate"><span class="pre">continue</span></code> を使うのは推奨されません。なぜなら、このような構文は finally の中から伝播する例外を暗黙のうちにキャンセルしてしまうからです。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">42</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="section" id="id43">
+<h2>関数アノテーション<a class="headerlink" href="#id43" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>PEP 484 が採用されたので、関数アノテーションに関するスタイルのルールも変更されました。</p>
+<ul>
+<li><p class="first">関数アノテーションを使うコードは、PEP 484 に記された文法に従うべきです。(ただし、アノテーションの書式については、いくつかの推奨事項を <a class="reference internal" href="#id18">その他の推奨事項</a> で説明しています)</p>
+</li>
+<li><p class="first">この PEP では、以前アノテーションの使い方について実験することを勧めていましたが、もはや推奨されません。</p>
+</li>
+<li><p class="first">しかし、標準ライブラリ以外では、PEP 484 のルールの範囲内で実験することが推奨されています。たとえば、大規模なサードパーティのライブラリやアプリケーションをPEP 484 の型アノテーションの書式を使ってマークアップし、これらのアノテーションを追加するのがどれだけ簡単だったかをレビューしたり、アノテーションがある場合にコードの理解度があがるかどうかを観察すること、などです。</p>
+</li>
+<li><p class="first">Python の標準ライブラリでは、こうしたアノテーションの採用は控えめにすべきですが、新しいコードや大規模なリファクタリングの際には使っても構いません。</p>
+</li>
+<li><p class="first">関数アノテーションを PEP 484 とは違うスタイルで使いたいコードについては、次のようなコメントを付けておくことを推奨します:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># type: ignore</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>これをファイルの先頭あたりに書いておきます。こうすることで、型チェックのプログラムにすべてのアノテーションを無視するように伝えます。(PEP 484 では、型チェックプログラムを黙らせるきめの細かい方法が説明されています)</p>
+<ul class="simple">
+<li>linter や 型チェックプログラム のようなツールは Pythonインタプリタ とは別のツールですし、使うかどうかも任意です。Pythonインタプリタは、デフォルトでは型チェックによるメッセージを表示しませんし、アノテーションによって振る舞いを変えることもありません。</li>
+<li>型チェックを望まない人は、無視することも自由です。しかし、サードパーティーライブラリパッケージのユーザーは、パッケージに対して型チェックを実行したいと思うかもしれません。こうした目的で、PEP 484 はスタブファイル、つまり、対応する .py ファイルの設定に応じて型チェッカーが読み取る .pyi ファイルを使うことを推奨しています。 スタブファイルはライブラリとともに配布することもできますし、(ライブラリの作者の許可を得て) typeshed repo <a class="footnote-reference" href="#id51" id="id44">[5]</a> でパッケージとは別に配布することもできます。</li>
+</ul>
+</div>
+<div class="section" id="id45">
+<h2>変数アノテーション<a class="headerlink" href="#id45" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>PEP 526 で、変数アノテーションが導入されました。変数アノテーションで推奨されるスタイルは、上で説明している関数アノテーションのそれに似ています:</p>
+<p>モジュールレベルの変数や、クラス変数、インスタンス変数、そしてローカル変数に対するアノテーションは、コロンの後にひとつスペースを入れるべきです。</p>
+<p>コロンの前には、スペースを入れてはいけません。</p>
+<p>変数の右辺で代入を行う場合は、等号の前後にひとつだけスペースを入れるべきです。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 正しい:</span>
+
+<span class="n">code</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+    <span class="n">coords</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&lt;unknown&gt;&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 間違い:</span>
+
+<span class="n">code</span><span class="p">:</span><span class="nb">int</span>  <span class="c1"># コロンの後にスペースがない</span>
+<span class="n">code</span> <span class="p">:</span> <span class="nb">int</span>  <span class="c1"># コロンの前にスペース</span>
+
+<span class="k">class</span> <span class="nc">Test</span><span class="p">:</span>
+    <span class="n">result</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span>  <span class="c1"># 等号の前後にスペースがない</span>
+</pre></div>
+</div>
+<p>PEP 526 は Python 3.6 で採用されましたが、変数アノテーションの文法は、全てのバージョンの Python のスタブファイルで使われるのが望ましいです (詳細は PEP 484 を参照して下さい)</p>
+<p class="rubric">脚注</p>
+<table class="docutils footnote" frame="void" id="fn-hi" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[6]</a></td><td><em>突き出しインデント</em> は、はじめの行以外の全ての行をインデントするDTPのやり方です。Python の文脈では、括弧で囲む文の開き括弧を行の終わりに置いて、残りの行を閉じ括弧までインデントするスタイルのことを言います。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="fn-hu" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id28">[7]</a></td><td>頭字語は、NATO (=North Atlantic Treaty Organization 北大西洋条約機構) のように、頭文字を並べたものがひとつの単語として扱われているものです。個々の頭文字をアルファベットとして発音するもの (例: U.S = United States) は該当しないとされています。</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id46">
+<h1>参考文献<a class="headerlink" href="#id46" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils footnote" frame="void" id="id47" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>PEP 7, Style Guide for C Code, van Rossum</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id48" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>Barry's GNU Mailman style guide
+<a class="reference external" href="http://barry.warsaw.us/software/STYLEGUIDE.txt">http://barry.warsaw.us/software/STYLEGUIDE.txt</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id49" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[3]</a></td><td>Donald Knuth's <em>The TeXBook</em>, pages 195 and 196.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id50" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id27">[4]</a></td><td><a class="reference external" href="http://www.wikipedia.com/wiki/CamelCase">http://www.wikipedia.com/wiki/CamelCase</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id51" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id44">[5]</a></td><td>Typeshed repo
+<a class="reference external" href="https://github.com/python/typeshed">https://github.com/python/typeshed</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id52">
+<h1>著作権<a class="headerlink" href="#id52" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この文書は パブリックドメイン に置かれています。</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Yoshinari Takaoka
+      
+        <span class="commit">
+          Revision <code>5bbced4e</code>.
+        </span>
+      
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="/ja/latest/">latest</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="//pep8-ja.readthedocs.io/_/downloads/ja/latest/htmlzip/">html</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>On Read the Docs</dt>
+          <dd>
+            <a href="//readthedocs.org/projects/pep8-ja/?fromdocs=pep8-ja">Project Home</a>
+          </dd>
+          <dd>
+            <a href="//readthedocs.org/builds/pep8-ja/?fromdocs=pep8-ja">Builds</a>
+          </dd>
+      </dl>
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+
+    </div>
+  </div>
+
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+   
+
+</body>
+</html>
