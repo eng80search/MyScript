@@ -1,7 +1,7 @@
 
-#### Oracleデータベース概要
+#### Oracleデータベースサーバー概要
 
-Oracleデータベースとは？
+Oracleデータベースサーバーとは？
 
     以下の３種類の集合体である。
     ・データベース（ストレージ上のファイルのこと）
@@ -60,6 +60,22 @@ Oracle Netの構成
     サービス・ネーミング
       vcdb(asp.netのweb.configファイルのdatasource=vcdbと一致する)
 ![Oracleリスナー設定](./00_Image/OracleSetting_Listener.jpg)
+
+
+#### Oracleデータベースクライアント概要
+
+Oracleデータベースクライアントとは？
+
+    Oracleデータベース(サーバー)と通信して、データを取得、更新するために必要なミドルウェア
+
+    アプリケーションとDBの関係性は以下の通り
+
+     ------------        ------------         ---------        ------------
+    | DB(server) | <--> | DB(client) |  <--> | ODP.NET | <--> | Aplictaion |
+     ------------        ------------         ---------        ------------
+
+
+![Oracle clientとサーバーの関係性](./00_Image/OracleClientAndServerRelation.png)
 
 #### sqlplusの始め方
 
