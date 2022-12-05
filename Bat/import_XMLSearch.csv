@@ -1,0 +1,5 @@
+検索キーワード,検索元ファイル名,検索先ファイル名
+CCYBasisDelta_KRW,USD_SOFR_O/N_KRW_91CD_3M,IR_修正後.csv
+CCYBasisDelta_KRX,USD_SOFR_O/N_KRX_91CD_3M,IR_修正後.csv
+IRDelta_INX_MIFOR,INX_INX_MIFOR_6M,IR_修正後.CSV
+TenorBasisDelta_SGD_6M_1M,SGD_SOR_6M_SGD_SOR_1M,IR_修正後.CSV
