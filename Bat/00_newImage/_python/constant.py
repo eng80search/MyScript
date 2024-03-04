@@ -5,7 +5,7 @@ class ConstProduct(object):
     def CSVinitCSV(self):
         """TODO: to be defined. """
         
-    INPUT_EXCEL = "01_make_商品登録(sku対応).xlsx"
+    INPUT_EXCEL = "01_make_商品登録(sku対応).xlsm"
 
     INPUT_SHEET_PRODUCT = "10_product"
     INPUT_SHEET_COLOR = "11_color"
@@ -40,3 +40,7 @@ class ConstProduct(object):
 
     EXPORT_CSV = "normal-item.csv"
     EXPORT_IMAGE_PREFIX = "A240115-608"
+
+    EXPORT_商品番号 = "\${商品番号}"
+    EXPORT_色 = "\${色}"
+    EXPORT_サイズ = "\${サイズ}"

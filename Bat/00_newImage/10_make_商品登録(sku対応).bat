@@ -66,6 +66,8 @@ IF NOT %ERRORLEVEL% == 0 (
 )
 
 rem Excelファイルから入力用CSVファイルを作成する
+rem バッチファイルがあるディレクトリをカレントディレクトリに設定
+cd /d %~dp0
 cd _python
 python 01_make_import_csv.py
 SET RESULT=%ERRORLEVEL%
@@ -126,6 +128,8 @@ IF NOT %ERRORLEVEL% == 0 (
 
 rem 商品登録(sku対応)CSVファイルを作成する
 echo;
+rem バッチファイルがあるディレクトリをカレントディレクトリに設定
+cd /d %~dp0
 cd _python
 python 02_make_out_csv.py
 SET RESULT=%ERRORLEVEL%
@@ -152,8 +156,9 @@ rem 正常終了
     echo;
     echo %END_OK_MSG% 
     echo %date% %time%
+    cd /d %~dp0
     PAUSE
-    start %FILE_OUT_CSV%
+    start explorer.exe "%FILE_OUT_CSV%"
     exit /b 0
 
 :FINAL

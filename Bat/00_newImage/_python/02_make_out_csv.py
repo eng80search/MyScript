@@ -39,6 +39,9 @@ def make_header(df_out_header, df_input_product, df_value_variation):
                     df_input_product.columns.get_loc('スマートフォン用商品説明文')
     col_index_PC用販売説明文 = df_input_product.columns.get_loc('PC用販売説明文')
 
+    col_index_色 = df_value_variation.columns.get_loc('色')
+    col_index_サイズ = df_value_variation.columns.get_loc('サイズ')
+
     var_商品管理番号 = df_input_product.iat[0, col_index_商品管理番号]
     var_商品番号 = df_input_product.iat[0, col_index_商品番号]
     var_商品名 = df_input_product.iat[0, col_index_商品名]
@@ -47,6 +50,9 @@ def make_header(df_out_header, df_input_product, df_value_variation):
     var_スマートフォン用商品説明文 = df_input_product.iat[0, col_index_スマートフォン用商品説明文]
     var_PC用販売説明文 = df_input_product.iat[0, col_index_PC用販売説明文]
     # print(var_商品管理番号)
+
+    var_色 = df_value_variation.iat[0, col_index_色]
+    var_サイズ = df_value_variation.iat[0, col_index_サイズ]
 
     # 1行、２列のdataframeに値を設定するときの、書き方（まだよく分からん）
     # よく分からないけど、[[]]で囲む valuesでseriesに変換しなければならない
@@ -65,7 +71,13 @@ def make_header(df_out_header, df_input_product, df_value_variation):
     df_out_header.loc['0':'0', 'PC用販売説明文'] = var_PC用販売説明文
 
     # dataframeの文字列の一部のみ置換するときはregex=Trueに設定
-    df_out_header.replace(const.EXPORT_IMAGE_PREFIX, var_商品番号, 
+    df_out_header.replace(const.EXPORT_商品番号, var_商品番号, 
+                             regex=True, inplace=True)
+
+    df_out_header.replace(const.EXPORT_色, var_色, 
+                             regex=True, inplace=True)
+
+    df_out_header.replace(const.EXPORT_サイズ, var_サイズ, 
                              regex=True, inplace=True)
 
 
@@ -165,7 +177,9 @@ def make_out_csv():
                                     "商品番号", 
                                     "SKU管理番号",
                                     "バリエーション1選択肢定義",
-                                    "バリエーション2選択肢定義"
+                                    "バリエーション2選択肢定義",
+                                    "色",
+                                    "サイズ"
                                     ]).copy()
 
         # headerがないcsvを取り込む
