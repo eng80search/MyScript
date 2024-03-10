@@ -40,7 +40,7 @@ ecdsa==0.14.1
 entrypoints==0.3
 et-xmlfile==1.0.1
 fancycompleter==0.9.1
-fastapi==0.63.0
+fastapi==0.109.1
 fastjsonschema==2.16.2
 flake8==3.7.9
 flake8-import-order==0.18.1
