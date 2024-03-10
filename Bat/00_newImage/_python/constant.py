@@ -39,8 +39,9 @@ class ConstProduct(object):
     IMPORT_CSV_ITEM = "normal-item-template.csv"
 
     EXPORT_CSV = "normal-item.csv"
+    EXPORT_CSV_CROOZ = "normal-item-cr.csv"
     EXPORT_IMAGE_PREFIX = "A240115-608"
 
-    EXPORT_商品番号 = "\${商品番号}"
-    EXPORT_色 = "\${色}"
-    EXPORT_サイズ = "\${サイズ}"
+    PATTERN_商品番号 = "\${商品番号}"
+    PATTERN_色 = "\${色}"
+    PATTERN_サイズ = "\${サイズ}"

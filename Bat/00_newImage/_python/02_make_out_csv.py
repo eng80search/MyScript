@@ -61,6 +61,10 @@ def make_header(df_out_header, df_input_product, df_value_variation):
     df_out_header.loc['0':'0', [r'バリエーション1選択肢定義',
                                 r'バリエーション2選択肢定義']] = series_values_variation
 
+    # クルーズ削除用タグ２つを削除
+    pattern_crooz = re.compile('<クルーズ削除>|</クルーズ削除>')
+    var_スマートフォン用商品説明文 = pattern_crooz.sub('', var_スマートフォン用商品説明文)
+
     # locで行インデックスおよび列名でdataframeを指定する
     df_out_header.loc[:, '商品管理番号（商品URL）'] = var_商品管理番号
     df_out_header.loc['0':'0', '商品番号'] = var_商品番号
@@ -71,14 +75,87 @@ def make_header(df_out_header, df_input_product, df_value_variation):
     df_out_header.loc['0':'0', 'PC用販売説明文'] = var_PC用販売説明文
 
     # dataframeの文字列の一部のみ置換するときはregex=Trueに設定
-    df_out_header.replace(const.EXPORT_商品番号, var_商品番号, 
+    df_out_header.replace(const.PATTERN_商品番号, var_商品番号, 
                              regex=True, inplace=True)
 
-    df_out_header.replace(const.EXPORT_色, var_色, 
+    df_out_header.replace(const.PATTERN_色, var_色, 
                              regex=True, inplace=True)
 
-    df_out_header.replace(const.EXPORT_サイズ, var_サイズ, 
+    df_out_header.replace(const.PATTERN_サイズ, var_サイズ, 
                              regex=True, inplace=True)
+
+
+def make_header_crooz(df_out_header_crooz, df_input_product, 
+                      df_value_variation):
+    """商品登録時に使用されるクルーズ専用のCSVファイルのヘッダーを作成する
+       normalとほぼ一致するが、一部削除される。
+
+    """
+
+    col_index_商品管理番号 = df_input_product.columns.get_loc('商品管理番号')
+    col_index_商品番号 = df_input_product.columns.get_loc('商品番号')
+    col_index_商品名 = df_input_product.columns.get_loc('商品名')
+    col_index_キャッチコピー = df_input_product.columns.get_loc('キャッチコピー')
+    col_index_PC用商品説明文 = df_input_product.columns.get_loc('PC用商品説明文')
+    col_index_スマートフォン用商品説明文 =\
+                    df_input_product.columns.get_loc('スマートフォン用商品説明文')
+    col_index_PC用販売説明文 = df_input_product.columns.get_loc('PC用販売説明文')
+    col_index_バリエーション2選択肢定義 =\
+                    df_out_header_crooz.columns.get_loc('バリエーション2選択肢定義')
+
+    col_index_色 = df_value_variation.columns.get_loc('色')
+    col_index_サイズ = df_value_variation.columns.get_loc('サイズ')
+
+    var_商品管理番号 = df_input_product.iat[0, col_index_商品管理番号]
+    var_商品番号 = df_input_product.iat[0, col_index_商品番号]
+    var_商品名 = df_input_product.iat[0, col_index_商品名]
+    var_キャッチコピー = df_input_product.iat[0, col_index_キャッチコピー]
+    var_PC用商品説明文 = df_input_product.iat[0, col_index_PC用商品説明文]
+    var_スマートフォン用商品説明文 = df_input_product.iat[0, col_index_スマートフォン用商品説明文]
+    var_PC用販売説明文 = df_input_product.iat[0, col_index_PC用販売説明文]
+    # print(var_商品管理番号)
+
+    var_色 = df_value_variation.iat[0, col_index_色]
+    var_サイズ = df_value_variation.iat[0, col_index_サイズ]
+
+    # 1行、２列のdataframeに値を設定するときの、書き方（まだよく分からん）
+    # よく分からないけど、[[]]で囲む valuesでseriesに変換しなければならない
+    series_values_variation = df_value_variation[[r'バリエーション1選択肢定義',
+                                                  r'バリエーション2選択肢定義']].values
+    df_out_header_crooz.loc['0':'0', [r'バリエーション1選択肢定義',
+                            r'バリエーション2選択肢定義']] = series_values_variation
+
+    # クルーズ専用１：商品名の最初の二つの<br>を削除する
+    var_商品名 = var_商品名.replace('<br>', '', 2)
+
+    # クルーズ専用２：バリエーション2選択肢定義の「注文後12営業日前後入荷」を「予約」に置換
+    s = df_out_header_crooz.iat[0, col_index_バリエーション2選択肢定義]
+    s = s.replace('注文後12営業日前後入荷', '予約')
+    df_out_header_crooz.iat[0, col_index_バリエーション2選択肢定義] = s
+
+    # クルーズ専用３：タグ<クルーズ削除></クルーズ削除>の間にある文言を削除
+    # .+? : 最短長さでマッチング re.DOTALL : .は改行も含む
+    pattern_crooz = re.compile('<クルーズ削除>.+?</クルーズ削除>',  re.DOTALL)
+    var_スマートフォン用商品説明文 = pattern_crooz.sub('', var_スマートフォン用商品説明文)
+
+    # locで行インデックスおよび列名でdataframeを指定する
+    df_out_header_crooz.loc[:, '商品管理番号（商品URL）'] = var_商品管理番号
+    df_out_header_crooz.loc['0':'0', '商品番号'] = var_商品番号
+    df_out_header_crooz.loc['0':'0', '商品名'] = var_商品名
+    df_out_header_crooz.loc['0':'0', 'キャッチコピー'] = var_キャッチコピー
+    df_out_header_crooz.loc['0':'0', 'PC用商品説明文'] = var_PC用商品説明文
+    df_out_header_crooz.loc['0':'0', 'スマートフォン用商品説明文'] = var_スマートフォン用商品説明文
+    df_out_header_crooz.loc['0':'0', 'PC用販売説明文'] = var_PC用販売説明文
+
+    # dataframeの文字列の一部のみ置換するときはregex=Trueに設定
+    df_out_header_crooz.replace(const.PATTERN_商品番号, var_商品番号, 
+                                regex=True, inplace=True)
+
+    df_out_header_crooz.replace(const.PATTERN_色, var_色, 
+                                regex=True, inplace=True)
+
+    df_out_header_crooz.replace(const.PATTERN_サイズ, var_サイズ, 
+                                regex=True, inplace=True)
 
 
 def make_goods_list(df_out_goods, df_input_product,
@@ -199,6 +276,7 @@ def make_out_csv():
                                     ])
 
         df_out_all = pd.DataFrame()
+        df_out_all_crooz = pd.DataFrame()
 
         # normal-item.csv作成処理開始
         df_input_product_all = df_input_all[const.INPUT_SHEET_PRODUCT]
@@ -215,8 +293,13 @@ def make_out_csv():
 
             # 先頭2行(0行,1行)をヘッダー行として切り出す
             df_out_header = df_out_template.iloc[0:2, :].copy()
+            df_out_header_crooz = df_out_template.iloc[0:2, :].copy()
+
+            # 楽天用、クルーズ用ヘッダを別々に作成する
             # 一番最初の行(0行)を選択の場合は iloc[0:1, :]
             make_header(df_out_header, df_input_product, df_value_variation)
+            make_header_crooz(df_out_header_crooz, df_input_product,
+                              df_value_variation)
 
             # 商品リストdataframeを初期化 第3行目を切り出す
             df_out_goods_unit = df_out_template.iloc[2:3, :].copy()
@@ -226,14 +309,24 @@ def make_out_csv():
             for j in range(len(df_value_goods)):
                 df_out_goods = df_out_goods.append(df_out_goods_unit)
 
+            # 商品リストは楽天、クルーズは共通
             make_goods_list(df_out_goods, df_input_product,
                             df_value_goods, df_value_variation)
 
-            # ヘッダーおよび商品リストを結合させる
+            # 楽天用、クルーズ用CSVファイルのヘッダーおよび商品リストを結合させる
             df_out_all = df_out_all.append([df_out_header, df_out_goods])
+            df_out_all_crooz = df_out_all_crooz.append([df_out_header_crooz,
+                                                        df_out_goods])
 
         # normal-item.csvを出力する
         df_out_all.to_csv("../"+const.EXPORT_CSV, 
+                                encoding='shift-jis',
+                                quoting=csv.QUOTE_NONNUMERIC,
+                                float_format='%d',
+                                index=False)
+
+        # normal-item-cr.csvを出力する
+        df_out_all_crooz.to_csv("../"+const.EXPORT_CSV_CROOZ, 
                                 encoding='shift-jis',
                                 quoting=csv.QUOTE_NONNUMERIC,
                                 float_format='%d',
@@ -247,6 +340,7 @@ def make_out_csv():
         print("********** Error! normal-item.csv作成処理が異常終了しました **********")
         print(traceback.format_exc())
         sys.exit(1)
+
 
 if __name__ == "__main__":
     make_out_csv()

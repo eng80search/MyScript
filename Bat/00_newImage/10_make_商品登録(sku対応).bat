@@ -17,10 +17,11 @@ set FILE_VARIATION=%MARIADB_EXPORT_PATH%20_variation.csv
 set FILE_SKU_KANRI=%MARIADB_EXPORT_PATH%21_sku_kanri.csv
 
 set FILE_OUT_CSV=normal-item.csv
+set FILE_OUT_CR_CSV=normal-item-cr.csv
 
 set START_MSG= ============= 商品登録(SKU対応)処理を開始しました =============
-set MOVE_CSV_MSG_OK=********** %FILE_OUT_CSV%を%BACKUP_PATH%へ移動しました *********
-set MOVE_CSV_MSG_ERROR=********** %FILE_OUT_CSV%を%BACKUP_PATH%へ移動できません *********
+set MOVE_CSV_MSG_OK=********** %FILE_OUT_CSV%及び%FILE_OUT_CR_CSV%を%BACKUP_PATH%へ移動しました *********
+set MOVE_CSV_MSG_ERROR=********** %FILE_OUT_CSV%及び%FILE_OUT_CR_CSV%を%BACKUP_PATH%へ移動できません *********
 set DB_MAKE_START_MSG=********** 20_variation.csv及び21_sku_kanri.csvファイルの作成を開始しました *********
 set DB_MAKE_END_MSG=********** 20_variation.csv及び21_sku_kanri.csvファイルの作成を完了しました *********
 set DB_MAKE_ERROR_MSG=********** 20_variation.csv及び21_sku_kanri.csvファイルの作成が失敗しました *********
@@ -50,12 +51,18 @@ set time0n=%time: =0%
 set YYYYMMDD_HHMMSS=%date:~0,4%%date:~5,2%%date:~8,2%_%time0n:~0,2%%time0n:~3,2%%time0n:~6,2%
 rem echo %YYYYMMDD_HHMMSS%
 set FILE_OUT_CSV_BACKUP=%BACKUP_PATH%%YYYYMMDD_HHMMSS%_%FILE_OUT_CSV%
+set FILE_OUT_CR_CSV_BACKUP=%BACKUP_PATH%%YYYYMMDD_HHMMSS%_%FILE_OUT_CR_CSV%
 
 rem ERRORLEVELをリセット
 cd > nul
 rem 既存のファイルをバックアップ
+cd /d %~dp0
 if exist "%FILE_OUT_CSV%" (
     move %FILE_OUT_CSV% %FILE_OUT_CSV_BACKUP%
+) 
+
+if exist "%FILE_OUT_CR_CSV%" (
+    move %FILE_OUT_CR_CSV% %FILE_OUT_CR_CSV_BACKUP%
 ) 
 
 IF NOT %ERRORLEVEL% == 0 (
@@ -158,7 +165,8 @@ rem 正常終了
     echo %date% %time%
     cd /d %~dp0
     PAUSE
-    start explorer.exe "%FILE_OUT_CSV%"
+    start explorer.exe .\"%FILE_OUT_CSV%"
+    start explorer.exe .\"%FILE_OUT_CR_CSV%"
     exit /b 0
 
 :FINAL
