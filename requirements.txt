@@ -158,7 +158,7 @@ python-dateutil==2.8.2
 python-jose==3.2.0
 python-jsonrpc-server==0.3.4
 python-language-server==0.31.9
-python-multipart==0.0.5
+python-multipart==0.0.7
 python-slugify==4.0.1
 PyTweening==1.0.3
 pytz==2020.1
