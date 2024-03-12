@@ -223,6 +223,74 @@ def make_goods_list(df_out_goods, df_input_product,
     # print(df_out_goods)
 
 
+def make_goods_list_crooz(df_out_goods_crooz, df_input_product,
+                    df_value_goods,
+                    df_value_variation):
+    """クルーズ用商品登録時に使用されるCSVファイルの商品リストを作成する
+        df_out_goods_crooz: 最終出力csv
+        df_input_product: 商品番号DataFrame
+        df_value_goods: 一つの商品番号の商品リスト
+    """
+
+    # dataframeの行数を取得
+    count_goods = df_out_goods_crooz.shape[0]
+    half_count_goods = int(count_goods/2)
+
+    col_index_商品管理番号 = df_input_product.columns.get_loc('商品管理番号')
+    col_index_販売価格 = df_input_product.columns.get_loc('販売価格')
+    col_index_表示価格 = df_input_product.columns.get_loc('表示価格')
+    col_index_在庫数_即納 = df_input_product.columns.get_loc('在庫数_即納')
+    col_index_在庫数_12営業日 = df_input_product.columns.get_loc('在庫数_12営業日')
+    col_index_バリエーション1選択肢定義 = \
+            df_value_variation.columns.get_loc('バリエーション1選択肢定義')
+                                        
+
+    var_商品管理番号 = df_input_product.iat[0, col_index_商品管理番号]
+    var_販売価格 = df_input_product.iat[0, col_index_販売価格]
+    var_表示価格 = df_input_product.iat[0, col_index_表示価格]
+    var_在庫数_即納 = df_input_product.iat[0, col_index_在庫数_即納]
+    var_在庫数_12営業日 = df_input_product.iat[0, col_index_在庫数_12営業日]
+    var_バリエーション1選択肢定義 = df_value_variation.iat[0,
+                                        col_index_バリエーション1選択肢定義]
+
+    df_out_goods_crooz.loc[:, r'商品管理番号（商品URL）'] = var_商品管理番号
+    df_out_goods_crooz.loc[:, r'販売価格'] = var_販売価格
+    df_out_goods_crooz.loc[:, r'表示価格'] = var_表示価格
+
+    series_values_goods = df_value_goods[[
+                                    "SKU管理番号",
+                                    "システム連携用SKU番号",
+                                    "バリエーション項目キー1",
+                                    "バリエーション項目選択肢1",
+                                    "バリエーション項目キー2",
+                                    "バリエーション項目選択肢2"
+                                ]].values
+
+    df_out_goods_crooz.loc[:, [
+                        r'SKU管理番号',
+                        r'システム連携用SKU番号',
+                        r'バリエーション項目キー1',
+                        r'バリエーション項目選択肢1',
+                        r'バリエーション項目キー2',
+                        r'バリエーション項目選択肢2'
+                        ]] = series_values_goods
+
+    # 在庫数を設定
+    col_index_在庫数 = df_out_goods_crooz.columns.get_loc('在庫数')
+    # iloc: 0行から3行までの場合 iloc[0,4]
+    df_out_goods_crooz.iloc[0:half_count_goods, [col_index_在庫数]] = var_在庫数_即納
+    df_out_goods_crooz.iloc[half_count_goods:count_goods+1, 
+                            [col_index_在庫数]] = var_在庫数_12営業日
+
+    df_out_goods_crooz.loc[:, r'商品属性（値）1'] = var_バリエーション1選択肢定義
+
+    # 特定列の文字列を置換する
+    df_out_goods_crooz[r'バリエーション項目選択肢2'] =\
+        df_out_goods_crooz[r'バリエーション項目選択肢2'].str.replace('注文後12営業日前後入荷', '予約')
+    # print("--df_out_goods_crooz[r'バリエーション項目選択肢2']_--")
+    # print(df_out_goods_crooz[r'バリエーション項目選択肢2'])
+
+
 def make_out_csv():
     """商品登録時に使用されるCSVファイルを作成する
 
@@ -306,17 +374,22 @@ def make_out_csv():
             # print(df_out_goods_unit)
 
             df_out_goods = pd.DataFrame()
+            df_out_goods_crooz = pd.DataFrame()
+
             for j in range(len(df_value_goods)):
                 df_out_goods = df_out_goods.append(df_out_goods_unit)
+                df_out_goods_crooz = df_out_goods_crooz.append(df_out_goods_unit)
 
-            # 商品リストは楽天、クルーズは共通
+            # 商品リストも楽天、クルーズ別々に作成する
             make_goods_list(df_out_goods, df_input_product,
+                            df_value_goods, df_value_variation)
+            make_goods_list_crooz(df_out_goods_crooz, df_input_product,
                             df_value_goods, df_value_variation)
 
             # 楽天用、クルーズ用CSVファイルのヘッダーおよび商品リストを結合させる
             df_out_all = df_out_all.append([df_out_header, df_out_goods])
             df_out_all_crooz = df_out_all_crooz.append([df_out_header_crooz,
-                                                        df_out_goods])
+                                                        df_out_goods_crooz])
 
         # normal-item.csvを出力する
         df_out_all.to_csv("../"+const.EXPORT_CSV, 
