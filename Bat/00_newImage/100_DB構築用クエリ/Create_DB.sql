@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- ƒzƒXƒg:                          127.0.0.1
--- ƒT[ƒo[‚Ìƒo[ƒWƒ‡ƒ“:                   10.5.5-MariaDB - mariadb.org binary distribution
--- ƒT[ƒo[ OS:                      Win64
--- HeidiSQL ƒo[ƒWƒ‡ƒ“:               11.0.0.5919
+-- ãƒ›ã‚¹ãƒˆ:                          127.0.0.1
+-- ã‚µãƒ¼ãƒãƒ¼ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³:                   10.5.5-MariaDB - mariadb.org binary distribution
+-- ã‚µãƒ¼ãƒãƒ¼ OS:                      Win64
+-- HeidiSQL ãƒãƒ¼ã‚¸ãƒ§ãƒ³:               11.0.0.5919
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,107 +11,115 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
---  ƒe[ƒuƒ‹ new_image.ƒVƒXƒeƒ€˜AŒg—psku”Ô† ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
-CREATE TABLE IF NOT EXISTS `ƒVƒXƒeƒ€˜AŒg—psku”Ô†` (
-  `¤•i”Ô†` varchar(200) DEFAULT NULL,
-  `F_•\Ž¦‡` int(11) DEFAULT NULL,
-  `ƒTƒCƒY_•\Ž¦‡` int(11) DEFAULT NULL,
-  `”[Šú_•\Ž¦‡` varchar(1) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
-  `SKUŠÇ—”Ô†` varchar(3) DEFAULT NULL,
-  `ƒVƒXƒeƒ€˜AŒg—pSKU”Ô†` varchar(602) DEFAULT NULL,
-  `ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[1` varchar(3) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
-  `ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ1` varchar(200) DEFAULT NULL,
-  `ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[2` varchar(6) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
-  `ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ2` varchar(213) DEFAULT NULL
+--  ãƒ†ãƒ¼ãƒ–ãƒ« new_image.ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå· ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP TABLE IF EXISTS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·`;
+CREATE TABLE IF NOT EXISTS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·` (
+  `å•†å“ç•ªå·` varchar(200) DEFAULT NULL,
+  `è‰²_è¡¨ç¤ºé †` int(11) DEFAULT NULL,
+  `ã‚µã‚¤ã‚º_è¡¨ç¤ºé †` int(11) DEFAULT NULL,
+  `ç´æœŸ_è¡¨ç¤ºé †` varchar(1) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+  `SKUç®¡ç†ç•ªå·` varchar(3) DEFAULT NULL,
+  `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨SKUç•ªå·` varchar(602) DEFAULT NULL,
+  `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼1` varchar(3) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+  `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢1` varchar(200) DEFAULT NULL,
+  `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼2` varchar(6) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+  `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢2` varchar(213) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ƒGƒNƒXƒ|[ƒg‚·‚éƒf[ƒ^‚ª‘I‘ð‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ
+-- ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã™ã‚‹ãƒ‡ãƒ¼ã‚¿ãŒé¸æŠžã•ã‚Œã¦ã„ã¾ã›ã‚“
 
---  ƒrƒ…[ new_image.ƒVƒXƒeƒ€˜AŒg—psku”Ô†a ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
--- VIEW ˆË‘¶ƒGƒ‰[‚ðŽ•ž‚·‚é‚½‚ß‚ÉAˆêŽžƒe[ƒuƒ‹‚ðì¬
-CREATE TABLE `ƒVƒXƒeƒ€˜AŒg—psku”Ô†a` (
-	`¤•i”Ô†` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
-	`F_•\Ž¦‡` INT(11) NULL,
-	`ƒTƒCƒY_•\Ž¦‡` INT(11) NULL,
-	`”[Šú_•\Ž¦‡` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`SKUŠÇ—”Ô†` VARCHAR(3) NULL COLLATE 'utf8_general_ci',
-	`ƒVƒXƒeƒ€˜AŒg—pSKU”Ô†` TEXT(65535) NULL COLLATE 'utf8_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[1` VARCHAR(3) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ1` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[2` VARCHAR(6) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ2` VARCHAR(203) NULL COLLATE 'utf8_general_ci'
+--  ãƒ“ãƒ¥ãƒ¼ new_image.ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·a ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP VIEW IF EXISTS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·a`;
+-- VIEW ä¾å­˜ã‚¨ãƒ©ãƒ¼ã‚’å…‹æœã™ã‚‹ãŸã‚ã«ã€ä¸€æ™‚ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
+CREATE TABLE `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·a` (
+	`å•†å“ç•ªå·` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
+	`è‰²_è¡¨ç¤ºé †` INT(11) NULL,
+	`ã‚µã‚¤ã‚º_è¡¨ç¤ºé †` INT(11) NULL,
+	`ç´æœŸ_è¡¨ç¤ºé †` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`SKUç®¡ç†ç•ªå·` VARCHAR(3) NULL COLLATE 'utf8_general_ci',
+	`ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨SKUç•ªå·` TEXT(65535) NULL COLLATE 'utf8_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼1` VARCHAR(3) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢1` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼2` VARCHAR(6) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢2` VARCHAR(203) NULL COLLATE 'utf8_general_ci'
 ) ENGINE=MyISAM;
 
---  ƒrƒ…[ new_image.ƒVƒXƒeƒ€˜AŒg—psku”Ô†b ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
--- VIEW ˆË‘¶ƒGƒ‰[‚ðŽ•ž‚·‚é‚½‚ß‚ÉAˆêŽžƒe[ƒuƒ‹‚ðì¬
-CREATE TABLE `ƒVƒXƒeƒ€˜AŒg—psku”Ô†b` (
-	`¤•i”Ô†` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
-	`F_•\Ž¦‡` INT(11) NULL,
-	`ƒTƒCƒY_•\Ž¦‡` INT(11) NULL,
-	`”[Šú_•\Ž¦‡` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`SKUŠÇ—”Ô†` VARCHAR(3) NULL COLLATE 'utf8_general_ci',
-	`ƒVƒXƒeƒ€˜AŒg—pSKU”Ô†` TEXT(65535) NULL COLLATE 'utf8_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[1` VARCHAR(3) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ1` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[2` VARCHAR(6) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ2` VARCHAR(213) NULL COLLATE 'utf8_general_ci'
+--  ãƒ“ãƒ¥ãƒ¼ new_image.ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·b ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP VIEW IF EXISTS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·b`;
+-- VIEW ä¾å­˜ã‚¨ãƒ©ãƒ¼ã‚’å…‹æœã™ã‚‹ãŸã‚ã«ã€ä¸€æ™‚ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
+CREATE TABLE `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·b` (
+	`å•†å“ç•ªå·` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
+	`è‰²_è¡¨ç¤ºé †` INT(11) NULL,
+	`ã‚µã‚¤ã‚º_è¡¨ç¤ºé †` INT(11) NULL,
+	`ç´æœŸ_è¡¨ç¤ºé †` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`SKUç®¡ç†ç•ªå·` VARCHAR(3) NULL COLLATE 'utf8_general_ci',
+	`ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨SKUç•ªå·` TEXT(65535) NULL COLLATE 'utf8_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼1` VARCHAR(3) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢1` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼2` VARCHAR(6) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢2` VARCHAR(213) NULL COLLATE 'utf8_general_ci'
 ) ENGINE=MyISAM;
 
---  ƒrƒ…[ new_image.ƒoƒŠƒG[ƒVƒ‡ƒ“‘I‘ðŽˆ’è‹` ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
--- VIEW ˆË‘¶ƒGƒ‰[‚ðŽ•ž‚·‚é‚½‚ß‚ÉAˆêŽžƒe[ƒuƒ‹‚ðì¬
-CREATE TABLE `ƒoƒŠƒG[ƒVƒ‡ƒ“‘I‘ðŽˆ’è‹`` (
-	`¤•iF_¤•i”Ô†` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
-	`SKUŠÇ—”Ô†` VARCHAR(3) NULL COLLATE 'utf8_general_ci',
-	`¤•iƒTƒCƒY_¤•i”Ô†` VARCHAR(200) NOT NULL COLLATE 'utf8_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“1‘I‘ðŽˆ’è‹`` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
-	`ƒoƒŠƒG[ƒVƒ‡ƒ“2‘I‘ðŽˆ’è‹`` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
-	`F` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
-	`ƒTƒCƒY` MEDIUMTEXT NULL COLLATE 'utf8_general_ci'
+--  ãƒ“ãƒ¥ãƒ¼ new_image.ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é¸æŠžè‚¢å®šç¾© ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP VIEW IF EXISTS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é¸æŠžè‚¢å®šç¾©`;
+-- VIEW ä¾å­˜ã‚¨ãƒ©ãƒ¼ã‚’å…‹æœã™ã‚‹ãŸã‚ã«ã€ä¸€æ™‚ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
+CREATE TABLE `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é¸æŠžè‚¢å®šç¾©` (
+	`å•†å“è‰²_å•†å“ç•ªå·` VARCHAR(200) NULL COLLATE 'utf8_general_ci',
+	`SKUç®¡ç†ç•ªå·` VARCHAR(3) NULL COLLATE 'utf8_general_ci',
+	`å•†å“ã‚µã‚¤ã‚º_å•†å“ç•ªå·` VARCHAR(200) NOT NULL COLLATE 'utf8_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³1é¸æŠžè‚¢å®šç¾©` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
+	`ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³2é¸æŠžè‚¢å®šç¾©` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
+	`è‰²` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
+	`ã‚µã‚¤ã‚º` MEDIUMTEXT NULL COLLATE 'utf8_general_ci'
 ) ENGINE=MyISAM;
 
---  ƒe[ƒuƒ‹ new_image.¤•iƒTƒCƒY ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
-CREATE TABLE IF NOT EXISTS `¤•iƒTƒCƒY` (
-  `¤•i”Ô†` varchar(200) NOT NULL,
-  `ƒTƒCƒY` varchar(200) NOT NULL,
-  `•\Ž¦‡` int(11) DEFAULT NULL
+--  ãƒ†ãƒ¼ãƒ–ãƒ« new_image.å•†å“ã‚µã‚¤ã‚º ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP TABLE IF EXISTS `å•†å“ã‚µã‚¤ã‚º`;
+CREATE TABLE IF NOT EXISTS `å•†å“ã‚µã‚¤ã‚º` (
+  `å•†å“ç•ªå·` varchar(200) NOT NULL,
+  `ã‚µã‚¤ã‚º` varchar(200) NOT NULL,
+  `è¡¨ç¤ºé †` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ƒGƒNƒXƒ|[ƒg‚·‚éƒf[ƒ^‚ª‘I‘ð‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ
+-- ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã™ã‚‹ãƒ‡ãƒ¼ã‚¿ãŒé¸æŠžã•ã‚Œã¦ã„ã¾ã›ã‚“
 
---  ƒe[ƒuƒ‹ new_image.¤•iÝŒÉ ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
-CREATE TABLE IF NOT EXISTS `¤•iÝŒÉ` (
-  `¤•i”Ô†` varchar(200) DEFAULT NULL,
-  `¤•iÝŒÉ_“ú–{Œê` varchar(200) DEFAULT NULL,
-  `¤•iÝŒÉ_‰pŒê` varchar(200) DEFAULT NULL,
-  `¤•iÝŒÉ_”—Ê` int(11) NOT NULL DEFAULT 0
+--  ãƒ†ãƒ¼ãƒ–ãƒ« new_image.å•†å“ç•ªå· ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP TABLE IF EXISTS `å•†å“ç•ªå·`;
+CREATE TABLE IF NOT EXISTS `å•†å“ç•ªå·` (
+  `å•†å“ç®¡ç†ç•ªå·` varchar(200) DEFAULT NULL,
+  `å•†å“ç•ªå·` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ƒGƒNƒXƒ|[ƒg‚·‚éƒf[ƒ^‚ª‘I‘ð‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ
+-- ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã™ã‚‹ãƒ‡ãƒ¼ã‚¿ãŒé¸æŠžã•ã‚Œã¦ã„ã¾ã›ã‚“
 
---  ƒe[ƒuƒ‹ new_image.¤•iF ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
-CREATE TABLE IF NOT EXISTS `¤•iF` (
-  `¤•i”Ô†` varchar(200) DEFAULT NULL,
-  `¤•iF_“ú–{Œê` varchar(200) DEFAULT NULL,
-  `¤•iF_‰pŒê` varchar(200) DEFAULT NULL,
-  `•\Ž¦‡` int(11) DEFAULT NULL
+--  ãƒ†ãƒ¼ãƒ–ãƒ« new_image.å•†å“è‰² ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP TABLE IF EXISTS `å•†å“è‰²`;
+CREATE TABLE IF NOT EXISTS `å•†å“è‰²` (
+  `å•†å“ç•ªå·` varchar(200) DEFAULT NULL,
+  `å•†å“è‰²_æ—¥æœ¬èªž` varchar(200) DEFAULT NULL,
+  `å•†å“è‰²_è‹±èªž` varchar(200) DEFAULT NULL,
+  `è¡¨ç¤ºé †` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ƒGƒNƒXƒ|[ƒg‚·‚éƒf[ƒ^‚ª‘I‘ð‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ
+-- ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã™ã‚‹ãƒ‡ãƒ¼ã‚¿ãŒé¸æŠžã•ã‚Œã¦ã„ã¾ã›ã‚“
 
---  ƒrƒ…[ new_image.ƒVƒXƒeƒ€˜AŒg—psku”Ô†a ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
--- ˆêŽžƒe[ƒuƒ‹‚ðíœ‚µ‚ÄAÅI“I‚È VIEW \‘¢‚ðì¬
-DROP TABLE IF EXISTS `ƒVƒXƒeƒ€˜AŒg—psku”Ô†a`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `ƒVƒXƒeƒ€˜AŒg—psku”Ô†a` AS select `product`.`¤•i”Ô†` AS `¤•i”Ô†`,`color`.`•\Ž¦‡` AS `F_•\Ž¦‡`,`size`.`•\Ž¦‡` AS `ƒTƒCƒY_•\Ž¦‡`,'0' AS `”[Šú_•\Ž¦‡`,substr(`product`.`¤•i”Ô†`,9,3) AS `SKUŠÇ—”Ô†`,concat(`product`.`¤•i”Ô†`,`color`.`¤•iF_‰pŒê`,lcase(`size`.`ƒTƒCƒY`),'/a') AS `ƒVƒXƒeƒ€˜AŒg—pSKU”Ô†`,'ƒJƒ‰[' AS `ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[1`,`color`.`¤•iF_“ú–{Œê` AS `ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ1`,'ƒTƒCƒY/”[Šú' AS `ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[2`,concat(`size`.`ƒTƒCƒY`,'/','‘¦”[') AS `ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ2` from ((`¤•i”Ô†` `product` left join `¤•iF` `color` on(`product`.`¤•i”Ô†` = `color`.`¤•i”Ô†`)) left join `¤•iƒTƒCƒY` `size` on(`product`.`¤•i”Ô†` = `size`.`¤•i”Ô†`));
+--  ãƒ“ãƒ¥ãƒ¼ new_image.ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·a ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP VIEW IF EXISTS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·a`;
+-- ä¸€æ™‚ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å‰Šé™¤ã—ã¦ã€æœ€çµ‚çš„ãª VIEW æ§‹é€ ã‚’ä½œæˆ
+DROP TABLE IF EXISTS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·a`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·a` AS select `product`.`å•†å“ç•ªå·` AS `å•†å“ç•ªå·`,`color`.`è¡¨ç¤ºé †` AS `è‰²_è¡¨ç¤ºé †`,`size`.`è¡¨ç¤ºé †` AS `ã‚µã‚¤ã‚º_è¡¨ç¤ºé †`,'0' AS `ç´æœŸ_è¡¨ç¤ºé †`,substr(`product`.`å•†å“ç•ªå·`,9,3) AS `SKUç®¡ç†ç•ªå·`,concat(`product`.`å•†å“ç•ªå·`,`color`.`å•†å“è‰²_è‹±èªž`,lcase(`size`.`ã‚µã‚¤ã‚º`),'/a') AS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨SKUç•ªå·`,'ã‚«ãƒ©ãƒ¼' AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼1`,`color`.`å•†å“è‰²_æ—¥æœ¬èªž` AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢1`,'ã‚µã‚¤ã‚º/ç´æœŸ' AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼2`,concat(`size`.`ã‚µã‚¤ã‚º`,'/','å³ç´') AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢2` from ((`å•†å“ç•ªå·` `product` left join `å•†å“è‰²` `color` on(`product`.`å•†å“ç•ªå·` = `color`.`å•†å“ç•ªå·`)) left join `å•†å“ã‚µã‚¤ã‚º` `size` on(`product`.`å•†å“ç•ªå·` = `size`.`å•†å“ç•ªå·`));
 
---  ƒrƒ…[ new_image.ƒVƒXƒeƒ€˜AŒg—psku”Ô†b ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
--- ˆêŽžƒe[ƒuƒ‹‚ðíœ‚µ‚ÄAÅI“I‚È VIEW \‘¢‚ðì¬
-DROP TABLE IF EXISTS `ƒVƒXƒeƒ€˜AŒg—psku”Ô†b`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `ƒVƒXƒeƒ€˜AŒg—psku”Ô†b` AS select `product`.`¤•i”Ô†` AS `¤•i”Ô†`,`color`.`•\Ž¦‡` AS `F_•\Ž¦‡`,`size`.`•\Ž¦‡` AS `ƒTƒCƒY_•\Ž¦‡`,'1' AS `”[Šú_•\Ž¦‡`,substr(`product`.`¤•i”Ô†`,9,3) AS `SKUŠÇ—”Ô†`,concat(`product`.`¤•i”Ô†`,`color`.`¤•iF_‰pŒê`,lcase(`size`.`ƒTƒCƒY`),'/b') AS `ƒVƒXƒeƒ€˜AŒg—pSKU”Ô†`,'ƒJƒ‰[' AS `ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[1`,`color`.`¤•iF_“ú–{Œê` AS `ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ1`,'ƒTƒCƒY/”[Šú' AS `ƒoƒŠƒG[ƒVƒ‡ƒ“€–ÚƒL[2`,concat(`size`.`ƒTƒCƒY`,'/','’•¶Œã12‰c‹Æ“ú‘OŒã“ü‰×') AS `ƒoƒŠƒG[ƒVƒ‡ƒ“€–Ú‘I‘ðŽˆ2` from ((`¤•i”Ô†` `product` left join `¤•iF` `color` on(`product`.`¤•i”Ô†` = `color`.`¤•i”Ô†`)) left join `¤•iƒTƒCƒY` `size` on(`product`.`¤•i”Ô†` = `size`.`¤•i”Ô†`));
+--  ãƒ“ãƒ¥ãƒ¼ new_image.ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·b ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP VIEW IF EXISTS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·b`;
+-- ä¸€æ™‚ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å‰Šé™¤ã—ã¦ã€æœ€çµ‚çš„ãª VIEW æ§‹é€ ã‚’ä½œæˆ
+DROP TABLE IF EXISTS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·b`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨skuç•ªå·b` AS select `product`.`å•†å“ç•ªå·` AS `å•†å“ç•ªå·`,`color`.`è¡¨ç¤ºé †` AS `è‰²_è¡¨ç¤ºé †`,`size`.`è¡¨ç¤ºé †` AS `ã‚µã‚¤ã‚º_è¡¨ç¤ºé †`,'1' AS `ç´æœŸ_è¡¨ç¤ºé †`,substr(`product`.`å•†å“ç•ªå·`,9,3) AS `SKUç®¡ç†ç•ªå·`,concat(`product`.`å•†å“ç•ªå·`,`color`.`å•†å“è‰²_è‹±èªž`,lcase(`size`.`ã‚µã‚¤ã‚º`),'/b') AS `ã‚·ã‚¹ãƒ†ãƒ é€£æºç”¨SKUç•ªå·`,'ã‚«ãƒ©ãƒ¼' AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼1`,`color`.`å•†å“è‰²_æ—¥æœ¬èªž` AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢1`,'ã‚µã‚¤ã‚º/ç´æœŸ' AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®ã‚­ãƒ¼2`,concat(`size`.`ã‚µã‚¤ã‚º`,'/','æ³¨æ–‡å¾Œ12å–¶æ¥­æ—¥å‰å¾Œå…¥è·') AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é …ç›®é¸æŠžè‚¢2` from ((`å•†å“ç•ªå·` `product` left join `å•†å“è‰²` `color` on(`product`.`å•†å“ç•ªå·` = `color`.`å•†å“ç•ªå·`)) left join `å•†å“ã‚µã‚¤ã‚º` `size` on(`product`.`å•†å“ç•ªå·` = `size`.`å•†å“ç•ªå·`));
 
---  ƒrƒ…[ new_image.ƒoƒŠƒG[ƒVƒ‡ƒ“‘I‘ðŽˆ’è‹` ‚Ì\‘¢‚ðƒ_ƒ“ƒv‚µ‚Ä‚¢‚Ü‚·
--- ˆêŽžƒe[ƒuƒ‹‚ðíœ‚µ‚ÄAÅI“I‚È VIEW \‘¢‚ðì¬
-DROP TABLE IF EXISTS `ƒoƒŠƒG[ƒVƒ‡ƒ“‘I‘ðŽˆ’è‹``;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `ƒoƒŠƒG[ƒVƒ‡ƒ“‘I‘ðŽˆ’è‹`` AS select `¤•i”Ô†`.`¤•i”Ô†` AS `¤•iF_¤•i”Ô†`,substr(`¤•i”Ô†`.`¤•i”Ô†`,9,3) AS `SKUŠÇ—”Ô†`,`¤•iƒTƒCƒY`.`¤•i”Ô†` AS `¤•iƒTƒCƒY_¤•i”Ô†`,group_concat(distinct `¤•iF`.`¤•iF_“ú–{Œê` order by `¤•iF`.`•\Ž¦‡` ASC separator '|') AS `ƒoƒŠƒG[ƒVƒ‡ƒ“1‘I‘ðŽˆ’è‹``,concat(group_concat(distinct `¤•iƒTƒCƒY`.`ƒTƒCƒY` order by `¤•iƒTƒCƒY`.`•\Ž¦‡` ASC separator '/‘¦”[|'),'/‘¦”[|',group_concat(distinct `¤•iƒTƒCƒY`.`ƒTƒCƒY` order by `¤•iƒTƒCƒY`.`•\Ž¦‡` ASC separator '/’•¶Œã12‰c‹Æ“ú‘OŒã“ü‰×|'),'/’•¶Œã12‰c‹Æ“ú‘OŒã“ü‰×') AS `ƒoƒŠƒG[ƒVƒ‡ƒ“2‘I‘ðŽˆ’è‹``,group_concat(distinct `¤•iF`.`¤•iF_“ú–{Œê` order by `¤•iF`.`•\Ž¦‡` ASC separator '/') AS `F`,group_concat(distinct `¤•iƒTƒCƒY`.`ƒTƒCƒY` order by `¤•iF`.`•\Ž¦‡` ASC separator '/') AS `ƒTƒCƒY` from ((`¤•iF` join `¤•iƒTƒCƒY` on(`¤•iF`.`¤•i”Ô†` = `¤•iƒTƒCƒY`.`¤•i”Ô†`)) join `¤•i”Ô†` on(`¤•iF`.`¤•i”Ô†` = `¤•i”Ô†`.`¤•i”Ô†`)) group by `¤•iF`.`¤•i”Ô†`,`¤•iƒTƒCƒY`.`¤•i”Ô†`;
+--  ãƒ“ãƒ¥ãƒ¼ new_image.ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é¸æŠžè‚¢å®šç¾© ã®æ§‹é€ ã‚’ãƒ€ãƒ³ãƒ—ã—ã¦ã„ã¾ã™
+DROP VIEW IF EXISTS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é¸æŠžè‚¢å®šç¾©`;
+-- ä¸€æ™‚ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å‰Šé™¤ã—ã¦ã€æœ€çµ‚çš„ãª VIEW æ§‹é€ ã‚’ä½œæˆ
+DROP TABLE IF EXISTS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é¸æŠžè‚¢å®šç¾©`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³é¸æŠžè‚¢å®šç¾©` AS select `å•†å“ç•ªå·`.`å•†å“ç•ªå·` AS `å•†å“è‰²_å•†å“ç•ªå·`,substr(`å•†å“ç•ªå·`.`å•†å“ç•ªå·`,9,3) AS `SKUç®¡ç†ç•ªå·`,`å•†å“ã‚µã‚¤ã‚º`.`å•†å“ç•ªå·` AS `å•†å“ã‚µã‚¤ã‚º_å•†å“ç•ªå·`,group_concat(distinct `å•†å“è‰²`.`å•†å“è‰²_æ—¥æœ¬èªž` order by `å•†å“è‰²`.`è¡¨ç¤ºé †` ASC separator '|') AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³1é¸æŠžè‚¢å®šç¾©`,concat(group_concat(distinct `å•†å“ã‚µã‚¤ã‚º`.`ã‚µã‚¤ã‚º` order by `å•†å“ã‚µã‚¤ã‚º`.`è¡¨ç¤ºé †` ASC separator '/å³ç´|'),'/å³ç´|',group_concat(distinct `å•†å“ã‚µã‚¤ã‚º`.`ã‚µã‚¤ã‚º` order by `å•†å“ã‚µã‚¤ã‚º`.`è¡¨ç¤ºé †` ASC separator '/æ³¨æ–‡å¾Œ12å–¶æ¥­æ—¥å‰å¾Œå…¥è·|'),'/æ³¨æ–‡å¾Œ12å–¶æ¥­æ—¥å‰å¾Œå…¥è·') AS `ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³2é¸æŠžè‚¢å®šç¾©`,group_concat(distinct `å•†å“è‰²`.`å•†å“è‰²_æ—¥æœ¬èªž` order by `å•†å“è‰²`.`è¡¨ç¤ºé †` ASC separator '/') AS `è‰²`,group_concat(distinct `å•†å“ã‚µã‚¤ã‚º`.`ã‚µã‚¤ã‚º` order by `å•†å“ã‚µã‚¤ã‚º`.`è¡¨ç¤ºé †` ASC separator '/') AS `ã‚µã‚¤ã‚º` from ((`å•†å“è‰²` join `å•†å“ã‚µã‚¤ã‚º` on(`å•†å“è‰²`.`å•†å“ç•ªå·` = `å•†å“ã‚µã‚¤ã‚º`.`å•†å“ç•ªå·`)) join `å•†å“ç•ªå·` on(`å•†å“è‰²`.`å•†å“ç•ªå·` = `å•†å“ç•ªå·`.`å•†å“ç•ªå·`)) group by `å•†å“è‰²`.`å•†å“ç•ªå·`,`å•†å“ã‚µã‚¤ã‚º`.`å•†å“ç•ªå·`;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
