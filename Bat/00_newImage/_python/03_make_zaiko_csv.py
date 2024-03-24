@@ -105,8 +105,8 @@ def make_zaiko_csv():
         # 商品番号がある列がheader
         df_normal_head_all = df_normal_item.query('商品番号.notnull()')
         # print(df_normal_head_all['商品番号'])
-        var_開始商品番号 = df_normal_head_all['商品番号'].max().split('-')[1]
-        var_終了商品番号 = df_normal_head_all['商品番号'].min().split('-')[1]
+        var_開始商品番号 = df_normal_head_all['商品番号'].min().split('-')[1]
+        var_終了商品番号 = df_normal_head_all['商品番号'].max().split('-')[1]
 
         if var_開始商品番号 != var_終了商品番号:
             const.ZAIKO_SELECT_OUT_CSV = const.ZAIKO_SELECT_OUT_CSV.replace('{開始商品番号}',
@@ -129,6 +129,7 @@ def make_zaiko_csv():
             # 商品番号は一つの商品(複数のサイズ、色)に一つしかない
             var_商品番号 = df_normal_head_all.iat[i, col_index_商品番号]
 
+            df_out_zaiko_one = pd.DataFrame()
             df_normal_head = df_normal_item.query('商品番号 == @var_商品番号')
             # df_normal_goods = df_normal_item.query('商品管理番号（商品URL） == @var_商品管理番号 & 商品番号 == ""')
             df_normal_goods = df_normal_item[(df_normal_item['商品管理番号（商品URL）'] == var_商品管理番号) &
@@ -143,9 +144,11 @@ def make_zaiko_csv():
 
             # zr_selectの行数をnormal_item分の行数分作成する
             for j in range(len(df_normal_goods)):
-                df_out_zaiko = pd.concat([df_out_zaiko, df_out_zaiko_unit])
+                df_out_zaiko_one = pd.concat([df_out_zaiko_one, df_out_zaiko_unit])
 
-            make_one_zaiko(df_out_zaiko, df_normal_head, df_normal_goods)
+            make_one_zaiko(df_out_zaiko_one, df_normal_head, df_normal_goods)
+
+            df_out_zaiko = pd.concat([df_out_zaiko, df_out_zaiko_one])
 
         # zr_select-600-cr.csvを出力する
         df_out_zaiko.to_csv("../"+const.ZAIKO_SELECT_OUT_CSV,
