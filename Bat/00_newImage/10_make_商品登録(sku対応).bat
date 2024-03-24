@@ -18,15 +18,21 @@ set FILE_SKU_KANRI=%MARIADB_EXPORT_PATH%21_sku_kanri.csv
 
 set FILE_OUT_CSV=normal-item.csv
 set FILE_OUT_CR_CSV=normal-item-cr.csv
+set FILE_ZAIKO_SELECT_OUT_CSV=zr_select-*.csv
 
-set START_MSG= ============= 商品登録(SKU対応)処理を開始しました =============
+set START_MSG= ============= 商品登録(SKU対応)及び在庫ロボット処理を開始しました =============
+
 set MOVE_CSV_MSG_OK=********** %FILE_OUT_CSV%及び%FILE_OUT_CR_CSV%を%BACKUP_PATH%へ移動しました *********
 set MOVE_CSV_MSG_ERROR=********** %FILE_OUT_CSV%及び%FILE_OUT_CR_CSV%を%BACKUP_PATH%へ移動できません *********
+
+set MOVE_ZAIKO_SELECT_MSG_OK=********** %FILE_ZAIKO_SELECT_OUT_CSV%を%BACKUP_PATH%へ移動しました *********
+set MOVE_ZAIKO_SELECT_MSG_ERROR=********** %FILE_ZAIKO_SELECT_OUT_CSV%を%BACKUP_PATH%へ移動できません *********
+
 set DB_MAKE_START_MSG=********** 20_variation.csv及び21_sku_kanri.csvファイルの作成を開始しました *********
 set DB_MAKE_END_MSG=********** 20_variation.csv及び21_sku_kanri.csvファイルの作成を完了しました *********
 set DB_MAKE_ERROR_MSG=********** 20_variation.csv及び21_sku_kanri.csvファイルの作成が失敗しました *********
-set END_OK_MSG= ============= 商品登録(SKU対応)処理が正常終了しました =============
-set END_NG_MSG= ============= エラー発生！商品登録(SKU対応)処理が異常終了しました =============
+set END_OK_MSG= ============= 商品登録(SKU対応)及び在庫ロボット処理が正常終了しました =============
+set END_NG_MSG= ============= エラー発生！商品登録(SKU対応)及び在庫ロボット処理が異常終了しました =============
 
 
 set FILE_SQL_SKU_NO=.\_sql\01_商品登録(sku対応)用.sql
@@ -52,6 +58,7 @@ set YYYYMMDD_HHMMSS=%date:~0,4%%date:~5,2%%date:~8,2%_%time0n:~0,2%%time0n:~3,2%
 rem echo %YYYYMMDD_HHMMSS%
 set FILE_OUT_CSV_BACKUP=%BACKUP_PATH%%YYYYMMDD_HHMMSS%_%FILE_OUT_CSV%
 set FILE_OUT_CR_CSV_BACKUP=%BACKUP_PATH%%YYYYMMDD_HHMMSS%_%FILE_OUT_CR_CSV%
+set FILE_ZAIKO_SELECT_OUT_CSV_BACKUP=%BACKUP_PATH%%YYYYMMDD_HHMMSS%_zr_select.csv
 
 rem ERRORLEVELをリセット
 cd > nul
@@ -71,6 +78,18 @@ IF NOT %ERRORLEVEL% == 0 (
 ) ELSE (
   echo %MOVE_CSV_MSG_OK%
 )
+
+if exist "%FILE_ZAIKO_SELECT_OUT_CSV%" (
+    move %FILE_ZAIKO_SELECT_OUT_CSV% %FILE_ZAIKO_SELECT_OUT_CSV_BACKUP%
+) 
+
+IF NOT %ERRORLEVEL% == 0 (
+  echo %MOVE_ZAIKO_SELECT_MSG_ERROR%  
+  GOTO ERROR
+) ELSE (
+  echo %MOVE_ZAIKO_SELECT_MSG_OK%
+)
+
 
 rem Excelファイルから入力用CSVファイルを作成する
 rem バッチファイルがあるディレクトリをカレントディレクトリに設定
@@ -146,6 +165,21 @@ cd ..
 rem Exel->CSV出力実行結果確認
 IF NOT %RESULT% == 0 (
   GOTO ERROR
+) 
+
+rem 在庫ロボット用CSVファイルを作成する
+echo;
+rem バッチファイルがあるディレクトリをカレントディレクトリに設定
+cd /d %~dp0
+cd _python
+python 03_make_zaiko_csv.py
+SET RESULT=%ERRORLEVEL%
+rem echo %RESULT%
+cd ..
+
+rem Exel->CSV出力実行結果確認
+IF NOT %RESULT% == 0 (
+  GOTO ERROR
 ) ELSE (
   GOTO NORMAL
 )
@@ -167,6 +201,7 @@ rem 正常終了
     PAUSE
     start explorer.exe .\"%FILE_OUT_CSV%"
     start explorer.exe .\"%FILE_OUT_CR_CSV%"
+    start explorer.exe .\"%FILE_ZAIKO_SELECT_OUT_CSV%"
     exit /b 0
 
 :FINAL
