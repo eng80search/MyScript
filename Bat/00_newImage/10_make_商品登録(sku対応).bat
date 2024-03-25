@@ -18,7 +18,8 @@ set FILE_SKU_KANRI=%MARIADB_EXPORT_PATH%21_sku_kanri.csv
 
 set FILE_OUT_CSV=normal-item.csv
 set FILE_OUT_CR_CSV=normal-item-cr.csv
-set FILE_ZAIKO_SELECT_OUT_CSV=zr_select-*.csv
+set FILE_ZAIKO_SELECT_OUT_CSV=zr-select-*.csv
+set FILE_ZAIKO_NORMAL_OUT_CSV=zr-normal-item-*.csv
 
 set START_MSG= ============= 商品登録(SKU対応)及び在庫ロボット処理を開始しました =============
 
@@ -27,6 +28,9 @@ set MOVE_CSV_MSG_ERROR=********** %FILE_OUT_CSV%及び%FILE_OUT_CR_CSV%を%BACKUP_P
 
 set MOVE_ZAIKO_SELECT_MSG_OK=********** %FILE_ZAIKO_SELECT_OUT_CSV%を%BACKUP_PATH%へ移動しました *********
 set MOVE_ZAIKO_SELECT_MSG_ERROR=********** %FILE_ZAIKO_SELECT_OUT_CSV%を%BACKUP_PATH%へ移動できません *********
+
+set MOVE_ZAIKO_NORMAL_MSG_OK=********** %FILE_ZAIKO_NORMAL_OUT_CSV%を%BACKUP_PATH%へ移動しました *********
+set MOVE_ZAIKO_NORMAL_MSG_ERROR=********** %FILE_ZAIKO_NORMAL_OUT_CSV%を%BACKUP_PATH%へ移動できません *********
 
 set DB_MAKE_START_MSG=********** 20_variation.csv及び21_sku_kanri.csvファイルの作成を開始しました *********
 set DB_MAKE_END_MSG=********** 20_variation.csv及び21_sku_kanri.csvファイルの作成を完了しました *********
@@ -90,6 +94,16 @@ IF NOT %ERRORLEVEL% == 0 (
   echo %MOVE_ZAIKO_SELECT_MSG_OK%
 )
 
+if exist "%FILE_ZAIKO_NORMAL_OUT_CSV%" (
+    move %FILE_ZAIKO_NORMAL_OUT_CSV% %FILE_ZAIKO_NORMAL_OUT_CSV_BACKUP%
+) 
+
+IF NOT %ERRORLEVEL% == 0 (
+  echo %MOVE_ZAIKO_NORMAL_MSG_ERROR%  
+  GOTO ERROR
+) ELSE (
+  echo %MOVE_ZAIKO_NORMAL_MSG_OK%
+)
 
 rem Excelファイルから入力用CSVファイルを作成する
 rem バッチファイルがあるディレクトリをカレントディレクトリに設定
@@ -199,12 +213,15 @@ rem 正常終了
     echo %date% %time%
     cd /d %~dp0
     PAUSE
-    start explorer.exe .\"%FILE_OUT_CSV%"
-    start explorer.exe .\"%FILE_OUT_CR_CSV%"
     rem 在庫ロボット用ファイルを開く
     for %%f in (%FILE_ZAIKO_SELECT_OUT_CSV%) do (
         start explorer.exe %%f
     )
+    for %%f in (%FILE_ZAIKO_NORMAL_OUT_CSV%) do (
+        start explorer.exe %%f
+    )
+    start explorer.exe .\"%FILE_OUT_CSV%"
+    start explorer.exe .\"%FILE_OUT_CR_CSV%"
     exit /b 0
 
 :FINAL

@@ -46,6 +46,7 @@ class ConstProduct(object):
     PATTERN_色 = "\${色}"
     PATTERN_サイズ = "\${サイズ}"
 
-    ZAIKO_SELECT_TEMPLATE_CSV = "zr_select-template.csv"
-    ZAIKO_SELECT_OUT_CSV = "zr_select-{開始商品番号}-{終了商品番号}.csv"
-    # ZAIKO_SELECT_OUT_CSV = "zr_select.csv"
+    ZAIKO_SELECT_TEMPLATE_CSV = "zr-select-template.csv"
+    ZAIKO_NORMAL_TEMPLATE_CSV = "zr-normal-template.csv"
+    ZAIKO_SELECT_OUT_CSV = "zr-select-{開始商品番号}-{終了商品番号}.csv"
+    ZAIKO_NORMAL_OUT_CSV = "zr-normal-item-{開始商品番号}-{終了商品番号}.csv"
