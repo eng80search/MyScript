@@ -201,7 +201,10 @@ rem 正常終了
     PAUSE
     start explorer.exe .\"%FILE_OUT_CSV%"
     start explorer.exe .\"%FILE_OUT_CR_CSV%"
-    start explorer.exe .\"%FILE_ZAIKO_SELECT_OUT_CSV%"
+    rem 在庫ロボット用ファイルを開く
+    for %%f in (%FILE_ZAIKO_SELECT_OUT_CSV%) do (
+        start explorer.exe %%f
+    )
     exit /b 0
 
 :FINAL
