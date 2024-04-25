@@ -131,7 +131,7 @@ pyasn1-modules==0.2.8
 PyAutoGUI==0.9.52
 pycodestyle==2.6.0
 pycparser==2.20
-pydantic==1.8.1
+pydantic==1.10.13
 pydeck==0.6.1
 pydocstyle==5.0.2
 pyee==8.2.2
