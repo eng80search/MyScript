@@ -69,7 +69,7 @@ isort==4.3.21
 itsdangerous==1.1.0
 jdcal==1.4.1
 jedi==0.15.2
-Jinja2==3.1.2
+Jinja2==3.1.4
 jinja2-time==0.2.0
 json5==0.9.5
 jsonformat==0.0.11
