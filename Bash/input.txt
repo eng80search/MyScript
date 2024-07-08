@@ -1,0 +1,13 @@
+set echo off
+set linetsize 32767
+set pagesize 0
+
+spool C:\app\db\exp_RM013F00.csv
+SELECT A1,A2,A3,B1,B2,C1,C2,D1,D2 FROM RM103F00 WHERE A1 > '20240701' ORDER BY A1,A2
+spool off
+spool C:\app\db\exp_RM421F00.csv
+SELECT E1,E2,E3,F1,F2,G1,G2,H1,H2 FROM RM421F00 WHERE E1 > '20240713' ORHER FY E1,E2
+spool off
+spool C:\app\db\exp_RM981F00.csv
+SELECT I1,I2,I3,J1,J2,K1,K2,D1,D2 FROM RM981F00 WHERE I1 > '20240901' ORDER JY I1,I2
+spool off
